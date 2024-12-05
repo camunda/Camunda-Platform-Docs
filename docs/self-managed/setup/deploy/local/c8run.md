@@ -41,8 +41,8 @@ If no version of Java is found, follow your chosen installation's instructions f
 1. Download the [latest release of Camunda 8 Run](https://github.com/camunda/camunda/releases/tag/8.7.0-alpha4) for your operating system and architecture. Opening the .tgz file extracts the Camunda 8 Run script into a new directory.
 2. Navigate to the new `c8run` directory.
 3. Start Camunda 8 Run by running one of the following in your terminal:
-   - **`./start.sh`**: start Camunda 8 Run as a Java application.
-   - **`./start.sh --docker`**: start Camunda 8 Run via Docker Compose.
+   - `./start.sh`: start Camunda 8 Run as a Java application.
+   - `./start.sh --docker`: start Camunda 8 Run via Docker Compose.
 
 When successful, a new Operate window automatically opens.
 
@@ -169,20 +169,20 @@ curl --cookie  cookie.txt  localhost:8080/v2/topology
 
 To shut down Camunda 8 Run and end all running processes, run `./shutdown.sh` (or `.\c8run.exe stop` on Windows) from the C8Run directory.
 
-## Advanced configuration
+## Advanced options
 
 ### Enable TLS
 
-- provide JKS file
+TLS can be enabled by providing a local file keystore using the `--keystore` argument at startup. Camunda 8 Run accepts .JKS certificate files.
 
 ### Access metrics
 
-[Prometheus metrics](/docs/self-managed/zeebe-deployment/operations/metrics.md).
+Metrics are enabled in Camunda 8 Run by default, and can be accessed at [#todo]. For more information, see the Zeebe [Prometheus metrics](/docs/self-managed/zeebe-deployment/operations/metrics.md) documentation.
 
 ### Environment variables
 
 Advanced configuration options can be provided via environment variables.
 
-| Variable | Description |
-| -------- | ----------- |
-|          |             |
+| Variable       | Description                                                      |
+| -------------- | ---------------------------------------------------------------- |
+| `ES_JAVA_OPTS` | #TODO The options this allows you to override for ElasticSearch. |
