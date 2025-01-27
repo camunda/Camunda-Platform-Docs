@@ -15,7 +15,7 @@ The backup management API is a custom endpoint `backups`, available via [Spring 
 To use the backup feature in Zeebe, you must choose which external storage system you will use.
 Make sure to set the same configuration on all brokers in your cluster.
 
-Zeebe supports [S3](#s3-backup-store), [Google Cloud Storage (GCS)](#gcs-backup-store), and [Azure](#azure-backup-store) for external storage.
+Zeebe supports [S3](#s3-backup-store), [Google Cloud Storage (GCS)](#gcs-backup-store), [Azure](#azure-backup-store) and [local filesystem](#filesystem-store) for external storage.
 
 :::caution
 Backups created with one store are not available or restorable from another store.
@@ -156,6 +156,29 @@ Alternatively, you can configure backup store using environment variables:
 - [Customer-managed encryption keys](https://learn.microsoft.com/en-us/azure/storage/common/customer-managed-keys-overview?toc=/azure/storage/blobs/toc.json&bc=/azure/storage/blobs/breadcrumb/toc.json) are supported if they are configured in the Azure store.
 - [Customer-provided encryption keys](https://learn.microsoft.com/en-us/azure/storage/blobs/encryption-customer-provided-keys) are not supported.
 - [Client-side encryption keys](https://learn.microsoft.com/en-us/azure/storage/blobs/client-side-encryption?tabs=dotnet) are not supported.
+
+### Filesystem store
+
+To store your backups in the local filesystem, choose the `FILESYSTEM` backup store and specify where to store the backups locally. This configuration can be set in your Zeebe [`config/application.yaml`](/self-managed/zeebe-deployment/configuration/configuration.md):
+
+```yaml
+zeebe:
+  broker:
+    data:
+      backup:
+        store: FILESYSTEM
+        filesystem:
+          basePath:
+```
+
+Alternatively, you can configure backup store using environment variables:
+
+- `ZEEBE_BROKER_DATA_BACKUP_STORE` - Set this to `FILESYSTEM` to store backups in the local filesystem.
+- `ZEEBE_BROKER_DATA_BACKUP_FILESYSTEM_BASEPATH` - The base path is used to define the parent directory of all create backups and backup-manifest files. This directory must exist and be writable by the Zeebe broker.
+
+#### Backup encryption
+
+Zeebe does not support backup encryption natively, but it _can_ use filesystem based encryption. This then is a feature of the filesystem and not Zeebe itself.
 
 ## Create backup API
 
