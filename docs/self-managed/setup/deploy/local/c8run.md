@@ -66,7 +66,7 @@ The following command line arguments are available:
 | `--port <arg>`             | Configure the Camunda core port to the value provided (default: 8080).                                                                |
 | `--log-level <arg>`        | Set a different log level for the Camunda core.                                                                                       |
 | `--docker`                 | Download and run the Camunda Docker Compose distribution. Any additional options are not supported at this time, and will be ignored. |
-| `--disable-elasticsearch`  | Do not start the built-in ElasticSearch. Ensure another ElasticSearch instance is provided via `--config`.                            |
+| `--disable-elasticsearch`  | Do not start the built-in Elasticsearch. Ensure another Elasticsearch instance is provided via `--config`.                            |
 
 ## Work with Camunda 8 Run
 
@@ -184,4 +184,4 @@ Advanced configuration options can be provided via environment variables.
 
 | Variable       | Description                                                      |
 | -------------- | ---------------------------------------------------------------- |
-| `ES_JAVA_OPTS` | #TODO The options this allows you to override for ElasticSearch. |
+| `ES_JAVA_OPTS` | #TODO The options this allows you to override for Elasticsearch. |
