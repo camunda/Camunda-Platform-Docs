@@ -20,7 +20,6 @@ Camunda 8 Run includes the following:
 - Zeebe
 - Operate
 - Tasklist
-- Identity
 - Connectors
 - Elasticsearch
 
@@ -56,17 +55,18 @@ Mac users may encounter the warning `"c8run" Not Opened`. Follow the Apple suppo
 
 The following command line arguments are available:
 
-| Argument                  | Description                                                                                                                           |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `--config <path>`         | Applies the specified Zeebe [`application.yaml`](/self-managed/zeebe-deployment/configuration/configuration.md).                      |
-| `--detached`              | Starts Camunda 8 Run as a detached process.                                                                                           |
-| `--username <arg>`        | Configure the first user’s username to `<arg>`.                                                                                       |
-| `--password <arg>`        | Configure the first user’s password to `<arg>`.                                                                                       |
-| `--keystore <arg>`        | Configure the TLS certificate for HTTPS. If not specified, use HTTP. For more information, see [enabling TLS](#enable-tls).           |
-| `--port <arg>`            | Configure the Camunda core port to the value provided (default: 8080).                                                                |
-| `--log-level <arg>`       | Set a different log level for the Camunda core.                                                                                       |
-| `--docker`                | Download and run the Camunda Docker Compose distribution. Any additional options are not supported at this time, and will be ignored. |
-| `--disable-elasticsearch` | Do not start the built-in ElasticSearch. Ensure another ElasticSearch instance is provided via `--config`.                            |
+| Argument                   | Description                                                                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `--config <path>`          | Applies the specified Zeebe [`application.yaml`](/self-managed/zeebe-deployment/configuration/configuration.md).                      |
+| `--detached`               | Starts Camunda 8 Run as a detached process.                                                                                           |
+| `--username <arg>`         | Configure the first user’s username to `<arg>`.                                                                                       |
+| `--password <arg>`         | Configure the first user’s password to `<arg>`.                                                                                       |
+| `--keystore <arg>`         | Configure the TLS certificate for HTTPS. If not specified, use HTTP. For more information, see [enabling TLS](#enable-tls).           |
+| `--keystorePassword <arg>` | Provide the password to use with a JKS keystore file.                                                                                 |
+| `--port <arg>`             | Configure the Camunda core port to the value provided (default: 8080).                                                                |
+| `--log-level <arg>`        | Set a different log level for the Camunda core.                                                                                       |
+| `--docker`                 | Download and run the Camunda Docker Compose distribution. Any additional options are not supported at this time, and will be ignored. |
+| `--disable-elasticsearch`  | Do not start the built-in ElasticSearch. Ensure another ElasticSearch instance is provided via `--config`.                            |
 
 ## Work with Camunda 8 Run
 
@@ -78,7 +78,6 @@ Tasklist and Operate are available at:
 
 - Tasklist: http://localhost:8080/tasklist
 - Operate: http://localhost:8080/operate
-- Identity:
 
 The following components do not have a web interface, but the URLs may be required for additional configuration:
 
