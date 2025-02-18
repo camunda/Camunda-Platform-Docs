@@ -22,10 +22,10 @@ By leveraging this **rich ecosystem**, organizations can **extend Kubernetes fun
 
 This section includes deployment reference architectures for manual setups:
 
-- [Amazon EKS single-region](/versioned_docs/version-8.7/self-managed/setup/deploy/amazon/amazon-eks/terraform-setup.md) - a standard production setup.
-- [Amazon EKS dual-region](/versioned_docs/version-8.7/self-managed/setup/deploy/amazon/amazon-eks/dual-region.md) - advanced use case by utilizing two regions.
+- [Amazon EKS single-region](/self-managed/setup/deploy/amazon/amazon-eks/terraform-setup.md) - a standard production setup.
+- [Amazon EKS dual-region](/self-managed/setup/deploy/amazon/amazon-eks/dual-region.md) - advanced use case by utilizing two regions.
 
-For general deployment pitfalls, visit the [deployment troubleshooting guide](/versioned_docs/version-8.7/self-managed/operational-guides/troubleshooting/troubleshooting.md).
+For general deployment pitfalls, visit the [deployment troubleshooting guide](/self-managed/operational-guides/troubleshooting/troubleshooting.md).
 
 ## Considerations
 
@@ -42,7 +42,7 @@ The database is not depicted in the diagram, as we recommend handling it externa
 
 ![Orchestration Cluster](./img/k8s-cluster-view-orchestration.jpg)
 
-This provides a simplified view of a deployment using the [Camunda 8 Helm chart](/versioned_docs/version-8.7/self-managed/setup/install.md). To keep the diagram clear, we have omitted ConfigMaps, Secrets, RBAC, and ReplicaSets.
+This provides a simplified view of a deployment using the [Camunda 8 Helm chart](/self-managed/setup/install.md). To keep the diagram clear, we have omitted ConfigMaps, Secrets, RBAC, and ReplicaSets.
 
 By default, the Helm chart suggests using a single ingress for Camunda resources, enabling a unified domain with each application accessible via a different path.
 
@@ -56,7 +56,7 @@ Web Modeler and Console are deployed as **Deployments** since they are stateless
 
 ---
 
-This does not provide detailed information on application communication. For a general overview, refer to the [overview page](/versioned_docs/version-8.7/self-managed/reference-architecture/reference-architecture.md#architecture).
+This does not provide detailed information on application communication. For a general overview, refer to the [overview page](/self-managed/reference-architecture/reference-architecture.md#architecture).
 
 ### High Availability (HA)
 
@@ -65,7 +65,7 @@ The following concerns, **Operate**, **Tasklist**, and **Optimize**.
 When scaling from a single pod to multiple, ensure that the `importer / archiver` is enabled on only one pod and disabled on others. Enabling it on multiple pods will cause data inconsistencies. This limitation is known and will be addressed in future updates.
 :::
 
-For high availability, a minimum of four Kubernetes nodes are recommended to ensure fault tolerance and support master election in case of failures. To learn more about the Raft protocol and clustering concepts, refer to the [clustering documentation](/versioned_docs/version-8.7/components/zeebe/technical-concepts/clustering.md).
+For high availability, a minimum of four Kubernetes nodes are recommended to ensure fault tolerance and support master election in case of failures. To learn more about the Raft protocol and clustering concepts, refer to the [clustering documentation](/components/zeebe/technical-concepts/clustering.md).
 
 In Kubernetes, Deployments and StatefulSets can be scaled independently of physical machines. However, the recommendation of at least fours Kubernetes nodes is based on the default setup of a three-broker Zeebe deployments and all the other WebApps (Operate, Tasklist, Optimize, ...). The idea of four nodes allows enough resources to schedule all Camunda 8 components. This is based on a default setup, your setup may differ and requires you to either scale more horizontally or vertically to ensure enough capacity depending on your Camunda 8 usage.
 
@@ -75,23 +75,23 @@ To further enhance fault tolerance, it is recommended to distribute Zeebe broker
 
 ### Components
 
-We typically distinguish as mentioned in the [Reference Architecture Overview](/versioned_docs/version-8.7/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent from it and don't need to be scaled out in the same way and could house a multitude of teams and use cases.
+We typically distinguish as mentioned in the [Reference Architecture Overview](/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent from it and don't need to be scaled out in the same way and could house a multitude of teams and use cases.
 
 The **Orchestration cluster** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
 
-- [Zeebe Brokers](/versioned_docs/version-8.7/components/zeebe/technical-concepts/architecture.md#brokers)
-- [Zeebe Gateway](/versioned_docs/version-8.7/self-managed/zeebe-deployment/zeebe-gateway/zeebe-gateway-overview.md)
-- [Operate](/versioned_docs/version-8.7/components/operate/operate-introduction.md)
-- [Tasklist](/versioned_docs/version-8.7/components/tasklist/introduction-to-tasklist.md)
-- Optimize <!-- TODO: fix link [Optimize](/optimize_versioned_docs/version-3.15.0/components/what-is-optimize.md) -->
-- [Identity](/versioned_docs/version-8.7/self-managed/identity/what-is-identity.md)
+- [Zeebe Brokers](/components/zeebe/technical-concepts/architecture.md#brokers)
+- [Zeebe Gateway](/self-managed/zeebe-deployment/zeebe-gateway/zeebe-gateway-overview.md)
+- [Operate](/components/operate/operate-introduction.md)
+- [Tasklist](/components/tasklist/introduction-to-tasklist.md)
+- [Optimize]($optimize$/components/what-is-optimize)
+- [Identity](/self-managed/identity/what-is-identity.md)
 - Keycloak, a dependency of Identity <!-- TODO: we don't have a page on this, there's nothing in the docs that explains why it's actually required -->
-- [Connectors](/versioned_docs/version-8.7/components/connectors/introduction.md)
+- [Connectors](/components/connectors/introduction.md)
 
 The **Web Modeler and Console** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
 
 - Web Modeler <!-- TODO: we don't even have a page on this, since it was originially just a SaaS product -->
-- [Console](/versioned_docs/version-8.7/self-managed/console-deployment/overview.md)
+- [Console](/self-managed/console-deployment/overview.md)
 
 Ideally Web Modeler and Console are connected to either the same Identity as the **Orchestration cluster** or their own Identity instance but everyone utilizing the same OIDC connection.
 
@@ -101,11 +101,11 @@ Ideally Web Modeler and Console are connected to either the same Identity as the
 
 First off, we recommend an officially [certified Kubernetes](https://www.cncf.io/training/certification/software-conformance/#benefits) distribution.
 
-Camunda 8 itself is not bound to a Kubernetes version. We do provide a [Helm Chart](/versioned_docs/version-8.7/self-managed/setup/install.md) to support an easy installation on Kubernetes. The latest Helm Chart is generally compatible with the [official support cycle](https://kubernetes.io/releases/) of Kubernetes.
+Camunda 8 itself is not bound to a Kubernetes version. We do provide a [Helm Chart](/self-managed/setup/install.md) to support an easy installation on Kubernetes. The latest Helm Chart is generally compatible with the [official support cycle](https://kubernetes.io/releases/) of Kubernetes.
 
 #### Minimum cluster requirements
 
-Any of the following are just suggestions for the minimum viable setup, the sizing heavily depends on your use cases and usage. It is recommended to understand the documentation on [sizing your environment](/versioned_docs/version-8.7/components/best-practices/architecture/sizing-your-environment.md), [Zeebe resource planning](/versioned_docs/version-8.7/self-managed/zeebe-deployment/operations/resource-planning.md), and run benchmarking to confirm your required needs.
+Any of the following are just suggestions for the minimum viable setup, the sizing heavily depends on your use cases and usage. It is recommended to understand the documentation on [sizing your environment](/components/best-practices/architecture/sizing-your-environment.md), [Zeebe resource planning](/self-managed/zeebe-deployment/operations/resource-planning.md), and run benchmarking to confirm your required needs.
 
 - `4` Kubernetes Nodes
   - Modern CPU: `4 Cores`
@@ -168,7 +168,7 @@ If you are interested in the `Dockerfile` and what defaults are configured, you 
 
 ### Database
 
-Outlined in the [reference architecture overview](/versioned_docs/version-8.7/self-managed/reference-architecture/reference-architecture.md#architecture) following databases are required:
+Outlined in the [reference architecture overview](/self-managed/reference-architecture/reference-architecture.md#architecture) following databases are required:
 
 - Elasticsearch / OpenSearch
   - required by Operate, Optimize, Tasklist, and Zeebe
@@ -179,7 +179,7 @@ We currently don't have a recommendation on the sizing as it's highly use case d
 
 It is crucial to conduct thorough load testing and benchmark tests to determine the appropriate size specific to your environment and use case.
 
-The [Grafana dashboard](/versioned_docs/version-8.7/self-managed/zeebe-deployment/operations/metrics.md#grafana) in combination with [Prometheus](https://prometheus.io/) can be useful to determine bottlenecks when it comes to Zeebe exporting data to Elasticsearch / OpenSearch.
+The [Grafana dashboard](/self-managed/zeebe-deployment/operations/metrics.md#grafana) in combination with [Prometheus](https://prometheus.io/) can be useful to determine bottlenecks when it comes to Zeebe exporting data to Elasticsearch / OpenSearch.
 
 ## Cloud specifics
 
