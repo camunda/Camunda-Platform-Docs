@@ -25,6 +25,8 @@ This section includes deployment reference architectures for manual setups:
 - [Amazon EKS single-region](/versioned_docs/version-8.7/self-managed/setup/deploy/amazon/amazon-eks/terraform-setup.md) - a standard production setup.
 - [Amazon EKS dual-region](/versioned_docs/version-8.7/self-managed/setup/deploy/amazon/amazon-eks/dual-region.md) - advanced use case by utilizing two regions.
 
+For general deployment pitfalls, visit the [deployment troubleshooting guide](/versioned_docs/version-8.7/self-managed/operational-guides/troubleshooting/troubleshooting.md).
+
 ## Considerations
 
 ## Architecture
@@ -81,8 +83,9 @@ The **Orchestration cluster** namespace consists as outlined in the [architectur
 - [Zeebe Gateway](/versioned_docs/version-8.7/self-managed/zeebe-deployment/zeebe-gateway/zeebe-gateway-overview.md)
 - [Operate](/versioned_docs/version-8.7/components/operate/operate-introduction.md)
 - [Tasklist](/versioned_docs/version-8.7/components/tasklist/introduction-to-tasklist.md)
-- <!-- TODO: fix link [Optimize](/optimize_versioned_docs/version-3.15.0/components/what-is-optimize.md) -->
+- Optimize <!-- TODO: fix link [Optimize](/optimize_versioned_docs/version-3.15.0/components/what-is-optimize.md) -->
 - [Identity](/versioned_docs/version-8.7/self-managed/identity/what-is-identity.md)
+- Keycloak, a dependency of Identity <!-- TODO: we don't have a page on this, there's nothing in the docs that explains why it's actually required -->
 - [Connectors](/versioned_docs/version-8.7/components/connectors/introduction.md)
 
 The **Web Modeler and Console** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
@@ -98,29 +101,167 @@ Ideally Web Modeler and Console are connected to either the same Identity as the
 
 First off, we recommend an officially [certified Kubernetes](https://www.cncf.io/training/certification/software-conformance/#benefits) distribution.
 
-Camunda 8 itself is not bound to a Kubernetes version. We do provide a [Helm Chart](/versioned_docs/version-8.7/self-managed/setup/install.md) to support an easy installation on Kubernetes. The Helm Chart is generally compatible with the [official support cycle](https://kubernetes.io/releases/) of Kubernetes.
-
-Any of the following are just suggestions for the minimum viable setup, the sizing heavily depends on your use cases and usage. It is recommended to understand the documentation on [sizing your environment](/versioned_docs/version-8.7/components/best-practices/architecture/sizing-your-environment.md), [Zeebe resource planning](/versioned_docs/version-8.7/self-managed/zeebe-deployment/operations/resource-planning.md), and run benchmarking to confirm your required needs.
+Camunda 8 itself is not bound to a Kubernetes version. We do provide a [Helm Chart](/versioned_docs/version-8.7/self-managed/setup/install.md) to support an easy installation on Kubernetes. The latest Helm Chart is generally compatible with the [official support cycle](https://kubernetes.io/releases/) of Kubernetes.
 
 #### Minimum cluster requirements
+
+Any of the following are just suggestions for the minimum viable setup, the sizing heavily depends on your use cases and usage. It is recommended to understand the documentation on [sizing your environment](/versioned_docs/version-8.7/components/best-practices/architecture/sizing-your-environment.md), [Zeebe resource planning](/versioned_docs/version-8.7/self-managed/zeebe-deployment/operations/resource-planning.md), and run benchmarking to confirm your required needs.
 
 - `4` Kubernetes Nodes
   - Modern CPU: `4 Cores`
   - Memory: `16 GiB`
 - Persistent Volumes
   - `1,000 IOPS`
-  - <!-- TODO: check minimal disk size based on what the helm chart does -->
+  - `32 GiB` size
+  - _avoid burstable disk types_
 
 #### Networking
 
+While networking is mostly abstracted by services and load balancers, it may be beneficial to be aware of port usages.
+E.g. in case access has to be explicitly whitelisted within the private network.
+
+- Stable and high-speed network connection
+- Configured firewall rules to allow necessary traffic:
+  - **80**: Web UI (Identity, Keycloak, Operate, Optimize, Tasklist)
+  - **82**: Metrics endpoint (Identity)
+  - **8080**: REST endpoint (Connectors, Keycloak, Zeebe Gateway)
+  - **8092**: Management endpoint (Optimize)
+  - **9600**: Management endpoint (Operate, Tasklist, Zeebe Brokers, Zeebe Gateway)
+  - **26500**: gRPC endpoint.
+  - **26501**: Gateway-to-broker communication.
+  - **26502**: Inter-broker communication.
+- Load balancer for distributing traffic and exposing Camunda 8 to users (if required)
+
+:::note Databases
+
+Databases were not considered as those should be maintained outside and ports may differ from the upstream defaults.
+
+The defaults for the databases are:
+
+- **5432**: PostgreSQL
+- **9200 / 9300**: Elasticsearch / OpenSearch
+
+:::
+
+##### Load Balancer
+
+The Zeebe Gateway requires `gRPC` to work, which in itself requires `HTTP/2` to be used. Additionally, it's recommended to secure the endpoint with a TLS certificate.
+
+The Camunda 8 Helm chart by default is compatible with the [ingress-nginx controller](https://github.com/kubernetes/ingress-nginx), which supports `gRPC` and `HTTP/2`. This is a general applicable solution independent of the cloud provider.
+
+`Ingress-nginx` deploys a Network Load Balancer (layer 4).
+
+Important annotations that are added by the Helm chart are the following to enable `gRPC`:
+
+```yaml
+annotations:
+  nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+```
+
 ### Application
+
+The Helm chart required for deploying on Kubernetes is [publicly available](https://helm.camunda.io/).
+
+Camunda is maintaining the required Docker images which are consumed by the Helm chart, those can be found publicly on [DockerHub](https://hub.docker.com/u/camunda).
+
+If you are interested in the `Dockerfile` and what defaults are configured, you can find it as part of the [Camunda repository](https://github.com/camunda/camunda/blob/stable/8.7/Dockerfile).
 
 ### Database
 
+Outlined in the [reference architecture overview](/versioned_docs/version-8.7/self-managed/reference-architecture/reference-architecture.md#architecture) following databases are required:
+
+- Elasticsearch / OpenSearch
+  - required by Operate, Optimize, Tasklist, and Zeebe
+- PostgreSQL
+  - required by Identity, Keycloak, and Web Modeler
+
+We currently don't have a recommendation on the sizing as it's highly use case dependent.
+
+It is crucial to conduct thorough load testing and benchmark tests to determine the appropriate size specific to your environment and use case.
+
+The [Grafana dashboard](/versioned_docs/version-8.7/self-managed/zeebe-deployment/operations/metrics.md#grafana) in combination with [Prometheus](https://prometheus.io/) can be useful to determine bottlenecks when it comes to Zeebe exporting data to Elasticsearch / OpenSearch.
+
 ## Cloud specifics
 
-### Amazon AWS
+### Amazon EKS
 
-### Microsoft Azure
+#### Minimum cluster requirements
 
-### Google GCP
+- Instance type: `m6i.xlarge` (4 vCPUs, 16 GiB Memory)
+- Number of Kubernetes nodes: `4`
+- Volume type: `SSD gp3`
+  - `3,000 IOPS` baseline
+  - Requires [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html) to be installed and a `gp3 StorageClass` [to be configured](https://docs.aws.amazon.com/eks/latest/userguide/create-storage-class.html).
+- Volume alternative: `gp2`
+  - Only if `gp3` isn't available
+  - IOPS performance [varies based on volume size](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/general-purpose.html#gp2-performance)
+  - Minimum `34 GiB` for > `1,000 IOPS`
+
+#### Load balancer
+
+AWS offers different types of load balancers. Those namely being:
+
+- Classic Load Balancer (CLB) - previous generation, unsupported by Camunda 8
+- Network Load Balancer (NLB)
+- Application Load Balancer (ALB)
+
+##### Application Load Balancer (ALB)
+
+AWS offers an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB), which would require TLS termination in the load balancer and supports the AWS Certificate Manager (ACM).
+
+- Deploy the [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/).
+- A [certificate set up](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html) in the AWS Certificate Manager (ACM).
+- Follow the [example by AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/examples/grpc_server.md) to configure the Ingress for Camunda. To summarize, add the following annotations to the Camunda ingress:
+
+```yaml
+alb.ingress.kubernetes.io/ssl-redirect: "443"
+alb.ingress.kubernetes.io/backend-protocol-version: GRPC
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+alb.ingress.kubernetes.io/scheme: internet-facing
+alb.ingress.kubernetes.io/target-type: ip
+```
+
+- This does not require the configuration of the [TLS on the ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls)
+- If the AWS Load Balancer Controller is correctly set up, it automatically pulls the correct certificate from ACM based on the host name.
+
+##### Network Load Balancer (NLB)
+
+Alternatively, one can use a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB) to terminate TLS within the ingress. This requires the following:
+
+- An Ingress controller that supports `gRPC` and `HTTP/2`, e.g. the one the Helm charts [supports by default](#load-balancer)
+- A certificate, preferably created with [Cert-Manager](https://cert-manager.io/)
+- [TLS configured](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) on the Ingress object.
+
+The NLB will not work with the AWS Certificate Manager (ACM), as the ACM does not allow exporting the private key required to terminate the TLS within the ingress.
+
+### Microsoft AKS
+
+#### Minimum cluster requirements
+
+- Instance type: `Standard_D4as_v4` (4 vCPUs, 16 GiB Memory)
+- Number of Kubernetes nodes: `4`
+- Volume type: `Premium SSD v2`
+  - `3,000 IOPS` baseline
+  - several [known limitations](https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#premium-ssd-v2-limitations)
+    - e.g. lack of [Azure Backup support](https://learn.microsoft.com/en-us/azure/backup/disk-backup-support-matrix#limitations)
+- Volume alternative: `Premium SSD`
+  - IOPS performance [varies based on volume size](https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#premium-ssds)
+  - Minimum `256 GiB` (P15) for > `1,000 IOPS`
+
+#### Load balancer
+
+Azure offers alternative load-balancing solutions, including the **Application Gateway for Containers**, which replaces the older **Application Gateway Ingress Controller (AGIC)**. This gateway supports **gRPC** and **HTTP/2** via the `GRPCRoute` resource in the [Kubernetes Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/). Configuration details can be found in [official Azure documentation](https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/grpc).
+
+### Google GKE
+
+#### Minimum cluster requirements
+
+- Instance type: `n(1|2)-standard-4` (4 vCPUs, 15 / 16 GB Memory)
+- Number of Kubernetes nodes: `4`
+- Volume type: `Performance (SSD) persistent disks`
+  - IOPS performance [varies based on volume size](https://cloud.google.com/compute/docs/disks/performance#performance_factors)
+  - Minimum `34 GiB` for > `1,000 IOPS`
+
+#### Load balancer
+
+If you are using the [GKE Ingress](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress) (ingress-gce), you might need to do extra steps. Namely, using `cloud.google.com/app-protocols` annotations in the **Zeebe Gateway** service. For more details, visit the GKE guide [using HTTP/2 for load balancing with Ingress](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-http2).
