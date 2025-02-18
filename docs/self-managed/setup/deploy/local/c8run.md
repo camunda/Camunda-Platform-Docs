@@ -20,6 +20,7 @@ Camunda 8 Run includes the following:
 - Zeebe
 - Operate
 - Tasklist
+- Identity
 - Connectors
 - Elasticsearch
 
@@ -78,6 +79,7 @@ Tasklist and Operate are available at:
 
 - Tasklist: http://localhost:8080/tasklist
 - Operate: http://localhost:8080/operate
+- Identity: http://localhost:8080/identity
 
 The following components do not have a web interface, but the URLs may be required for additional configuration:
 
