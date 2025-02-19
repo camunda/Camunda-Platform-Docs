@@ -39,7 +39,7 @@ _Infrastructure diagram for a single region setup (click on the image to open th
 
 This Kubernetes architecture diagram illustrates a high-availability setup spanning multiple availability zones (A, B, and C) with key networking components to ensure scalability, security, and reliability. Whenever possible, we recommend leveraging multiple availability zones to enhance fault tolerance and eliminate single points of failure.
 
-For controlled access, we suggest deploying Camunda 8 within a private subnet while managing incoming traffic through an ingress and load balancer.
+For controlled access, we suggest deploying Camunda 8 within a private subnet while managing incoming traffic through an Ingress and Load Balancer.
 
 The database is not depicted in the diagram, as we recommend handling it externally from the Kubernetes cluster. The implementation depends on organizational requirements, often residing within the same private network or even the same private subnets. Many companies maintain dedicated database setups, granting access only as needed.
 
@@ -47,7 +47,7 @@ The database is not depicted in the diagram, as we recommend handling it externa
 
 This provides a simplified view of a deployment using the [Camunda 8 Helm chart](/self-managed/setup/install.md). To keep the diagram clear, we have omitted ConfigMaps, Secrets, RBAC, and ReplicaSets.
 
-By default, the Helm chart suggests using a single ingress for Camunda resources, enabling a unified domain with each application accessible via a different path.
+By default, the Helm chart suggests using a single Ingress for Camunda resources, enabling a unified domain with each application accessible via a different path.
 
 Most applications are stateless and deployed as **Deployments**. However, Zeebe Brokers are an exception, requiring a **StatefulSet** to ensure that volumes are consistently mounted, as pod order and identifiers are crucial.
 
@@ -70,7 +70,7 @@ When scaling from a single pod to multiple, ensure that the `importer / archiver
 An [example configuration options](/self-managed/operate-deployment/importer-and-archiver.md#configuration) based on Operate, similar entries can be found for the other two components.
 :::
 
-For high availability, a minimum of four Kubernetes nodes are recommended to ensure fault tolerance and support master election in case of failures. To learn more about the Raft protocol and clustering concepts, refer to the [clustering documentation](/components/zeebe/technical-concepts/clustering.md).
+For high availability, a minimum of four Kubernetes nodes are recommended to ensure fault tolerance and support leader election in case of failures. To learn more about the Raft protocol and clustering concepts, refer to the [clustering documentation](/components/zeebe/technical-concepts/clustering.md).
 
 In Kubernetes, Deployments and StatefulSets can be scaled independently of physical machines. However, the recommendation of at least fours Kubernetes nodes is based on the default setup of a three-broker Zeebe deployments and all the other WebApps (Operate, Tasklist, Optimize, ...). The idea of four nodes allows enough resources to schedule all Camunda 8 components. This is based on a default setup, your setup may differ and requires you to either scale more horizontally or vertically to ensure enough capacity depending on your Camunda 8 usage.
 
@@ -110,7 +110,7 @@ For more details on multi-region configurations, especially dual-region setups, 
 
 We recommend using an officially [certified Kubernetes](https://www.cncf.io/training/certification/software-conformance/#benefits) distribution.
 
-Camunda 8 is not tied to a specific Kubernetes version. To simplify deployment, we provide a [Helm Chart](/self-managed/setup/install.md) for easy installation on Kubernetes. The latest Helm Chart is typically compatible with Kubernetes' [official support cycle](https://kubernetes.io/releases/).
+Camunda 8 is not tied to a specific Kubernetes version. To simplify deployment, we provide a [Helm chart](/self-managed/setup/install.md) for easy installation on Kubernetes. The latest Helm chart is typically compatible with Kubernetes' [official support cycle](https://kubernetes.io/releases/).
 
 #### Minimum cluster requirements
 
@@ -126,7 +126,7 @@ The following are suggested minimum requirements, but sizing depends heavily on 
 
 #### Networking
 
-While networking is largely managed through services and load balancers, understanding port usage can be useful - especially if explicit whitelisting is required within a private network.
+While networking is largely managed through services and Load Balancers, understanding port usage can be useful - especially if explicit whitelisting is required within a private network.
 
 - Stable, high-speed network connection
 - Configured firewall rules to allow necessary traffic:
@@ -140,9 +140,9 @@ While networking is largely managed through services and load balancers, underst
   - **26500**: gRPC endpoint.
   - **26501**: Gateway-to-broker communication.
   - **26502**: Inter-broker communication.
-- Load balancer for distributing traffic and exposing Camunda 8 to users (if required)
+- Load Balancer for distributing traffic and exposing Camunda 8 to users (if required)
 
-The exposed Kubernetes service port does not always match the target port of the components. You can find the correct target ports in the rendered Helm Chart or the configuration pages of each component.
+The exposed Kubernetes service port does not always match the target port of the components. You can find the correct target ports in the rendered Helm chart or the configuration pages of each component.
 
 :::note Databases
 
@@ -159,7 +159,7 @@ The defaults for the databases are:
 
 The Zeebe Gateway requires `gRPC` to work, which in itself requires `HTTP/2` to be used. Additionally, it's recommended to secure the endpoint with a TLS certificate.
 
-The Camunda 8 Helm chart by default is compatible with the [ingress-nginx controller](https://github.com/kubernetes/ingress-nginx), which supports `gRPC` and `HTTP/2`. This is a general applicable solution independent of the cloud provider.
+The Camunda 8 Helm chart by default is compatible with the [Ingress-nginx controller](https://github.com/kubernetes/ingress-nginx), which supports `gRPC` and `HTTP/2`. This is a general applicable solution independent of the cloud provider.
 
 `Ingress-nginx` deploys a Network Load Balancer (layer 4).
 
@@ -209,9 +209,9 @@ The [Grafana dashboard](/self-managed/zeebe-deployment/operations/metrics.md#gra
   - IOPS performance [varies based on volume size](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/general-purpose.html#gp2-performance)
   - Minimum `34 GiB` for > `1,000 IOPS`
 
-#### Load balancer
+#### Load Balancer
 
-AWS offers different types of load balancers. Those namely being:
+AWS offers different types of Load Balancers. Those namely being:
 
 - Classic Load Balancer (CLB) - previous generation, unsupported by Camunda 8
 - Network Load Balancer (NLB)
@@ -219,11 +219,11 @@ AWS offers different types of load balancers. Those namely being:
 
 ##### Application Load Balancer (ALB)
 
-AWS offers an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB), which would require TLS termination in the load balancer and supports the AWS Certificate Manager (ACM).
+AWS offers an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) (ALB), which would require TLS termination in the Load Balancer and supports the AWS Certificate Manager (ACM).
 
 - Deploy the [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/).
 - A [certificate set up](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-request-public.html) in the AWS Certificate Manager (ACM).
-- Follow the [example by AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/examples/grpc_server.md) to configure the Ingress for Camunda. To summarize, add the following annotations to the Camunda ingress:
+- Follow the [example by AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/examples/grpc_server.md) to configure the Ingress for Camunda. To summarize, add the following annotations to the Camunda Ingress:
 
 ```yaml
 alb.ingress.kubernetes.io/ssl-redirect: "443"
@@ -233,14 +233,14 @@ alb.ingress.kubernetes.io/scheme: internet-facing
 alb.ingress.kubernetes.io/target-type: ip
 ```
 
-- This does not require the configuration of the [TLS on the ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls)
+- This does not require the configuration of the [TLS on the Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls)
 - If the AWS Load Balancer Controller is correctly set up, it automatically pulls the correct certificate from ACM based on the host name.
 
 ##### Network Load Balancer (NLB)
 
-As mentioned in the [load balancer](#load-balancer) section, you can use [ingress-nginx](https://github.com/kubernetes/ingress-nginx). In this setup, TLS must be terminated within the ingress.
+As mentioned in the [Load Balancer](#load-balancer) section, you can use [Ingress-nginx](https://github.com/kubernetes/ingress-nginx). In this setup, TLS must be terminated within the Ingress.
 
-AWS Certificate Manager (ACM) is not compatible with NLB in this scenario, as ACM does not allow exporting the private key required for TLS termination within the ingress.
+AWS Certificate Manager (ACM) is not compatible with NLB in this scenario, as ACM does not allow exporting the private key required for TLS termination within the Ingress.
 
 ### Microsoft AKS
 
@@ -256,7 +256,7 @@ AWS Certificate Manager (ACM) is not compatible with NLB in this scenario, as AC
   - IOPS performance [varies based on volume size](https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#premium-ssds)
   - Minimum `256 GiB` (P15) for > `1,000 IOPS`
 
-#### Load balancer
+#### Load Balancer
 
 Azure offers alternative load-balancing solutions, including the **Application Gateway for Containers**, which replaces the older **Application Gateway Ingress Controller (AGIC)**. This gateway supports **gRPC** and **HTTP/2** via the `GRPCRoute` resource in the [Kubernetes Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/). Configuration details can be found in [official Azure documentation](https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/grpc).
 
@@ -270,6 +270,6 @@ Azure offers alternative load-balancing solutions, including the **Application G
   - IOPS performance [varies based on volume size](https://cloud.google.com/compute/docs/disks/performance#performance_factors)
   - Minimum `34 GiB` for > `1,000 IOPS`
 
-#### Load balancer
+#### Load Balancer
 
-If you are using the [GKE Ingress](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress) (ingress-gce), you might need to do extra steps. Namely, using `cloud.google.com/app-protocols` annotations in the **Zeebe Gateway** service. For more details, visit the GKE guide [using HTTP/2 for load balancing with Ingress](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-http2).
+If you are using the [GKE Ingress](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress) (Ingress-gce), you might need to do extra steps. Namely, using `cloud.google.com/app-protocols` annotations in the **Zeebe Gateway** service. For more details, visit the GKE guide [using HTTP/2 for load balancing with Ingress](https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-http2).
