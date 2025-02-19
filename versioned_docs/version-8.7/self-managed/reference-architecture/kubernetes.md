@@ -29,6 +29,9 @@ For general deployment pitfalls, visit the [deployment troubleshooting guide](/s
 
 ## Considerations
 
+- Most reference implementations primarily focus on the orchestration cluster.
+- When scaling Web Apps (Operate, Tasklist, Optimize), ensure that the importer/archiver run only once within the whole cluster. See [the note under High Availability](#high-availability-ha) for details.
+
 ## Architecture
 
 _Infrastructure diagram for a single region setup (click on the image to open the PDF version)_
@@ -63,6 +66,8 @@ This does not provide detailed information on application communication. For a g
 :::caution Non-HA importer / archiver
 The following concerns, **Operate**, **Tasklist**, and **Optimize**.
 When scaling from a single pod to multiple, ensure that the `importer / archiver` is enabled on only one pod and disabled on others. Enabling it on multiple pods will cause data inconsistencies. This limitation is known and will be addressed in future updates.
+
+An [example configuration options](/self-managed/operate-deployment/importer-and-archiver.md#configuration) based on Operate, similar entries can be found for the other two components.
 :::
 
 For high availability, a minimum of four Kubernetes nodes are recommended to ensure fault tolerance and support master election in case of failures. To learn more about the Raft protocol and clustering concepts, refer to the [clustering documentation](/components/zeebe/technical-concepts/clustering.md).
@@ -75,7 +80,7 @@ To further enhance fault tolerance, it is recommended to distribute Zeebe broker
 
 ### Components
 
-We typically distinguish as mentioned in the [Reference Architecture Overview](/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent from it and don't need to be scaled out in the same way and could house a multitude of teams and use cases.
+We typically distinguish as mentioned in the [Reference Architecture Overview](/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent of it and don't need to be scaled out in the same way and could house a multitude of teams and use cases.
 
 The **Orchestration cluster** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
 
@@ -85,27 +90,31 @@ The **Orchestration cluster** namespace consists as outlined in the [architectur
 - [Tasklist](/components/tasklist/introduction-to-tasklist.md)
 - [Optimize]($optimize$/components/what-is-optimize)
 - [Identity](/self-managed/identity/what-is-identity.md)
-- Keycloak, a dependency of Identity <!-- TODO: we don't have a page on this, there's nothing in the docs that explains why it's actually required -->
+- Keycloak, a dependency of Identity
 - [Connectors](/components/connectors/introduction.md)
 
 The **Web Modeler and Console** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
 
-- Web Modeler <!-- TODO: we don't even have a page on this, since it was originially just a SaaS product -->
+- Web Modeler
 - [Console](/self-managed/console-deployment/overview.md)
 
 Ideally Web Modeler and Console are connected to either the same Identity as the **Orchestration cluster** or their own Identity instance but everyone utilizing the same OIDC connection.
 
 ## Requirements
 
+This guide focuses on a single-region application but can be easily adapted for a multi-region setup once you understand the basics of a single region.
+
+For more details on multi-region configurations, especially dual-region setups, refer to the [dedicated page on the topic](/self-managed/concepts/multi-region/dual-region.md).
+
 ### Infrastructure
 
-First off, we recommend an officially [certified Kubernetes](https://www.cncf.io/training/certification/software-conformance/#benefits) distribution.
+We recommend using an officially [certified Kubernetes](https://www.cncf.io/training/certification/software-conformance/#benefits) distribution.
 
-Camunda 8 itself is not bound to a Kubernetes version. We do provide a [Helm Chart](/self-managed/setup/install.md) to support an easy installation on Kubernetes. The latest Helm Chart is generally compatible with the [official support cycle](https://kubernetes.io/releases/) of Kubernetes.
+Camunda 8 is not tied to a specific Kubernetes version. To simplify deployment, we provide a [Helm Chart](/self-managed/setup/install.md) for easy installation on Kubernetes. The latest Helm Chart is typically compatible with Kubernetes' [official support cycle](https://kubernetes.io/releases/).
 
 #### Minimum cluster requirements
 
-Any of the following are just suggestions for the minimum viable setup, the sizing heavily depends on your use cases and usage. It is recommended to understand the documentation on [sizing your environment](/components/best-practices/architecture/sizing-your-environment.md), [Zeebe resource planning](/self-managed/zeebe-deployment/operations/resource-planning.md), and run benchmarking to confirm your required needs.
+The following are suggested minimum requirements, but sizing depends heavily on your specific use cases and workload. We recommend reviewing the documentation on [sizing your environment](/components/best-practices/architecture/sizing-your-environment.md) and [Zeebe resource planning](/self-managed/zeebe-deployment/operations/resource-planning.md), as well as conducting benchmarking to determine your exact requirements.
 
 - `4` Kubernetes Nodes
   - Modern CPU: `4 Cores`
@@ -117,20 +126,23 @@ Any of the following are just suggestions for the minimum viable setup, the sizi
 
 #### Networking
 
-While networking is mostly abstracted by services and load balancers, it may be beneficial to be aware of port usages.
-E.g. in case access has to be explicitly whitelisted within the private network.
+While networking is largely managed through services and load balancers, understanding port usage can be useful - especially if explicit whitelisting is required within a private network.
 
-- Stable and high-speed network connection
+- Stable, high-speed network connection
 - Configured firewall rules to allow necessary traffic:
-  - **80**: Web UI (Identity, Keycloak, Operate, Optimize, Tasklist)
+  - **80**: Web UI (Console, Identity, Keycloak, Operate, Optimize, Tasklist, Web Modeler)
   - **82**: Metrics endpoint (Identity)
   - **8080**: REST endpoint (Connectors, Keycloak, Zeebe Gateway)
+  - **8071 / 8091**: Management endpoint (Web Modeler)
   - **8092**: Management endpoint (Optimize)
+  - **9100**: Management endpoint (Console)
   - **9600**: Management endpoint (Operate, Tasklist, Zeebe Brokers, Zeebe Gateway)
   - **26500**: gRPC endpoint.
   - **26501**: Gateway-to-broker communication.
   - **26502**: Inter-broker communication.
 - Load balancer for distributing traffic and exposing Camunda 8 to users (if required)
+
+The exposed Kubernetes service port does not always match the target port of the components. You can find the correct target ports in the rendered Helm Chart or the configuration pages of each component.
 
 :::note Databases
 
@@ -226,13 +238,9 @@ alb.ingress.kubernetes.io/target-type: ip
 
 ##### Network Load Balancer (NLB)
 
-Alternatively, one can use a [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) (NLB) to terminate TLS within the ingress. This requires the following:
+As mentioned in the [load balancer](#load-balancer) section, you can use [ingress-nginx](https://github.com/kubernetes/ingress-nginx). In this setup, TLS must be terminated within the ingress.
 
-- An Ingress controller that supports `gRPC` and `HTTP/2`, e.g. the one the Helm charts [supports by default](#load-balancer)
-- A certificate, preferably created with [Cert-Manager](https://cert-manager.io/)
-- [TLS configured](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls) on the Ingress object.
-
-The NLB will not work with the AWS Certificate Manager (ACM), as the ACM does not allow exporting the private key required to terminate the TLS within the ingress.
+AWS Certificate Manager (ACM) is not compatible with NLB in this scenario, as ACM does not allow exporting the private key required for TLS termination within the ingress.
 
 ### Microsoft AKS
 
