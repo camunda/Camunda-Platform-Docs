@@ -29,7 +29,7 @@ For general deployment pitfalls, visit the [deployment troubleshooting guide](/s
 
 ## Considerations
 
-- Most reference implementations primarily focus on the orchestration cluster.
+- Most reference implementations primarily focus on the Orchestration cluster.
 - When scaling Web Apps (Operate, Tasklist, Optimize), ensure that the importer/archiver run only once within the whole cluster. See [the note under High Availability](#high-availability-ha) for details.
 
 ## Architecture
@@ -43,9 +43,15 @@ For controlled access, we suggest deploying Camunda 8 within a private subnet wh
 
 The database is not depicted in the diagram, as we recommend handling it externally from the Kubernetes cluster. The implementation depends on organizational requirements, often residing within the same private network or even the same private subnets. Many companies maintain dedicated database setups, granting access only as needed.
 
-![Orchestration Cluster](./img/k8s-cluster-view-orchestration.jpg)
+### Kubernetes
 
-This provides a simplified view of a deployment using the [Camunda 8 Helm chart](/self-managed/setup/install.md). To keep the diagram clear, we have omitted ConfigMaps, Secrets, RBAC, and ReplicaSets.
+A [multi-namespace deployment](/self-managed/setup/guides/multi-namespace-deployment.md) is recommended. You can learn more about why we recommend this separation in the [reference overview page](/versioned_docs/version-8.7/self-managed/reference-architecture/reference-architecture.md#orchestration-cluster-vs-web-modeler-and-console).
+
+The following depictions provide a simplified view of the deployed namespaces using the [Camunda 8 Helm chart](/self-managed/setup/install.md). To keep the diagram clear, we have omitted ConfigMaps, Secrets, RBAC, and ReplicaSets.
+
+#### Orchestration cluster
+
+![Orchestration Cluster](./img/k8s-cluster-view-orchestration.jpg)
 
 By default, the Helm chart suggests using a single Ingress for Camunda resources, enabling a unified domain with each application accessible via a different path.
 
@@ -53,9 +59,13 @@ Most applications are stateless and deployed as **Deployments**. However, Zeebe 
 
 Zeebe Brokers also have a service but are not directly exposed externally; all requests must pass through the Zeebe Gateway, which is typically used for internal communication as well.
 
+#### Web Modeler and Console
+
 ![Web Modeler and Console](./img/k8s-cluster-view-managing.jpg)
 
-Web Modeler and Console are deployed as **Deployments** since they are stateless, with data stored externally in a SQL database. This allows them to be easily scaled as needed.
+Web Modeler, Console, and Identity are deployed as **Deployments** since they are stateless, with data stored externally in a SQL database. This allows them to be easily scaled as needed.
+
+The namespace has its own Ingress resource as those are namespace bound and not cluster wide resources. This means you will have to use a different subdomain for each Ingress resource. For more details, refer to the [multi-namespace deployment guide](/self-managed/setup/guides/multi-namespace-deployment.md).
 
 ---
 
@@ -80,25 +90,25 @@ To further enhance fault tolerance, it is recommended to distribute Zeebe broker
 
 ### Components
 
-We typically distinguish as mentioned in the [Reference Architecture Overview](/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent of it and don't need to be scaled out in the same way and could house a multitude of teams and use cases.
+We typically distinguish as mentioned in the [Reference Architecture Overview](/self-managed/reference-architecture/reference-architecture.md#architecture) between the **Orchestration cluster** and the **Web Modeler and Console**. Those should be separated by utilizing [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/). While they could also run within a single namespace, the idea is that **Web Modeler and Console** are not limited to a single **Orchestration cluster**, therefore allowing duplicating the **Orchestration cluster** based on different use cases and requirements, while the other two are independent of it and don't need to be scaled out in the same way and could house a multitude of teams and use cases. The same applies to Identity as a central entity to deal with access management.
 
-The **Orchestration cluster** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
+The **Orchestration cluster** namespace consists as outlined in the [architecture diagram](#orchestration-cluster) of the following components:
 
 - [Zeebe Brokers](/components/zeebe/technical-concepts/architecture.md#brokers)
 - [Zeebe Gateway](/self-managed/zeebe-deployment/zeebe-gateway/zeebe-gateway-overview.md)
 - [Operate](/components/operate/operate-introduction.md)
 - [Tasklist](/components/tasklist/introduction-to-tasklist.md)
 - [Optimize]($optimize$/components/what-is-optimize)
-- [Identity](/self-managed/identity/what-is-identity.md)
-- Keycloak, a dependency of Identity
 - [Connectors](/components/connectors/introduction.md)
 
-The **Web Modeler and Console** namespace consists as outlined in the [architecture diagram](#architecture) of the following components:
+The **Web Modeler and Console** namespace consists as outlined in the [architecture diagram](#web-modeler-and-console) of the following components:
 
 - Web Modeler
 - [Console](/self-managed/console-deployment/overview.md)
+- [Identity](/self-managed/identity/what-is-identity.md)
+  - Keycloak, an external dependency of Identity
 
-Ideally Web Modeler and Console are connected to either the same Identity as the **Orchestration cluster** or their own Identity instance but everyone utilizing the same OIDC connection.
+The **Orchestration cluster** should be configured to use the central Identity of the **Web Modeler and Console** namespace.
 
 ## Requirements
 
