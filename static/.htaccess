@@ -500,4 +500,5 @@ RewriteRule ^docs/components/modeler/web-modeler/save-and-deploy/?$ /docs/compon
 RewriteRule ^docs/next/components/modeler/web-modeler/start-instance/?$ /docs/next/components/modeler/web-modeler/run-or-publish-your-process/ [R=301,L]
 RewriteRule ^docs/next/components/modeler/web-modeler/save-and-deploy/?$ /docs/next/components/modeler/web-modeler/run-or-publish-your-process/#deploy-a-process [R=301,L,NE]
 
-
+# Move user metrics page to a new folder
+RewriteRule ^docs/reference/usage-metrics.md/?$ ^docs/reference/data-collection/usage-metrics.md/? [R=301,L,NE]

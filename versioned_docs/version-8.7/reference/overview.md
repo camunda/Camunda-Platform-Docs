@@ -29,5 +29,5 @@ Learn about the [Camunda release policy](release-policy.md) with some specific c
 ## Additional resources
 
 - [Regions](regions.md) - When you create a cluster in Camunda 8 SaaS, specify a region for that cluster.
-- [Usage metrics](usage-metrics.md) - Understand the three main usage metrics that have an impact on Camunda 8 pricing.
+- [Usage metrics](/reference/data-collection/usage-metrics.md) - Understand the three main usage metrics that have an impact on Camunda 8 pricing.
 - [Glossary](glossary.md) - Have a closer look at common terminology used across Camunda 8 documentation.

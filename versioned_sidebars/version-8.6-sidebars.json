@@ -1756,7 +1756,15 @@
     "reference/notices",
     "reference/release-policy",
     "reference/regions",
-    "reference/usage-metrics",
+    {
+      "type": "category",
+      "label": "Data collection",
+      "link": {
+        "type": "doc",
+        "id": "reference/data-collection/data-collection"
+      },
+      "items": ["reference/data-collection/usage-metrics"]
+    },
     "reference/glossary"
   ],
   "Self-Managed": [
