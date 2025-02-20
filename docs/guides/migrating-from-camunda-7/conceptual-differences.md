@@ -120,9 +120,15 @@ With Camunda 8 you deploy:
 
 - Your Spring Boot application with all custom code and the Zeebe client embedded. This application is typically scaled to at least two instances (for resilience)
 - The Zeebe Broker, typically scaled to at least three instances (for resilience)
-- An elastic database (for Operate, Tasklist, and Optimize)
+- A database (for Operate, Tasklist and the C8 REST API). Here you can choose between:
+  - Relational database. Currently supported are: H2, PostgreSQL, MariaDB, and Oracle.
+  - Elasticsearch
+- An elastic database (for Operate)
 - Optimize, Operate, and Tasklist (each one is a Java application). You can scale those applications to increase availability if you want.
 
+:::note
+TODO: Adjust Image to RDBMS and Elasticsearch
+:::
 ![Camunda 7 vs Camunda 8 Deployment View](../img/camunda7-vs-camunda8-deployment-view.png)
 
 Camunda 8 deployments happen within Kubernetes. There are [Helm charts available](self-managed/setup/overview.md) if you want to run Camunda 8 Self-Managed.

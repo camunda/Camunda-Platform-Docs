@@ -24,6 +24,8 @@ Zeebe stores its backup to an external storage and must be configured before the
 
 ### Backup process
 
+#### Backups using ElasticSearch
+
 The backup of each component and the backup of a Camunda 8 cluster is identified by an id. This means a backup `x` of Camunda 8 consists of backup `x` of Zeebe, backup `x` of Optimize, backup `x` of Operate, and backup `x` of Tasklist. The backup ID must be an integer and greater than the previous backups.
 
 :::note
@@ -62,9 +64,29 @@ By default, the indices are prefixed with `zeebe-record`. If you have configured
 If any of the steps above fail, you may have to restart with a new backup id. Ensure exporting is resumed if the backup process force quits in the middle of the process.
 :::
 
+#### Backups using an RDBMS
+
+When using an RDBMS like PostgreSQL, Oracle or MariaDB, the backups of Zeebe and the database have to be taken separately and also depend on the database system.
+
+The backup of Zeebe is identified by an id `x`. The backup ID must be an integer and greater than the previous backups.
+
+:::note
+We recommend using the timestamp as the backup id.
+:::
+
+To back up a Camunda cluster using an RDBMS, follow these steps:
+
+1. Soft pause exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
+2. Take a backup of the relational database. See the documentation of the database system you are using. It is recommended to identify the database backup with the same backupId `x` as will be used for the Zeebe backup.
+3. Take a backup `x` of Zeebe. See [how to take a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
+4. Wait until the backup `x` of Zeebe is completed before proceeding. See [how to monitor a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
+   Resume exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
+
 ### Restore
 
-To restore a Camunda 8 cluster from a backup, all components must be restored from their backup corresponding to the same backup id:
+#### Restoring using ElasticSearch
+
+To restore an ElasticSearch based Camunda 8 cluster from a backup, all components must be restored from their backup corresponding to the same backup id:
 
 1. Start Zeebe, Operate, Tasklist, and Optimize. (To ensure templates/aliases etc. are created)
 2. Confirm proper configuration (such as shards, replicas count, etc.)
@@ -74,3 +96,11 @@ To restore a Camunda 8 cluster from a backup, all components must be restored fr
 6. Restore `zeebe-records*` indices from Elasticsearch snapshot.
 7. Restore [Zeebe](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
 8. Start Zeebe, Operate, Tasklist, and Optimize.
+
+#### Restoring using an RDBMS
+
+To restore an RDBMS based Camunda 8 cluster from a backup, follow these steps:
+
+1. Restore the relational database backup into an empty database.
+2. Restore [Zeebe](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
+3. Start Zeebe, Operate, Tasklist, and Optimize.

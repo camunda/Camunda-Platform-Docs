@@ -1195,10 +1195,24 @@ module.exports = {
         {
           "Multi-region": ["self-managed/concepts/multi-region/dual-region"],
         },
+        {
+          Databases: [
+            "self-managed/concepts/databases/overview",
+            {
+              Elasticsearch: [
+                "self-managed/concepts/databases/elasticsearch/elasticsearch-privileges",
+                "self-managed/concepts/databases/elasticsearch/opensearch-privileges",
+              ],
+            },
+            {
+              "Relational databases": [
+                "self-managed/concepts/databases/relational-db/database-configuration",
+              ],
+            },
+          ],
+        },
         "self-managed/concepts/multi-tenancy",
         "self-managed/concepts/mapping-rules",
-        "self-managed/concepts/elasticsearch-privileges",
-        "self-managed/concepts/opensearch-privileges",
       ],
     },
     {
