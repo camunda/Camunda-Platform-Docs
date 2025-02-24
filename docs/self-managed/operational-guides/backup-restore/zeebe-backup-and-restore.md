@@ -159,6 +159,11 @@ Alternatively, you can configure backup store using environment variables:
 
 ### Filesystem store
 
+:::caution
+This backup store is still in beta stage not recommended for production use. It is intended for testing and development purposes only.
+For production use, we recommend using S3, GCS, or Azure.
+:::
+
 To store your backups in the local filesystem, choose the `FILESYSTEM` backup store and specify where to store the backups locally. This configuration can be set in your Zeebe [`config/application.yaml`](/self-managed/zeebe-deployment/configuration/configuration.md):
 
 ```yaml
