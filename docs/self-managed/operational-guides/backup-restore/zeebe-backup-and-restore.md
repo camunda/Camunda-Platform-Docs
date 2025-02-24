@@ -178,8 +178,11 @@ zeebe:
 
 Alternatively, you can configure backup store using environment variables:
 
-- `ZEEBE_BROKER_DATA_BACKUP_STORE` - Set this to `FILESYSTEM` to store backups in the local filesystem.
-- `ZEEBE_BROKER_DATA_BACKUP_FILESYSTEM_BASEPATH` - The base path is used to define the parent directory of all create backups and backup-manifest files. This directory must exist and be writable by the Zeebe broker.
+```yaml
+ZEEBE_BROKER_DATA_BACKUP_STORE: "FILESYSTEM"
+# The base path is used to define the parent directory of all create backups and backup-manifest files. This directory must exist and be writable by the Zeebe broker.
+ZEEBE_BROKER_DATA_BACKUP_FILESYSTEM_BASEPATH: "/path/to/backups"
+```
 
 #### Backup encryption
 
