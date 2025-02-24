@@ -24,7 +24,7 @@ Zeebe stores its backup to an external storage and must be configured before the
 
 ### Backup process
 
-#### Backups using ElasticSearch
+#### Backups using Elasticsearch
 
 The backup of each component and the backup of a Camunda 8 cluster is identified by an id. This means a backup `x` of Camunda 8 consists of backup `x` of Zeebe, backup `x` of Optimize, backup `x` of Operate, and backup `x` of Tasklist. The backup ID must be an integer and greater than the previous backups.
 
@@ -84,9 +84,9 @@ To back up a Camunda cluster using an RDBMS, follow these steps:
 
 ### Restore
 
-#### Restoring using ElasticSearch
+#### Restoring using Elasticsearch
 
-To restore an ElasticSearch based Camunda 8 cluster from a backup, all components must be restored from their backup corresponding to the same backup id:
+To restore an Elasticsearch based Camunda 8 cluster from a backup, all components must be restored from their backup corresponding to the same backup id:
 
 1. Start Zeebe, Operate, Tasklist, and Optimize. (To ensure templates/aliases etc. are created)
 2. Confirm proper configuration (such as shards, replicas count, etc.)

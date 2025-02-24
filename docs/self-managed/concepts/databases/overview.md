@@ -12,7 +12,7 @@ Camunda 8 supports the following databases:
 
 TODO: Add more text about behavior and limitations?
 
-Document based databases like ElasticSearch and OpenSearch
+Document based databases like Elasticsearch and Opensearch
 
 ## Relational databases
 
