@@ -24,14 +24,14 @@ as well as providing a more consistent experience for API customers.
 
 #### Task
 
-Instead of [task](../tasklist-api/queries/task.mdx) GraphQL query:
+Instead of [task](/apis-tools/tasklist-api/queries/task.mdx) GraphQL query:
 
 ```graphql
 # Get one task by id. Returns task or error when task does not exist.
 task(id: String!): Task!
 ```
 
-Use the following [get task](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#get-task) endpoint:
+Use the following [get task](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#get-task) endpoint:
 
 ```bash
 curl -X 'GET' \
@@ -44,23 +44,23 @@ curl -X 'GET' \
 
 The following fields in REST API response were renamed compared to the equivalent GraphQL response:
 
-- [`Task.creationTime`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcreationtimebcodestring--) ⇒ [`TaskResponse.creationDate`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebcreationdatebcodestring-)
-- [`Task.completionTime`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcompletiontimebcodestring-) ⇒ [`TaskResponse.completionDate`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebcompletiondatebcodestring)
-- [`Task.processDefinitionId`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessdefinitionidbcodestring-) ⇒ [`TaskResponse.processDefinitionKey`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebprocessdefinitionkeybcodestring)
-- [`Task.processInstanceId`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessinstanceidbcodestring-) ⇒ [`TaskResponse.processInstanceKey`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebprocessinstancekeybcodestring)
+- [`Task.creationTime`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcreationtimebcodestring--) ⇒ [`TaskResponse.creationDate`](/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebcreationdatebcodestring-)
+- [`Task.completionTime`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcompletiontimebcodestring-) ⇒ [`TaskResponse.completionDate`](/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebcompletiondatebcodestring)
+- [`Task.processDefinitionId`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessdefinitionidbcodestring-) ⇒ [`TaskResponse.processDefinitionKey`](/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebprocessdefinitionkeybcodestring)
+- [`Task.processInstanceId`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessinstanceidbcodestring-) ⇒ [`TaskResponse.processInstanceKey`](/apis-tools/tasklist-api-rest/schemas/responses/task-response.mdx#code-style-fontweight-normal-taskresponsebprocessinstancekeybcodestring)
 
 :::
 
 #### Tasks
 
-Instead of [tasks](../tasklist-api/queries/tasks.mdx) GraphQL query:
+Instead of [tasks](/apis-tools/tasklist-api/queries/tasks.mdx) GraphQL query:
 
 ```graphql
 # Get list of tasks based on `TaskQuery`.
 tasks(query: TaskQuery!): [Task!]!
 ```
 
-Use the following [search tasks](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#search-tasks) endpoint:
+Use the following [search tasks](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#search-tasks) endpoint:
 
 ```bash
 curl -X 'POST' \
@@ -80,27 +80,27 @@ Please note that several field names in request body and response were changed i
 
 - in request body:
 
-  - [`TaskQuery.processDefinitionId`](docs/apis-tools/tasklist-api/inputs/task-query.mdx#code-style-fontweight-normal-taskquerybprocessdefinitionidbcodestring-) ⇒ [`TaskSearchRequest.processDefinitionKey`](docs/apis-tools/tasklist-api-rest/schemas/requests/task-search-request.mdx#code-style-fontweight-normal-tasksearchrequestbprocessdefinitionkeybcodestring)
-  - [`TaskQuery.processInstanceId`](docs/apis-tools/tasklist-api/inputs/task-query.mdx#code-style-fontweight-normal-taskquerybprocessinstanceidbcodestring-) ⇒ [`TaskSearchRequest.processInstanceKey`](docs/apis-tools/tasklist-api-rest/schemas/requests/task-search-request.mdx#code-style-fontweight-normal-tasksearchrequestbprocessinstancekeybcodestring)
+  - [`TaskQuery.processDefinitionId`](/apis-tools/tasklist-api/inputs/task-query.mdx#code-style-fontweight-normal-taskquerybprocessdefinitionidbcodestring-) ⇒ [`TaskSearchRequest.processDefinitionKey`](/apis-tools/tasklist-api-rest/schemas/requests/task-search-request.mdx#code-style-fontweight-normal-tasksearchrequestbprocessdefinitionkeybcodestring)
+  - [`TaskQuery.processInstanceId`](/apis-tools/tasklist-api/inputs/task-query.mdx#code-style-fontweight-normal-taskquerybprocessinstanceidbcodestring-) ⇒ [`TaskSearchRequest.processInstanceKey`](/apis-tools/tasklist-api-rest/schemas/requests/task-search-request.mdx#code-style-fontweight-normal-tasksearchrequestbprocessinstancekeybcodestring)
 
 - in response:
-  - [`Task.creationTime`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcreationtimebcodestring--) ⇒ [`TaskSearchResponse.creationDate`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebcreationdatebcodestring-)
-  - [`Task.completionTime`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcompletiontimebcodestring-) ⇒ [`TaskSearchResponse.completionDate`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebcompletiondatebcodestring)
-  - [`Task.processDefinitionId`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessdefinitionidbcodestring-) ⇒ [`TaskSearchResponse.processDefinitionKey`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebprocessdefinitionkeybcodestring)
-  - [`Task.processInstanceId`](docs/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessinstanceidbcodestring-) ⇒ [`TaskSearchResponse.processInstanceKey`](docs/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebprocessinstancekeybcodestring)
+  - [`Task.creationTime`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcreationtimebcodestring--) ⇒ [`TaskSearchResponse.creationDate`](/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebcreationdatebcodestring-)
+  - [`Task.completionTime`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbcompletiontimebcodestring-) ⇒ [`TaskSearchResponse.completionDate`](/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebcompletiondatebcodestring)
+  - [`Task.processDefinitionId`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessdefinitionidbcodestring-) ⇒ [`TaskSearchResponse.processDefinitionKey`](/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebprocessdefinitionkeybcodestring)
+  - [`Task.processInstanceId`](/apis-tools/tasklist-api/objects/task.mdx#code-style-fontweight-normal-taskbprocessinstanceidbcodestring-) ⇒ [`TaskSearchResponse.processInstanceKey`](/apis-tools/tasklist-api-rest/schemas/responses/task-search-response.mdx#code-style-fontweight-normal-tasksearchresponsebprocessinstancekeybcodestring)
 
 :::
 
 #### Variable
 
-Instead of [variable](../tasklist-api/queries/variable.mdx) GraphQL query:
+Instead of [variable](/apis-tools/tasklist-api/queries/variable.mdx) GraphQL query:
 
 ```graphql
 # Get the variables by variable id
 variable(id: String!): Variable!
 ```
 
-Use the following [get variable](../tasklist-api-rest/controllers/tasklist-api-rest-variables-controller.md#get-variable) endpoint:
+Use the following [get variable](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-variables-controller.md#get-variable) endpoint:
 
 ```bash
 curl -X 'GET' \
@@ -111,14 +111,14 @@ curl -X 'GET' \
 
 #### Variables
 
-Instead of [variables](../tasklist-api/queries/variables.mdx) GraphQL query:
+Instead of [variables](/apis-tools/tasklist-api/queries/variables.mdx) GraphQL query:
 
 ```graphql
 # Get a collection of Variables by name
 variables(taskId: String!, variableNames: [String!]!): [Variable!]!
 ```
 
-Use the following [search task variables](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#search-task-variables) endpoint:
+Use the following [search task variables](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#search-task-variables) endpoint:
 
 ```bash
 curl -X 'POST' \
@@ -134,14 +134,14 @@ curl -X 'POST' \
 
 #### Form
 
-Instead of [form](../tasklist-api/queries/form.mdx) GraphQL query:
+Instead of [form](/apis-tools/tasklist-api/queries/form.mdx) GraphQL query:
 
 ```graphql
 # Get task form by formId and processDefinitionId
 form(id: String!, processDefinitionId: String!): Form
 ```
 
-Use the following [get form](../tasklist-api-rest/controllers/tasklist-api-rest-form-controller.md#get-form) endpoint:
+Use the following [get form](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-form-controller.md#get-form) endpoint:
 
 ```bash
 curl -X 'GET' \
@@ -152,9 +152,9 @@ curl -X 'GET' \
 
 :::note
 
-Note that `processDefinitionKey` query parameter in HTTP request represents the same value as [`form.processDefinitionId`](docs/apis-tools/tasklist-api/queries/form.mdx#code-style-fontweight-normal-formbprocessdefinitionidbcodestring--),
-and in REST API response [`FormResponse.processDefinitionKey`](docs/apis-tools/tasklist-api-rest/schemas/responses/form-response.mdx#code-style-fontweight-normal-formresponsebprocessdefinitionkeybcodestring-) field
-is the renamed equivalent of [`Form.processDefinitionId`](docs/apis-tools/tasklist-api/objects/form.mdx#code-style-fontweight-normal-formbprocessdefinitionidbcodestring--).
+Note that `processDefinitionKey` query parameter in HTTP request represents the same value as [`form.processDefinitionId`](/apis-tools/tasklist-api/queries/form.mdx#code-style-fontweight-normal-formbprocessdefinitionidbcodestring--),
+and in REST API response [`FormResponse.processDefinitionKey`](/apis-tools/tasklist-api-rest/schemas/responses/form-response.mdx#code-style-fontweight-normal-formresponsebprocessdefinitionkeybcodestring-) field
+is the renamed equivalent of [`Form.processDefinitionId`](/apis-tools/tasklist-api/objects/form.mdx#code-style-fontweight-normal-formbprocessdefinitionidbcodestring--).
 
 :::
 
@@ -162,14 +162,14 @@ is the renamed equivalent of [`Form.processDefinitionId`](docs/apis-tools/taskli
 
 #### Claim task
 
-Instead of [claimTasks](../tasklist-api/mutations/claim-task.mdx) GraphQL mutation:
+Instead of [claimTasks](/apis-tools/tasklist-api/mutations/claim-task.mdx) GraphQL mutation:
 
 ```graphql
 # Claim a task with `taskId` to `assignee`. Returns the task.
 claimTask(taskId: String!, assignee: String, allowOverrideAssignment: Boolean): Task!
 ```
 
-Use the following [assign task](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#assign-task) endpoint:
+Use the following [assign task](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#assign-task) endpoint:
 
 ```bash
 curl -X 'PATCH' \
@@ -181,14 +181,14 @@ curl -X 'PATCH' \
 
 #### Unclaim task
 
-Instead of [unclaimTasks](../tasklist-api/mutations/unclaim-task.mdx) GraphQL mutation:
+Instead of [unclaimTasks](/apis-tools/tasklist-api/mutations/unclaim-task.mdx) GraphQL mutation:
 
 ```graphql
 # Unclaim a task with taskId. Returns the task.
 unclaimTask(taskId: String!): Task!
 ```
 
-Use the following [unassign task](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#unassign-task) endpoint:
+Use the following [unassign task](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#unassign-task) endpoint:
 
 ```bash
 curl -X 'PATCH' \
@@ -199,14 +199,14 @@ curl -X 'PATCH' \
 
 #### Complete task
 
-Instead of [completeTasks](../tasklist-api/mutations/complete-task.mdx) GraphQL mutation:
+Instead of [completeTasks](/apis-tools/tasklist-api/mutations/complete-task.mdx) GraphQL mutation:
 
 ```graphql
 # Complete a task with taskId and optional variables. Returns the task.
 completeTask(taskId: String!, variables: [VariableInput!]!): Task!
 ```
 
-Use the following [complete task](../tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#complete-task) endpoint:
+Use the following [complete task](/apis-tools/tasklist-api-rest/controllers/tasklist-api-rest-task-controller.md#complete-task) endpoint:
 
 ```bash
 curl -X 'PATCH' \

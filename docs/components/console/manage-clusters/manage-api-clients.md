@@ -43,8 +43,6 @@ When the rate limit is triggered, the client will receive an HTTP 429 response. 
 Currently, Camunda 8 SaaS supports the following scopes:
 
 - Zeebe - Access to the [Zeebe gRPC](/apis-tools/zeebe-api/grpc.md) and [REST](/apis-tools/camunda-api-rest/camunda-api-rest-overview.md) APIs.
-- Tasklist - Access to the [Tasklist GraphQL](/apis-tools/tasklist-api/tasklist-api-overview.md) API.
-- Operate - Access to the [Operate REST API](/apis-tools/operate-api/overview.md).
 - Optimize - Access to the [Optimize REST API]($optimize$/apis-tools/optimize-api/overview).
 - Secrets - Access cluster secrets in a [hybrid setup](/guides/use-connectors-in-hybrid-mode.md).
 
@@ -77,6 +75,4 @@ The downloaded file contains all necessary information to communicate with your 
 
 Depending on the scopes granted to these client credentials, the following variables may also be present:
 
-- `CAMUNDA_TASKLIST_BASE_URL`: The base URL for the Tasklist API.
 - `CAMUNDA_OPTIMIZE_BASE_URL`: The base URL for the Optimize API.
-- `CAMUNDA_OPERATE_BASE_URL`: The base URL for the Operate API.

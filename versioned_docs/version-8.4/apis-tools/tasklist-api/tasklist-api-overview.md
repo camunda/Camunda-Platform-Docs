@@ -26,7 +26,7 @@ For SaaS: `https://${REGION}.tasklist.camunda.io:443/${CLUSTER_ID}/graphql`, and
 
 To obtain the Tasklist GraphQL schema, visit the API collection in [GitHub](https://github.com/camunda-community-hub/camunda-8-api-postman-collection), which is fully functioning in [Postman](https://www.postman.com/camundateam/workspace/camunda-8-postman/collection/20317927-6394943f-b57c-4c04-acf9-391a8614103b?action=share&creator=11465105).
 
-Alternatively, send a request to the endpoint with a GraphQL introspection query as described [here](https://graphql.org/learn/introspection/), or use the [generated API documentation](/docs/apis-tools/tasklist-api/generated.md).
+Alternatively, send a request to the endpoint with a GraphQL introspection query as described [here](https://graphql.org/learn/introspection/), or use the [generated API documentation](/apis-tools/tasklist-api/generated.md).
 
 There are also several [tools to explore GraphQL APIs](https://altair.sirmuel.design).
 

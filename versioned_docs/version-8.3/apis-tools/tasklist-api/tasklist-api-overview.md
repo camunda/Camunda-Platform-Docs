@@ -6,10 +6,10 @@ sidebar_position: 1
 description: "Build apps powered by BPMN that require human interaction, and make requests."
 ---
 
-In this document, we'll go over the basics on how to consume the Tasklist GraphQL API. Read more about how to build a real world application [here](../tasklist-api-tutorial).
+In this document, we'll go over the basics on how to consume the Tasklist GraphQL API. Read more about how to build a real world application [here](/apis-tools/tasklist-api/tasklist-api-tutorial.md).
 
 :::note
-Review the new [Tasklist REST API](../tasklist-api-rest/tasklist-api-rest-overview.md). This API offers the same functionality as the current GraphQL API, but with a more streamlined and efficient way of interacting with our service.
+Review the new [Tasklist REST API](/apis-tools/tasklist-api-rest/tasklist-api-rest-overview.md). This API offers the same functionality as the current GraphQL API, but with a more streamlined and efficient way of interacting with our service.
 
 The GraphQL API will be deprecated in the near future. To ensure a smooth transition, we'll continue to support our GraphQL API for a period of time, giving you an opportunity to migrate to the new REST API version at your own pace. We will provide further details on the timeline and process for this migration soon.
 :::
@@ -81,11 +81,11 @@ If the authorization is successful, the authorization server sends back the acce
 
 ## Authentication for Self-Managed cluster
 
-The authentication is described in [Tasklist Configuration - Authentication](/docs/self-managed/tasklist-deployment/tasklist-authentication/#identity).
+The authentication is described in [Tasklist Configuration - Authentication](/self-managed/tasklist-deployment/tasklist-authentication.md#identity).
 
 ## Obtaining the Tasklist schema
 
-To obtain the Tasklist GraphQL schema, send a request to the endpoint with a GraphQL introspection query as described [here](https://graphql.org/learn/introspection/), or use the [generated API documentation](/docs/apis-tools/tasklist-api/generated.md).
+To obtain the Tasklist GraphQL schema, send a request to the endpoint with a GraphQL introspection query as described [here](https://graphql.org/learn/introspection/), or use the [generated API documentation](/apis-tools/tasklist-api/generated.md).
 
 There are also several [tools to explore GraphQL APIs](https://altair.sirmuel.design).
 
