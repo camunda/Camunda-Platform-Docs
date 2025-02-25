@@ -1,6 +1,6 @@
 ---
-id: 850
-title: "8.5 Release notes"
+id: 850-release-notes
+title: "Release notes"
 description: "Release notes for 8.5, including alphas"
 ---
 

@@ -7,7 +7,7 @@ description: "Provide a job worker that handles polling for available jobs, use 
 
 :::info
 Starting with 8.7, the Zeebe Java client will become the new Camunda Java client. This transition brings a new Java client structure designed to enhance the user experience and introduce new features while maintaining compatibility with existing codebases.
-For more information, visit [announcements](../../reference/announcements.md#zeebe-java-client).
+For more information, visit [announcements](/reference/announcements-release-notes/870/870-announcements.md#zeebe-java-client).
 :::
 
 ## Dependencies

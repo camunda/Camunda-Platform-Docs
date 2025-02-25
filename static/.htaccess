@@ -95,6 +95,16 @@ RewriteRule ^docs/reference/bpmn-processes/?(.*)$ /docs/components/modeler/bpmn/
 #   8.7: content moves introduced prior to the release of version 8.7.
 #---------------------------------------------------------------------------------
 
+# Restructure announcements and release notes
+RewriteRule ^docs/next/reference/announcements/announcements-850/?$ /docs/next/reference/announcements-release-notes/850/850-announcements/$1 [R=301,L]
+RewriteRule ^docs/next/reference/release-notes/850/?$ /docs/next/reference/announcements-release-notes/850/850-release-notes/$1 [R=301,L]
+RewriteRule ^docs/next/reference/announcements/announcements-860/?$ /docs/next/reference/announcements-release-notes/860/860-announcements/$1 [R=301,L]
+RewriteRule ^docs/next/reference/release-notes/860/?$ /docs/next/reference/announcements-release-notes/860/860-release-notes/$1 [R=301,L]
+RewriteRule ^docs/next/reference/release-notes/870/?$ /docs/next/reference/announcements-release-notes/870/870-release-notes/$1 [R=301,L]
+RewriteRule ^docs/next/reference/release-policy/?$ /docs/next/reference/announcements-release-notes/release-policy/$1 [R=301,L]
+RewriteRule ^docs/next/reference/release-notes/release-notes/?$ /docs/next/reference/announcements-release-notes/overview/$1 [R=301,L]
+RewriteRule ^docs/next/reference/announcements/?$ /docs/next/reference/announcements-release-notes/overview/$1 [R=301,L]
+
 # Provide current to next redirect for ad-hoc
 RewriteRule ^docs/components/modeler/bpmn/ad-hoc/ad-hoc/?$ /docs/8.7/components/modeler/bpmn/ad-hoc/ad-hoc/$1 [R=301,L]
 RewriteRule ^docs/components/modeler/bpmn/ad-hoc/?$ /docs/8.7/components/modeler/bpmn/ad-hoc/$1 [R=301,L]

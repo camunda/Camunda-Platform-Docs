@@ -1,6 +1,6 @@
 ---
-id: 860
-title: "8.6 Release notes"
+id: 860-release-notes
+title: "Release notes"
 description: "Release notes for 8.6, including alphas"
 keywords:
   [

@@ -1,0 +1,90 @@
+---
+id: 870-announcements
+title: "Announcements"
+description: "Important changes and updates for the Camunda 8.7 release including deprecation & removal notices."
+toc_max_heading_level: 2
+---
+
+import DeployDiagramImg from '../../img/deploy-diagram-modal.png';
+
+Important changes and updates for the Camunda 8.7 release are summarized below.
+
+| Scheduled release date | Scheduled end of maintenance | Release notes                                                                        | Blog                                                                                            |
+| :--------------------- | :--------------------------- | :----------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| 8 April 2025           | 13 October 2026              | [8.7 release notes](/reference/announcements-release-notes/870/870-release-notes.md) | [Announcing Camunda 8.7](https://camunda.com/blog/2024/11/camunda-8-7-releasing-february-2025/) |
+
+<!--- [Ad-hoc subprocesses](#)
+- [Document handling](#)
+- [RPA](#)
+  - [Fetch RPA resource API](#)
+  - [deployResourceAPI for RPA](#) -->
+
+## Versioning and environment changes
+
+There are currently no known versioning changes or environment changes associated with the 8.7 release.
+
+## Breaking changes
+
+### Camunda Process Test
+
+In version 8.6, the element assertions use names to identify the BPMN elements. Starting with version 8.7, the [element assertions](/apis-tools/testing/assertions.md#with-bpmn-element-id) use BPMN element IDs instead of names. This change eases the migration of previous testing frameworks and aligns with other APIs.
+
+If you prefer to stay with element names, you can use the new [element selector](/apis-tools/testing/assertions.md#with-element-selector) `io.camunda.process.test.api.assertions.ElementSelectors#byName`.
+
+To migrate all your test cases at once, change the [default element selector](/apis-tools/testing/assertions.md#element-selector) in the configuration.
+
+### Deprecated: OpenAPI entities with `integer (int64)` key attributes
+
+OpenAPI entities containing keys of type `integer (int64)` are now being deprecated.
+This is part of a transition where API entity keys change from type `integer (int64)` to `string`.
+
+See the [overview about API Key Attributes][camunda8-api-overview] for more details.
+
+[camunda8-api-overview]: /versioned_docs/version-8.7/apis-tools/camunda-api-rest/camunda-api-rest-overview.md#api-key-attributes
+
+## New features
+
+### Amazon Web Services (AWS) region support <span class="badge badge--long" title="This feature affects SaaS">SaaS</span>
+
+You can choose to host your Camunda 8 SaaS clusters in two new Amazon Web Services (AWS) regions:
+
+- Frankfurt, Europe (eu-central-1)
+- North America, Virginia (us-east-1)
+
+You can select one of these AWS regions when [creating a new cluster](/components/console/manage-clusters/create-cluster.md). You can continue to choose from our Google Cloud Platform (GCP) region options.
+
+To learn more about available Camunda 8 SaaS regions, see [regions](../../regions.md).
+
+:::note
+
+The following limitations currently apply for AWS regions:
+
+- Backups are stored on GCP.
+- HTTP connectors continue to route through GCP.
+
+:::
+
+### Deploy diagram change <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span> {#web-modeler-deploy-diagram-change}
+
+With this version, we ship a breaking change to how Web Modeler **Deploy diagram** modals work. Clusters must now be proactively [configured](/self-managed/modeler/web-modeler/configuration/configuration.md#clusters) to be able to deploy from Web Modeler.
+
+<img src={DeployDiagramImg} alt="New 8.7 deploy diagram modal" width="600px" style={{border: '0', paddingTop: '0', marginTop: '0'}} />
+
+- In 8.6, you could still configure cluster details on the **Deploy diagram** modal when deploying.
+- In 8.7, you can no longer configure cluster details on the **Deploy diagram** modal. You must [configure the cluster](/self-managed/modeler/web-modeler/configuration/configuration.md#clusters) to be able to deploy from this modal.
+- Note that you must also be assigned the `Zeebe` [Identity role](/self-managed/identity/user-guide/roles/add-assign-role.md) to be able to deploy.
+
+### Milestones renamed to versions {#web-modeler-milestones-renamed-to-versions}
+
+The term "milestones" has been renamed to ["versions"](/components/modeler/web-modeler/versions.md) in Web Modeler for clarity and consistency with other Camunda 8 components. The renaming is implemented across the Web Modeler user interface and the API.
+
+In [the API](/apis-tools/web-modeler-api/index.md), new endpoints starting with `/api/v1/versions` have been introduced, while the previous `/api/v1/milestones` endpoints are now deprecated.
+Further details can be found in [Web Modeler's OpenAPI documentation](https://modeler.camunda.io/swagger-ui/index.html).
+
+:::note
+This is a nominal update and the functionality of versions and milestones is equivalent.
+:::
+
+### Southeast Asia region for SaaS customers <span class="badge badge--long" title="This feature affects SaaS">SaaS</span>
+
+SaaS customers can now create orchestration clusters in the [Singapore (asia-southeast1) region](/reference/regions.md), ensuring lower latency and improved processing speed for organizations operating in southeast Asian countries.

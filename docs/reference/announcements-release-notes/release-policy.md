@@ -7,10 +7,10 @@ description: "Learn more about Camunda releases, including alpha features and al
 Camunda 8 follows the [Camunda release policy](https://camunda.com/release-policy/) with the following specific clarifications.
 
 :::info
-You can find deprecation and support announcements on the [Announcements](announcements.md) page.
+You can find deprecation and support announcements on the [announcements](/reference/announcements-release-notes/overview.md#announcements) page.
 :::
 
-![Stable and alpha channels when provisioning a cluster](./img/diagram-releases.png)
+![Stable and alpha channels when provisioning a cluster](../img/diagram-releases.png)
 
 ## Alpha features and releases
 
@@ -22,7 +22,7 @@ Refers to a feature or component released as an alpha version, in an early state
 
 ### Alpha release
 
-Refers to a release made available between minor versions that allows you to preview an upcoming minor version and the alpha features included (for example, `8.6.0-alpha1`, `8.6.0-alpha2`, and so on). Camunda strives to release this type of release on a monthly basis. To learn more about the alpha features included in each alpha release, see [release notes](release-notes/release-notes.md).
+Refers to a release made available between minor versions that allows you to preview an upcoming minor version and the alpha features included (for example, `8.6.0-alpha1`, `8.6.0-alpha2`, and so on). Camunda strives to release this type of release on a monthly basis. To learn more about the alpha features included in each alpha release, see [release notes](/reference/announcements-release-notes/overview.md#release-notes).
 
 :::note
 
@@ -58,7 +58,7 @@ A cluster typically consists of the following components:
 
 You can provision cluster components using one of two channels, following the [Camunda release policy](https://camunda.com/release-policy/).
 
-![Stable and alpha channels when provisioning a cluster](./img/channels.png)
+![Stable and alpha channels when provisioning a cluster](../img/channels.png)
 
 #### Stable channel
 
@@ -95,7 +95,7 @@ When a new Camunda 8 version is released, we try to provide the new version on o
 
 An **Update available** notification is shown in Console, recommending that you update to the latest version.
 
-![Console with notice to update the cluster in Camunda 8 SaaS](img/update-console.png)
+![Console with notice to update the cluster in Camunda 8 SaaS](../img/update-console.png)
 
 #### Generation names
 
@@ -116,7 +116,7 @@ In our managed service, Camunda reserves the right to force update or restart a 
 When a new Camunda 8 version is released, Camunda 8 Self-Managed enterprise customers are notified via email.
 
 :::info
-Non-enterprise customers can stay up to date via [release blogs](https://camunda.com/blog/category/releases/), [announcements](announcements.md), or releases on [GitHub](https://github.com/camunda) and [Docker Hub](https://hub.docker.com/u/camunda).
+Non-enterprise customers can stay up to date via [release blogs](https://camunda.com/blog/category/releases/), [announcements](/reference/announcements-release-notes/overview.md#announcements), or releases on [GitHub](https://github.com/camunda) and [Docker Hub](https://hub.docker.com/u/camunda).
 :::
 
 ### Helm chart
