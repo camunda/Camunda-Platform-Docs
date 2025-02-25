@@ -388,6 +388,13 @@ module.exports = {
           label: "Reference",
           position: "left",
         },
+        {
+          type: "doc",
+          docId: "download-hub/index",
+          label: "Download Hub",
+          class: "badge badge--primary",
+          position: "left",
+        },
       ],
     },
     footer: {

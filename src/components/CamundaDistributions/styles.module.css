@@ -1,0 +1,69 @@
+.card {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: all var(--ifm-transition-fast) ease;
+  transition-property: border, box-shadow;
+}
+
+.dropdownContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.dropdownContainer label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.linkContainer {
+  text-align: right;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.linkContainer a {
+  color: var(--ifm-link-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.linkContainer a:hover {
+  text-decoration: underline;
+}
+
+.downloadURL {
+  display: inline-block;
+  text-align: center;
+  background: var(--ifm-link-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 100%;
+  text-decoration: none;
+}
+
+.downloadURL:hover {
+  opacity: 0.9;
+  transition: all 0.1s ease-in-out;
+  color: white;
+  text-decoration: none;
+}

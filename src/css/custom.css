@@ -442,6 +442,11 @@ h3 .badge:nth-of-type(1) {
 .openapi__method-endpoint .badge:nth-of-type(1) {
   margin-bottom: 0;
 }
+
+.badge--primary:hover {
+  color: #ffffff;
+}
+
 .badge--beginner {
   background-color: #ff8b00;
   color: #ffffff;
