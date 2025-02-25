@@ -22,20 +22,3 @@ The content in this section of the documentation includes:
 - Features specific to Camunda 8 Self-Managed.
 
 To get started with your Self-Managed installation, see our [installation overview](./setup/overview.md).
-
-## Components
-
-<Components/>
-
-## Architecture
-
-Camunda 8 Self-Managed consists of multiple web applications and gRPC services. The following example architecture diagram uses two [Ingress objects](./setup/guides/ingress-setup.md#combined-ingress-setup) to access these services externally: an Ingress with HTTP(S) protocol for all web applications using a single domain, and another Ingress with gRPC protocol for the Zeebe workflow engine.
-
-![Camunda 8 Self-Managed Architecture Diagram - Combined Ingress](./assets/camunda-platform-8-self-managed-architecture-diagram-combined-ingress.png)
-
-In this configuration, Camunda 8 Self-Managed can be accessed as follows:
-
-- Identity, Operate, Optimize, Tasklist, Modeler: `https://camunda.example.com/[identity|operate|optimize|tasklist|modeler]`
-  - Web Modeler also exposes a WebSocket endpoint on `https://camunda.example.com/modeler-ws`. This is only used by the application itself and should not be accessed by users directly.
-- Keycloak authentication: `https://camunda.example.com/auth`
-- Zeebe Gateway: `grpc://zeebe.camunda.example.com`

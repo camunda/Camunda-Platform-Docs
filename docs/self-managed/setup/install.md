@@ -1,7 +1,7 @@
 ---
 id: install
 title: "Camunda 8 Helm installation"
-sidebar_label: "Install"
+sidebar_label: "Helm"
 description: "Camunda provides continuously improved Helm charts, of which are not cloud provider-specific so you can choose your Kubernetes provider."
 ---
 
