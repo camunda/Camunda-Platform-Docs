@@ -13,7 +13,7 @@ module.exports = {
   },
   title: "Camunda 8 Docs",
   tagline:
-    "Start orchestrating your processes with Camunda 8 SaaS or Self-Managed.",
+    "Start orchestrating your processes with Camunda 8 SaaS or Self-Managed",
   // url: "https://camunda-cloud.github.io",
   url: docsSiteUrl,
   // baseUrl: "/camunda-cloud-documentation/",
