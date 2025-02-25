@@ -13,86 +13,71 @@ You can configure the Connector runtime environment in the following ways:
 - The Connector functions to run.
 - The secrets that should be available to the Connectors.
 
-## Connecting to Zeebe
+:::note
+Starting from version 8.8, the Connector runtime no longer requires a connection to Operate. The Connector runtime now only depends on the Camunda 8 REST API and Zeebe.
+:::
+
+To connect to **Zeebe** and the **Camunda 8 REST API**, the Connector runtime uses the [Camunda Spring SDK](/apis-tools/spring-zeebe-sdk/getting-started.md). Any configuration that can be set in the Spring Zeebe SDK can also be set in the Connector runtime environment.
+
+Below are some of the most common configuration options for the Connector runtime. Refer to the [Camunda Spring SDK](/apis-tools/spring-zeebe-sdk/configuration.md#zeebe) for a full list of configuration options.
+
+:::note
+This guide provides configuration properties in the form of environment variables, while the Camunda Spring SDK documentation uses Java configuration properties. The two formats are interchangeable, and you can use the Java configuration properties in the Connector runtime environment as well.
+
+For example, the Java configuration property`camunda.client.zeebe.grpc-address` can be set in the Connector runtime environment as an environment variable called `CAMUNDA_CLIENT_ZEEBE_GRPCADDRESS`.
+:::
+
+## Connecting to Zeebe and the Camunda 8 REST API
 
 <Tabs groupId="configuration" defaultValue="saas" queryString values={
 [
-{label: 'SaaS', value: 'saas' },
-{label: 'Local installation', value: 'local' },
-{label: 'Disable Operate connectivity', value: 'operate' }
+{label: 'Connecting to Camunda 8 SaaS', value: 'saas' },
+{label: 'Connecting to Camunda 8 Self-Managed', value: 'sm' },
 ]
 }>
 
 <TabItem value='saas'>
 
-To use Camunda 8 SaaS specify the connection properties:
+To use Camunda 8 SaaS, specify the connection properties:
 
 ```bash
+CAMUNDA_CLIENT_MODE=saas
 CAMUNDA_CLIENT_CLUSTERID=xxx
 CAMUNDA_CLIENT_AUTH_CLIENTID=xxx
 CAMUNDA_CLIENT_AUTH_CLIENTSECRET=xxx
 CAMUNDA_CLIENT_REGION=bru-2
 ```
 
-You can further configure separate connection properties for Camunda Operate (otherwise it will use the properties configured for Zeebe above):
-
-```bash
-CAMUNDA_OPERATE_CLIENT_CLIENT-ID=xxx
-CAMUNDA_OPERATE_CLIENT_CLIENT-SECRET=xxx
-```
-
 If you are connecting a local Connector runtime to a SaaS cluster, you may want to review our [guide to using Connectors in hybrid mode](/guides/use-connectors-in-hybrid-mode.md).
 
 </TabItem>
 
-<TabItem value='local'>
+<TabItem value='sm'>
 
-Zeebe:
-
-### Secure connection
-
-| Environment variable                                | Purpose                                                                        |
-| :-------------------------------------------------- | :----------------------------------------------------------------------------- |
-| `CAMUNDA_CLIENT_ZEEBE_BASEURL` (required)           | The base URL of the Zeebe Broker (HTTPS)                                       |
-| `CAMUNDA_CLIENT_ZEEBE_CACERTIFICATEPATH` (optional) | The file location of the certificate to be used to connect to the Zeebe Broker |
+Specify the connection properties to connect to a self-managed Zeebe instance:
 
 ```bash
-ZEEBE_CLIENT_BROKER_GATEWAY-ADDRESS=127.0.0.1:26500
-ZEEBE_CLIENT_SECURITY_PLAINTEXT=true
+CAMUNDA_CLIENT_MODE=self-managed
+CAMUNDA_CLIENT_ZEEBE_GRPCADDRESS=http://localhost:26500
+CAMUNDA_CLIENT_ZEEBE_RESTADDRESS=http://localhost:8080
 ```
 
-If the Zeebe Gateway is set up with Camunda Identity-based authorization, [Zeebe client OAuth environment variables](../zeebe-deployment/security/client-authorization.md#environment-variables) must be provided.
-
-Connect to Operate locally using username and password:
+If using an HTTPS connection, you may need to provide a certificate to validate the gateway's certificate chain.
 
 ```bash
-CAMUNDA_OPERATE_CLIENT_URL=http://localhost:8081
-CAMUNDA_OPERATE_CLIENT_USERNAME=demo
-CAMUNDA_OPERATE_CLIENT_PASSWORD=demo
+CAMUNDA_CLIENT_ZEEBE_CACERTIFICATEPATH=/path/to/certificate.pem
 ```
 
-When running against a Self-Managed environment, you might also need to configure Identity properties instead of username and password:
+Depending on the authentication method used by the Zeebe instance, you may need to provide authentication properties:
 
 ```bash
-CAMUNDA_OPERATE_CLIENT_URL=http://localhost:8081
-CAMUNDA_IDENTITY_TYPE=KEYCLOAK
-CAMUNDA_IDENTITY_AUDIENCE=operate-api
-CAMUNDA_IDENTITY_ISSUER_BACKEND_URL=http://localhost:18080/auth/realms/camunda-platform
-CAMUNDA_IDENTITY_CLIENT_ID=connectors
-CAMUNDA_IDENTITY_CLIENT_SECRET=<YOUR_OPERATE_CLIENT_SECRET>
+CAMUNDA_CLIENT_AUTH_CLIENTID=xxx
+CAMUNDA_CLIENT_AUTH_CLIENTSECRET=xxx
+CAMUNDA_CLIENT_AUTH_ISSUER=http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
+CAMUNDA_CLIENT_AUTH_AUDIENCE=zeebe-api
 ```
 
-</TabItem>
-
-<TabItem value='operate'>
-
-Disabling Operate polling will lead to inability to use inbound capabilities like webhooks. If you still wish to do so, start your Connector runtime with the following environment variables:
-
-```bash
-CAMUNDA_CONNECTOR_POLLING_ENABLED=false
-CAMUNDA_CONNECTOR_WEBHOOK_ENABLED=false
-OPERATE_CLIENT_ENABLED=false
-```
+See the [Camunda Spring SDK documentation](../../../apis-tools/spring-zeebe-sdk/getting-started#self-managed) for more information on authentication properties.
 
 </TabItem>
 </Tabs>
@@ -315,9 +300,7 @@ configuration of job workers.
 
 ### Inbound Connector configuration
 
-The Connector Runtime fetches and executes all inbound Connectors it receives from
-Operate independently of the outbound Connector configuration without any additional
-configuration required from the user.
+The Connector Runtime fetches process definitions from the Camunda 8 REST API, and executes all inbound Connectors within those processes independently of the outbound Connector configuration without any additional configuration required from the user.
 
 To restrict the Connector Runtime inbound Connector feature to a single tenant or multiple tenants, use Identity and assign the tenants the Connector application should have access to.
 

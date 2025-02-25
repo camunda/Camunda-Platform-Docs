@@ -9,84 +9,116 @@ import TabItem from "@theme/TabItem";
 
 You can configure the Connector runtime environment in the following ways:
 
-- The Zeebe instance to connect to.
+- The Zeebe and Operate instances to connect to.
 - The Connector functions to run.
 - The secrets that should be available to the Connectors.
 
-## Connecting to Zeebe
+To connect to **Zeebe**, the Connector runtime uses the [Spring Zeebe SDK](/apis-tools/spring-zeebe-sdk/getting-started.md).
+
+To interact with the **Operate API**, the Connector runtime uses the community-maintained [Operate Java client](https://github.com/camunda-community-hub/camunda-operate-client-java).
+
+Any configuration that can be set in the Spring Zeebe SDK or Operate Java client can also be set in the Connector runtime environment.
+
+Below are some of the most common configuration options for the Connector runtime. Refer to the [Spring Zeebe SDK](/apis-tools/spring-zeebe-sdk/configuration.md#zeebe) and Operate Java client documentation for a full list of configuration options.
+
+:::note
+This guide provides configuration properties the form of environment variables, while the Spring Zeebe SDK documentation uses Java configuration properties. The two formats are interchangeable, and you can use the Java configuration properties in the Connector runtime environment as well.
+
+For example, the Java configuration property`camunda.client.zeebe.grpc-address` can be set in the Connector runtime environment as an environment variable called `CAMUNDA_CLIENT_ZEEBE_GRPCADDRESS`.
+:::
+
+## Connecting to Zeebe and Operate
 
 <Tabs groupId="configuration" defaultValue="saas" queryString values={
 [
-{label: 'SaaS', value: 'saas' },
-{label: 'Local installation', value: 'local' },
-{label: 'Disable Operate connectivity', value: 'operate' }
+{label: 'Connecting to Camunda 8 SaaS', value: 'saas' },
+{label: 'Connecting to Camunda 8 Self-Managed', value: 'sm' },
 ]
 }>
 
 <TabItem value='saas'>
 
-To use Camunda 8 SaaS specify the connection properties:
+To use Camunda 8 SaaS, specify the connection properties:
 
 ```bash
+CAMUNDA_CLIENT_MODE=saas
 CAMUNDA_CLIENT_CLUSTERID=xxx
 CAMUNDA_CLIENT_AUTH_CLIENTID=xxx
 CAMUNDA_CLIENT_AUTH_CLIENTSECRET=xxx
 CAMUNDA_CLIENT_REGION=bru-2
 ```
 
-You can further configure separate connection properties for Camunda Operate (otherwise it will use the properties configured for Zeebe above):
+To use inbound connectors, specify the Operate connection properties:
 
 ```bash
-CAMUNDA_OPERATE_CLIENT_CLIENTID=xxx
-CAMUNDA_OPERATE_CLIENT_CLIENTSECRET=xxx
+OPERATE_CLIENT_PROFILE=saas
+OPERATE_CLIENT_REGION=bru-2
+OPERATE_CLIENT_CLUSTERID=xxx
+OPERATE_CLIENT_CLIENTID=xxx
+OPERATE_CLIENT_CLIENTSECRET=xxx
+```
+
+If you don't need to use inbound connectors, you can disable them and remove the need for an Operate connection. This will lead to inability to use inbound capabilities like webhooks.
+
+```bash
+CAMUNDA_CONNECTOR_POLLING_ENABLED=false
+CAMUNDA_CONNECTOR_WEBHOOK_ENABLED=false
+OPERATE_CLIENT_ENABLED=false
 ```
 
 If you are connecting a local Connector runtime to a SaaS cluster, you may want to review our [guide to using Connectors in hybrid mode](/guides/use-connectors-in-hybrid-mode.md).
 
 </TabItem>
 
-<TabItem value='local'>
+<TabItem value='sm'>
 
-Zeebe:
-
-### Secure connection
-
-| Environment variable                                | Purpose                                                                        |
-| :-------------------------------------------------- | :----------------------------------------------------------------------------- |
-| `CAMUNDA_CLIENT_ZEEBE_BASEURL` (required)           | The base URL of the Zeebe Broker (HTTPS)                                       |
-| `CAMUNDA_CLIENT_ZEEBE_CACERTIFICATEPATH` (optional) | The file location of the certificate to be used to connect to the Zeebe Broker |
+Specify the connection properties to connect to a self-managed Zeebe instance:
 
 ```bash
-ZEEBE_CLIENT_BROKER_GATEWAY-ADDRESS=127.0.0.1:26500
-ZEEBE_CLIENT_SECURITY_PLAINTEXT=true
+CAMUNDA_CLIENT_MODE=self-managed
+CAMUNDA_CLIENT_ZEEBE_GRPCADDRESS=http://localhost:26500
+CAMUNDA_CLIENT_ZEEBE_RESTADDRESS=http://localhost:8080
 ```
 
-If the Zeebe Gateway is set up with Camunda Identity-based authorization, [Zeebe client OAuth environment variables](../zeebe-deployment/security/client-authorization.md#environment-variables) must be provided.
+If using an HTTPS connection, you may need to provide a certificate to validate the gateway's certificate chain.
+
+```bash
+CAMUNDA_CLIENT_ZEEBE_CACERTIFICATEPATH=/path/to/certificate.pem
+```
+
+Depending on the authentication method used by the Zeebe instance, you may need to provide authentication properties:
+
+```bash
+CAMUNDA_CLIENT_AUTH_CLIENTID=xxx
+CAMUNDA_CLIENT_AUTH_CLIENTSECRET=xxx
+CAMUNDA_CLIENT_AUTH_ISSUER=http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
+CAMUNDA_CLIENT_AUTH_AUDIENCE=zeebe-api
+```
+
+See the [Spring Zeebe SDK documentation](../../../apis-tools/spring-zeebe-sdk/getting-started#self-managed) for more information on authentication properties.
 
 Connect to Operate locally using username and password:
 
 ```bash
-CAMUNDA_OPERATE_CLIENT_URL=http://localhost:8081
-CAMUNDA_OPERATE_CLIENT_USERNAME=demo
-CAMUNDA_OPERATE_CLIENT_PASSWORD=demo
+OPERATE_CLIENT_PROFILE=simple
+OPERATE_CLIENT_BASEURL=http://localhost:8081
+OPERATE_CLIENT_USERNAME=demo
+OPERATE_CLIENT_PASSWORD=demo
 ```
 
-When running against a Self-Managed environment, you might also need to configure Identity properties instead of username and password:
+Connect to Operate in a Self-Managed environment using OAuth 2.0 credentials:
 
 ```bash
-CAMUNDA_OPERATE_CLIENT_URL=http://localhost:8081
-CAMUNDA_IDENTITY_TYPE=KEYCLOAK
-CAMUNDA_IDENTITY_AUDIENCE=operate-api
-CAMUNDA_IDENTITY_ISSUER_BACKEND_URL=http://localhost:18080/auth/realms/camunda-platform
-CAMUNDA_IDENTITY_CLIENT_ID=connectors
-CAMUNDA_IDENTITY_CLIENT_SECRET=<YOUR_OPERATE_CLIENT_SECRET>
+OPERATE_CLIENT_PROFILE=oidc
+OPERATE_CLIENT_BASEURL=http://localhost:8081
+OPERATE_CLIENT_AUTHURL=http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
+OPERATE_CLIENT_AUDIENCE=operate-api
+OPERATE_CLIENT_CLIENTID=xxx
+OPERATE_CLIENT_CLIENTSECRET=xxx
+OPERATE_CLIENT_SCOPE=xxx # optional
 ```
 
-</TabItem>
-
-<TabItem value='operate'>
-
-Disabling Operate polling will lead to inability to use inbound capabilities like webhooks. If you still wish to do so, start your Connector runtime with the following environment variables:
+If you don't need to use inbound connectors, you can disable them and remove the need for an Operate connection. This will lead to inability to use inbound capabilities like webhooks.
 
 ```bash
 CAMUNDA_CONNECTOR_POLLING_ENABLED=false
