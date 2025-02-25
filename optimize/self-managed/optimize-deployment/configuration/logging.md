@@ -6,11 +6,11 @@ description: "Camunda Optimize provides logging facilities that are preconfigure
 
 Camunda Optimize provides logging facilities that are preconfigured to use
 _INFO_ logging level which provides minimal output of information in log files.
-This level can be adjusted using the `environment-logback.xml` configuration file.
+This level can be adjusted using the `config/log4j2.xml` configuration file.
 
 ## Google Stackdriver (JSON) logging
 
-To enable Google Stackdriver compatible JSON logging, set the environment variable `JSON_LOGGING=true` before starting Optimize.
+To enable Google Stackdriver compatible JSON logging, set the environment variable `OPTIMIZE_LOG_APPENDER=Stackdriver` before starting Optimize.
 
 ## Default logging configuration
 
@@ -21,27 +21,18 @@ reference as follows:
 - Optimize runtime environment:
 
 ```xml
-<logger name="org.camunda.optimize" level="info" />
-```
-
-- Optimize update:
-
-```xml
-<logger name="org.camunda.optimize.update" level="info">
-  <appender-ref ref="UPGRADE"/>
-</logger>
+<Logger name="io.camunda.optimize" level="info" />
 ```
 
 - Communication to Elasticsearch:
 
 ```xml
-<logger name="org.elasticsearch" level="warn" />
+<Logger name="org.elasticsearch" level="warn" />
 ```
 
 If you are running Optimize with Docker, use the following environment variables to configure its logging levels:
 
 - `OPTIMIZE_LOG_LEVEL`: Sets the logging level for the Optimize log.
-- `UPGRADE_LOG_LEVEL`: Sets the logging level for the Optimize update log.
 - `ES_LOG_LEVEL`: Sets the logging level for Elasticsearch.
 
 Whether using the configuration file or Docker environment variables, to define the granularity of the information shown in the log you can set one of the following log levels:
