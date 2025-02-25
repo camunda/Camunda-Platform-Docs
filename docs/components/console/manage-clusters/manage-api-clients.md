@@ -40,6 +40,10 @@ When the rate limit is triggered, the client will receive an HTTP 429 response. 
 
 ## Create a client
 
+:::caution
+With **8.7** clusters, the client scopes are now managed through the [Identity](/components/identity/manage-api-clients.md) component. The only scope still managed in Console is the cluster **Secrets** scope. To learn more about managing clients in **8.7** clusters, refer to the [Identity](/components/identity/manage-api-clients.md) documentation.
+:::
+
 Currently, Camunda 8 SaaS supports the following scopes:
 
 - Zeebe - Access to the [Zeebe gRPC](/apis-tools/zeebe-api/grpc.md) and [REST](/apis-tools/camunda-api-rest/camunda-api-rest-overview.md) APIs.
