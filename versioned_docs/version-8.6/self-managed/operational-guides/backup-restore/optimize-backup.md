@@ -5,12 +5,6 @@ description: "How to perform a backup of Optimize data and restore the backup."
 keywords: ["backup", "backups"]
 ---
 
-:::note
-This release introduces breaking changes, including the utilized URL.
-
-For example, `curl 'http://localhost:8092/actuator/backups'` rather than the previously used `backup`.
-:::
-
 Optimize stores its data over multiple indices in Elasticsearch. To ensure data integrity across indices, a backup of Optimize data consists of two Elasticsearch snapshots, each containing a different set of Optimize indices. Each backup is identified by a positive integer backup ID. For example, a backup with ID `123456` consists of the following Elasticsearch snapshots:
 
 ```

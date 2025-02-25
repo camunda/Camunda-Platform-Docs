@@ -5,10 +5,6 @@ sidebar_label: "Backup and restore"
 keywords: ["backup", "backups"]
 ---
 
-:::note
-This release introduces breaking changes for [Operate and Tasklist](./operate-tasklist-backup.md), as well as [Optimize](./optimize-backup.md).
-:::
-
 You can use the backup feature of Camunda 8 Self-Managed to regularly back up the state of all of its components (Zeebe, Operate, Tasklist, and Optimize) without any downtime (except Web Modeler, see [the Web Modeler backup and restore documentation](./modeler-backup-and-restore.md)).
 In case of failures that lead to data loss, you can recover the cluster from a backup.
 

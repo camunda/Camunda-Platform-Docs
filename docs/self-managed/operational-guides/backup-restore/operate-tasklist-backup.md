@@ -8,10 +8,6 @@ keywords: ["backup", "backups"]
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-:::danger breaking changes!
-As of the Camunda 8.6 release, the `/actuator` endpoints (including `/backups`) now default to port 9600. Ensure your `management.server.port` configuration parameter is correctly set before continuing.
-:::
-
 Operate stores its data over multiple indices in Elasticsearch. Backup of Operate data includes several
 Elasticsearch snapshots containing sets of Operate indices. Each backup is identified by `backupId`. For example, a backup with an ID of `123` may contain the following Elasticsearch snapshots:
 
