@@ -67,7 +67,7 @@ Additionally, Web Modeler and Console require the following:
 
 - [Identity](/self-managed/identity/what-is-identity.md): A service for managing user authentication and authorization.
 
-Unlike the orchestration cluster, Web Modeler and Console run a separate and dedicated Identity deployment. For production environments, using an external [identity provider](/self-managed/setup/guides/connect-to-an-oidc-provider.md) is recommended.
+The Identity deployment is typically a shared entity between the orchestration cluster and Web Modeler and Console. For production environments, using an external [identity provider](/self-managed/setup/guides/connect-to-an-oidc-provider.md) is recommended.
 
 ### Databases
 
@@ -86,7 +86,7 @@ By decoupling databases from Camunda, you gain greater control and customization
 
 High availability (HA) ensures that a system remains operational and accessible even in the event of component failures. While all components are equipped to be run in a highly available manner, some components need extra considerations when run in HA mode.
 
-<!-- TODO Describe Optimize and Connectors limitations or point to resource for more -->
+For Operate, Optimize, and Tasklist, which include an importer and an archiver module, it's important to note that these modules are not highly available. When scaling, ensure that these modules are disabled for each additional instance, effectively allowing only the Web UI to be scaled.
 
 While high availability is one part of the increased fault tolerance and resilience, you should also consider regional or zonal placement of your workloads.
 
@@ -97,7 +97,7 @@ If running a single instance is preferred, make sure to implement [regular backu
 ## Available reference architectures
 
 :::note Documentation Update in Progress
-This is a work in progress as the existing documentation is updated to provide better general guidance on the topic. The Kubernetes and Docker documentation may point to older guides.
+This is a work in progress as the existing documentation is updated to provide better general guidance on the topic. The Docker and Manual documentation may point to older guides.
 :::
 
 Choosing the right reference architecture depends on various factors such as the organization's goals, existing infrastructure, and specific requirements. The following guides are available to help choose and guide deployments:
@@ -135,9 +135,7 @@ For organizations that prefer traditional infrastructure, reference architecture
 - Applicable for high availability but requires more detailed planning.
 - Best for teams with expertise in managing physical servers or virtual machines.
 
-For more information and guides, see the reference for [manual setups](./manual/manual.md).
-
-<!-- TODO add link or card for AWS EC2 -->
+For more information and guides, see the reference for [manual](/self-managed/setup/deploy/local/manual.md).
 
 ### Local development
 
