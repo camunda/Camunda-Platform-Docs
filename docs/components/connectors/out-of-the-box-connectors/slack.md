@@ -100,6 +100,12 @@ To post a message, take the following steps:
 4. Select a **Message type**.
    1. When **Plain text** is selected, set **Message** to the message string you would like to send (for example, `Hello World!`).
    2. When **Message block** is selected, set **Message block** to a formatted rich text block format. Learn more about rich text message block format in the [official Slack documentation](https://api.slack.com/reference/surfaces/formatting#stack_of_blocks).
+5. (Optional) **Attachments** are array of variables to which **camunda documents** are assigned.
+
+:::note
+To work with documents you must upload them first, [using the REST API](/apis-tools/camunda-api-rest/specifications/create-document.api.mdx) for example.
+The result of the endpoint must then be assigned to a variables in **Start Process Instance** so you can use the variables in the **Attachments** field.
+:::
 
 The **Channel/User Name** and **Message** can either be given [static values](/components/concepts/expressions.md#expressions-vs-static-values), or FEEL expressions. FEEL expressions can be used to [access process variables or dynamically create values](/components/concepts/expressions.md). This can be handy if a process variable is used to store the relevant channel or if the message needs to be composed dynamically, for example:
 
