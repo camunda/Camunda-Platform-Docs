@@ -185,7 +185,7 @@ Define a secured connection to be able to communicate with a secured Elasticsear
 These settings are only relevant when operating Optimize with OpenSearch.
 
 :::note
-Not all Optimize features are supported when using OpenSearch as a database. For a full list of the features that are currently supported, please refer to the [Camunda 7](https://github.com/camunda/issues/issues/705) and [Camunda 8](https://github.com/camunda/issues/issues/635) OpenSearch features.
+Not all Optimize features are supported when using OpenSearch as a database, including backups. For a full list of the features that are currently supported, please refer to the [Camunda 7](https://github.com/camunda/issues/issues/705) and [Camunda 8](https://github.com/camunda/issues/issues/635) OpenSearch features.
 :::
 
 #### OpenSearch connection settings
