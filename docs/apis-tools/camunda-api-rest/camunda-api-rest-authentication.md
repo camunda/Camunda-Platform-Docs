@@ -138,3 +138,30 @@ A successful response includes [information about the cluster](/apis-tools/camun
 ## Token expiration
 
 Access tokens expire according to the `expires_in` property of a successful authentication response. After this duration, in seconds, you must request a new access token.
+
+## Authentication via cookie (Self-Managed only)
+
+:::note
+When authenticating via cookie, note that Cross-Site Request Forgery (CSRF) protection must be disabled to allow this method of authentication. In a Camunda Self-Managed cluster, set the following configuration properties:
+
+```sh
+CAMUNDA_REST_QUERY_ENABLED=true
+CAMUNDA_OPERATE_CSRFPREVENTIONENABLED=false
+CAMUNDA_TASKLIST_CSRFPREVENTIONENABLED=false
+```
+
+:::
+
+Another way to access the Camunda 8 REST API in a Self-Managed cluster is to send cookie headers in each request. The cookie can be obtained by using the API endpoint `/api/login`. Take the following steps:
+
+1. Log in as user 'demo' and store the cookie in the file `cookie.txt`:
+
+```shell
+curl -c cookie.txt -X POST 'http://localhost:8080/api/login?username=demo&password=demo'
+```
+
+2. Send the cookie (as a header) in each API request. In this case, request all process definitions:
+
+```shell
+curl -b cookie.txt -X POST 'http://localhost:8080/v2/user-task/search' -H 'Content-Type: application/json' -d '{}'
+```
