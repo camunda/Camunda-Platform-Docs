@@ -36,7 +36,7 @@ const features = [
       "Explore Zeebe client libraries, Camunda component APIs, and SDKs.",
   },
   {
-    title: "Best practice",
+    title: "Best Practices",
     imageUrl: "img/home-bp.png",
     url: "/docs/components/best-practices/best-practices-overview/",
     description:
