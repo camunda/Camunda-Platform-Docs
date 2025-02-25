@@ -199,6 +199,7 @@ module.exports = {
               ],
             },
             "components/modeler/web-modeler/file-download",
+            "components/modeler/web-modeler/process-landscape-visualization",
           ],
         },
         {
