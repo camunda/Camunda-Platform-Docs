@@ -302,12 +302,6 @@ envsubst < values.yml > generated-values.yml
 cat generated-values.yml
 ```
 
-:::info Camunda Helm chart no longer automatically generates passwords
-
-Starting from **Camunda 8.6**, the Helm chart deprecated the automatic generation of secrets, and this feature has been fully removed in **Camunda 8.7**.
-
-:::
-
 Next, store various passwords in a Kubernetes secret, which will be used by the Helm chart. Below is an example of how to set up the required secret. You can use `openssl` to generate random secrets and store them in environment variables:
 
 ```bash reference
