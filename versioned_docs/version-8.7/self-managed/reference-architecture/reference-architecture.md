@@ -97,7 +97,7 @@ If running a single instance is preferred, make sure to implement [regular backu
 ## Available reference architectures
 
 :::note Documentation Update in Progress
-This is a work in progress as the existing documentation is updated to provide better general guidance on the topic. The Kubernetes and Docker documentation may point to older guides.
+This is a work in progress as the existing documentation is updated to provide better general guidance on the topic. The Docker and Manual documentation may point to older guides.
 :::
 
 Choosing the right reference architecture depends on various factors such as the organization's goals, existing infrastructure, and specific requirements. The following guides are available to help choose and guide deployments:
@@ -111,7 +111,7 @@ Kubernetes is a powerful orchestration platform for containerized applications. 
 - Best for teams with experience in managing containerized environments.
 - A steeper learning curve but offers scalable and highly resilient platform.
 
-For more information and guides, see the reference for [Kubernetes](/self-managed/setup/install.md).
+For more information and guides, see the reference for [Kubernetes](/self-managed/reference-architecture/kubernetes.md).
 
 <!-- TODO add link or card for AWS ref arch -->
 
@@ -135,7 +135,7 @@ For organizations that prefer traditional infrastructure, reference architecture
 - Applicable for high availability but requires more detailed planning.
 - Best for teams with expertise in managing physical servers or virtual machines.
 
-For more information and guides, see the reference for [manual setups](./manual/manual.md).
+For more information and guides, see the reference for [manual setups](/self-managed/setup/deploy/local/manual.md).
 
 <!-- TODO add link or card for AWS EC2 -->
 
