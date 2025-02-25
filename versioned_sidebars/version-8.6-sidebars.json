@@ -1876,6 +1876,7 @@
           ]
         },
         "self-managed/operational-guides/configure-multi-tenancy",
+        "self-managed/operational-guides/using-x509-authorizers",
         {
           "type": "category",
           "label": "Backup and restore",
