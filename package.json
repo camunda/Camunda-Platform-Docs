@@ -29,7 +29,9 @@
     "api:generate:tasklist": "npm run api:generate tasklist",
     "api:generate:zeebe": "npm run api:generate zeebe",
     "api:generate:adminsm": "npm run api:generate adminsm",
-    "api:generate:camunda": "npm run api:generate camunda"
+    "api:generate:camunda": "npm run api:generate camunda",
+    "indexes:combine": "node ./.github/workflows/sync-harmonized-indexes/1-combine-sources.js",
+    "indexes:generate": "node ./.github/workflows/sync-harmonized-indexes/2-generate-mermaid-output.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
