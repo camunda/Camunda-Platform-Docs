@@ -251,6 +251,24 @@ Therefore, it is not possible to re-create message catch events with the same me
 While we're working on resolving this, you can migrate this case by providing a mapping between the boundary events.
 :::
 
+## Compensation Boundary Events
+
+Migrating compensation boundary events requires explicit mapping instructions to decide whether to preserve, remove, or create a compensation subscription like any other catch event.
+
+While being that, it is important to understand the behaviour of creating compensation event subscription in the target process.
+New compensation boundary events contained in the target process definition only will take effect for activity instances that are not started or not finished yet.
+Consider the following example where the instance waiting on service task `B`:
+
+![The instance waiting on service task B.](assets/process-instance-migration/migration-compensation_before.png)
+
+The target process definition contains a compensation boundary event attached to service task `B`:
+
+![The target process definition contains a compensation boundary event attached to service task B.](assets/process-instance-migration/migration-compensation_after.png)
+
+If the process instance is migrated by providing mapping instruction between service tasks `A` -> `C`, then triggering compensation throw event afterward is **not** going to compensate `B`.
+
+However, if the process instance is migrated by providing mapping instruction between service tasks `A` -> `B`, the compensation subscription will be created on completion of the element `B`.
+
 ## Process definitions and versions
 
 So far, we've only discussed migrating a process instance to a new version of its process definition.
@@ -485,6 +503,13 @@ import SignalCatchEventSvg from '../modeler/bpmn/assets/bpmn-symbols/signal-catc
 import SignalBoundaryEventSvg from '../modeler/bpmn/assets/bpmn-symbols/signal-boundary-event.svg'
 import SignalBoundaryEventNonInterruptingSvg from '../modeler/bpmn/assets/bpmn-symbols/signal-boundary-event-non-interrupting.svg'
 
+import EscalationEventSubprocessSvg from '../modeler/bpmn/assets/bpmn-symbols/escalation-event-subprocess.svg'
+import EscalationEventSubprocessNonInterruptingSvg from '../modeler/bpmn/assets/bpmn-symbols/escalation-event-subprocess-non-interrupting.svg'
+import EscalationBoundaryEventSvg from '../modeler/bpmn/assets/bpmn-symbols/escalation-boundary-event.svg'
+import EscalationBoundaryEventNonInterruptingSvg from '../modeler/bpmn/assets/bpmn-symbols/escalation-boundary-event-non-interrupting.svg'
+
+import CompensationBoundaryEventSvg from '../modeler/bpmn/assets/bpmn-symbols/compensation-boundary-event.svg'
+
 <table className="bpmn-coverage-event-table">
   <thead>
       <tr>
@@ -609,6 +634,46 @@ import SignalBoundaryEventNonInterruptingSvg from '../modeler/bpmn/assets/bpmn-s
                 <SignalBoundaryEventNonInterruptingSvg className="implemented" />
             </a>
         </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="../../modeler/bpmn/escalation-events/">Escalation</a>
+        </td>
+        <td>
+            <a href="../../modeler/bpmn/escalation-events/">
+                <EscalationEventSubprocessSvg className="implemented" />
+            </a>
+        </td>
+        <td>
+            <a href="../../modeler/bpmn/escalation-events">
+                <EscalationEventSubprocessNonInterruptingSvg className="implemented" />
+            </a>
+        </td>
+        <td></td>
+        <td>
+            <a href="../../modeler/bpmn/escalation-events">
+                <EscalationBoundaryEventSvg className="implemented" />
+            </a>
+        </td>
+        <td>
+            <a href="../../modeler/bpmn/escalation-events">
+                <EscalationBoundaryEventNonInterruptingSvg className="implemented" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="../../modeler/bpmn/compensation-events/">Compensation</a>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <a href="../../modeler/bpmn/compensation-events/">
+                <CompensationBoundaryEventSvg className="implemented" />
+            </a>
+        </td>
+        <td></td>
     </tr>
 
   </tbody>
