@@ -511,3 +511,5 @@ RewriteRule ^docs/next/guides/migrating-from-camunda-7/adjusting-bpmn-models/(.*
 RewriteRule ^docs/8.7/guides/migrating-from-camunda-7/adjusting-bpmn-models/(.*)$ /docs/8.7/guides/migrating-from-camunda-7/index/ [R=301,L]
 RewriteRule ^docs/guides/migrating-from-camunda-7/adjusting-bpmn-models/(.*)$ /docs/guides/migrating-from-camunda-7/index/ [R=301,L]
 
+# Remove User Task Listeners from 8.7
+RewriteRule ^docs/8.7/components/concepts/user-task-listeners/?$ /docs/8.7/components/

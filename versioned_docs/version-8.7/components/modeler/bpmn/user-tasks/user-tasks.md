@@ -163,27 +163,6 @@ A user task can define an arbitrary number of `taskHeaders`; they are static
 metadata stored with the user task in Zeebe. The headers can be used as
 configuration parameters for tasklist applications.
 
-### User task listeners
-
-User tasks support **user task listeners**, which allow you to react to user task lifecycle events.
-
-#### Supported events
-
-Currently, user task listeners can react to the following events:
-
-- **Assigning**: Triggered while assigning a user task.
-- **Completing**: Triggered while completing a user task.
-
-#### Configuration
-
-To define a user task listener, include the `zeebe:taskListeners` extension element within the user task in your BPMN model. This element can contain one or more `zeebe:taskListener` elements, each specifying the following attributes:
-
-- The `eventType` that triggers the listener (`"assigning"` or `"completing"`).
-- The `type` of the listener (job type used by the external worker).
-- The number of `retries` for the user task listener job (defaults to 3 if omitted).
-
-For more details, see [user task listeners](components/concepts/user-task-listeners.md).
-
 ## Job worker implementation
 
 A user task does not have to be managed by Zeebe. You can implement custom user task logic using Job workers.
@@ -312,26 +291,9 @@ A job-based user task with an embedded Camunda Form:
 </bpmn:process>
 ```
 
-#### User task listeners
-
-A user task with user task listeners configured:
-
-```xml
-<bpmn:userTask id="configure" name="Configure">
-  <bpmn:extensionElements>
-    <zeebe:taskListeners>
-      <zeebe:taskListener eventType="assigning" type="assigning-user-task-listener" retries="5" />
-      <zeebe:taskListener eventType="completing" type="completing-user-task-listener" />
-    </zeebe:taskListeners>
-    <zeebe:userTask/>
-  </bpmn:extensionElements>
-</bpmn:userTask>
-```
-
 ### References
 
 - [Tasklist](/components/tasklist/introduction-to-tasklist.md)
 - [Form linking in Modeler](/components/modeler/web-modeler/advanced-modeling/form-linking.md)
 - [Job handling](/components/concepts/job-workers.md)
 - [Variable mappings](/components/concepts/variables.md#inputoutput-variable-mappings)
-- [User task listeners](/components/concepts/user-task-listeners.md)

@@ -281,12 +281,6 @@ Camunda recommends using Camunda user tasks in your process definitions. With 8.
 - [User tasks](/components/modeler/bpmn/user-tasks/user-tasks.md)
 - [Migrate to Camunda user tasks](/apis-tools/migration-manuals/migrate-to-camunda-user-tasks.md)
 
-### User task listener
-
-A user task listener allows users to execute custom logic in response to specific user task lifecycle events, such as assigning or completing a task. User task listeners are attached to BPMN user tasks and facilitate validation, custom task assignment, and other operations during user task execution. They operate similarly to job workers, leveraging the same infrastructure for processing external logic.
-
-- [User task listeners](/components/concepts/user-task-listeners.md)
-
 ### Webhook Connector
 
 Webhooks are a subtype of [inbound Connector](#inbound-connector).
