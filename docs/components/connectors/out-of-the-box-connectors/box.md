@@ -49,7 +49,7 @@ The Box Connector supports two methods for locating items stored in your Box acc
 :::
 
 :::note
-Starting from version 8.7.0, the Box Connector supports uploading documents from (or downloading documents to) the Camunda document store. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
+Starting from version 8.7.0, the Box Connector supports uploading documents from (or downloading documents to) the Camunda document store. Review the **Document** field in the properties panel where the document reference can be provided. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
 :::
 
 ### Create Folder

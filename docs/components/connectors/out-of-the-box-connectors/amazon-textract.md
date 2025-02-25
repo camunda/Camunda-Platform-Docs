@@ -138,7 +138,7 @@ The response from the **Amazon Textract Connector** mirrors the AWS Textract ser
 - **[Asynchronous Execution Response](https://docs.aws.amazon.com/textract/latest/dg/API_StartDocumentAnalysis.html#API_StartDocumentAnalysis_ResponseSyntax)**: Used for batch processing where results are returned later through job completion.
 
 :::note
-Starting from version 8.7.0, the Amazon Textract Connector can read the input document directly from the Camunda document store. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
+Starting from version 8.7.0, the Amazon Textract Connector can read the input document directly from the Camunda document store. Review the **Document** field in the properties panel where the document reference can be provided. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
 :::
 
 ### Use the Textract Connector response in your process

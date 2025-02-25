@@ -93,7 +93,7 @@ The following JSON response is returned after a successful document upload opera
 - `link`: The document link.
 
 :::note
-Starting from version 8.7.0, the Amazon S3 Connector supports uploading documents from (or downloading documents to) the Camunda document store. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
+Starting from version 8.7.0, the Amazon S3 Connector supports uploading documents from (or downloading documents to) the Camunda document store. Review the **Document** field in the properties panel where the document reference can be provided. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
 :::
 
 #### Example Response
