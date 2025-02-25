@@ -1160,8 +1160,7 @@ module.exports = {
             id: "self-managed/operational-guides/backup-restore/backup-and-restore",
           },
           items: [
-            "self-managed/operational-guides/backup-restore/optimize-backup",
-            "self-managed/operational-guides/backup-restore/operate-tasklist-backup",
+            "self-managed/operational-guides/backup-restore/webapps-backup",
             "self-managed/operational-guides/backup-restore/zeebe-backup-and-restore",
             "self-managed/operational-guides/backup-restore/modeler-backup-and-restore",
           ],
