@@ -75,7 +75,7 @@ The following command line arguments are available:
 
 All Camunda 8 Run components can be accessed using the username/password combination `demo`/`demo`.
 
-Tasklist and Operate are available at:
+Tasklist, Operate, and Identity are available at:
 
 - Tasklist: http://localhost:8080/tasklist
 - Operate: http://localhost:8080/operate
