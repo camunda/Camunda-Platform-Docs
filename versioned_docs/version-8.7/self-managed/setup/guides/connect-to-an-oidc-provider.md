@@ -43,6 +43,10 @@ configuration](#component-specific-configuration) to ensure the components are c
    - Audience
 4. Set the following environment variables or Helm values for the component you are configuring an app for:
 
+:::note
+You can connect to your OIDC provider through either environment variables or Helm values. Ensure only one configuration option is used.
+:::
+
 <Tabs groupId="optionsType" defaultValue="env" queryString values={[{label: 'Environment variables', value: 'env' },{label: 'Helm values', value: 'helm' }]} >
 <TabItem value="env">
 
@@ -51,9 +55,9 @@ configuration](#component-specific-configuration) to ensure the components are c
    CAMUNDA_IDENTITY_BASE_URL=<IDENTITY_URL>
    CAMUNDA_IDENTITY_ISSUER=<URL_OF_ISSUER>
    CAMUNDA_IDENTITY_ISSUER_BACKEND_URL=<URL_OF_ISSUER> // this is used for container to container communication
-   CAMUNDA_IDENTITY_CLIENT_ID=<Client ID from Step 2>
-   CAMUNDA_IDENTITY_CLIENT_SECRET=<Client secret from Step 2>
-   CAMUNDA_IDENTITY_AUDIENCE=<Audience from Step 2>
+   CAMUNDA_IDENTITY_CLIENT_ID=<Client ID from Step 3>
+   CAMUNDA_IDENTITY_CLIENT_SECRET=<Client secret from Step 3>
+   CAMUNDA_IDENTITY_AUDIENCE=<Audience from Step 3>
    IDENTITY_INITIAL_CLAIM_NAME=<Initial claim name  if not using the default "oid">
    IDENTITY_INITIAL_CLAIM_VALUE=<Initial claim value>
    SPRING_PROFILES_ACTIVE=oidc
@@ -124,13 +128,20 @@ Ensure you register a new application for each component.
 :::
 
 1. Within the Entra ID admin center, [register a new application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) for **each** component you would like to connect.
-2. Navigate to the new application's **Overview** page, and make note of the **Client ID**.
+2. Navigate to the new application's **Overview** page, and make note of the **Client ID**. This will also be used as the audience ID.
 3. Within your new application, [configure a platform](https://learn.microsoft.com/en-gb/entra/identity-platform/quickstart-register-app#configure-platform-settings) for the appropriate component:
    - **Web**: Operate, Tasklist, Optimize, Identity
    - **Single-page application**: Modeler, Console
 4. Add your component's **Microsoft Entra ID** redirect URI, found under [Component-specific configuration](#component-specific-configuration).
-5. [Create a new client secret](https://learn.microsoft.com/en-gb/entra/identity-platform/quickstart-register-app?tabs=client-secret#add-credentials), and note the new secret's value for later use.
-6. Set the following environment variables for the component you are configuring an app for:
+   :::note
+   In Microsoft Entra ID, redirect URIs serve as an approved list of destinations. Only the URLs specified in the redirect URIs configuration will be permitted as valid redirection targets for authentication responses. This security measure ensures that tokens and authorization codes are only sent to pre-approved locations, preventing potential unauthorized access or token theft.
+   :::
+5. [Create a new client secret](https://learn.microsoft.com/en-gb/entra/identity-platform/quickstart-register-app?tabs=client-secret#add-credentials), and note the new secret's value for later use. The secret ID is not needed, only the secret value is required.
+6. Set the following environment variables or Helm values for the component you are configuring an app for:
+
+:::note
+You can connect to your OIDC provider through either environment variables or Helm values. Ensure only one configuration option is used.
+:::
 
 <Tabs groupId="optionsType" defaultValue="env" queryString values={[{label: 'Environment variables', value: 'env' },{label: 'Helm values', value: 'helm' }]} >
 <TabItem value="env">
@@ -165,8 +176,8 @@ global:
       identity:
         clientId: <Client ID from Step 2>
         existingSecret: <Client secret from Step 5>
-        audience: <Audience from Step 1>
-        initialClaimName: <Initial claim name if not using the default "oid">
+        audience: <Audience from Step 2>
+        # This is the object ID of the first user. A role mapping in Identity will automatically be generated for this user.
         initialClaimValue: <Initial claim value>
         redirectUrl: <See the Helm value in the table below>
       operate:
@@ -198,6 +209,7 @@ global:
         clientId: <Client ID from Step 2>
         audience: <Client ID from Step 2>
         redirectUrl: <See the Helm value in the table below>
+        wellKnown: <Found in the "Endpoints" section of the app registrations page>
       connectors:
         clientId: <Client ID from Step 2>
         existingSecret: <Client secret from Step 5>
