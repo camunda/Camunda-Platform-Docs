@@ -38,7 +38,7 @@ As a third possibility, you can set a default job type:
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         type: foo
 ```
@@ -147,7 +147,7 @@ The code within the handler method needs to be synchronously executed, as the co
 When using `autoComplete` you can:
 
 - Return a `Map`, `String`, `InputStream`, or `Object`, which will then be added to the process variables.
-- Throw a `ZeebeBpmnError`, which results in a BPMN error being sent to Zeebe.
+- Throw a `CamundaBpmnError`, which results in a BPMN error being sent to Zeebe.
 - Throw any other `Exception` that leads in a failure handed over to Zeebe.
 
 ```java
@@ -159,7 +159,7 @@ public Map<String, Object> handleJobFoo(final ActivatedJob job) {
     return variablesMap;
   } else {
    // problem shall be indicated to the process:
-   throw new ZeebeBpmnError("DOESNT_WORK", "This does not work because...");
+   throw new CamundaBpmnError("DOESNT_WORK", "This does not work because...");
   }
 }
 ```
@@ -185,7 +185,7 @@ You can also control auto-completion in your configuration.
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         auto-complete: false
 ```
@@ -195,7 +195,7 @@ camunda:
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       override:
         foo:
           auto-complete: false
@@ -236,9 +236,9 @@ public ProcessVariables foo(@VariablesAsType ProcessVariables variables, @Custom
 }
 ```
 
-### Throwing `ZeebeBpmnError`s
+### Throwing `CamundaBpmnError`s
 
-Whenever your code hits a problem that should lead to a [BPMN error](/components/modeler/bpmn/error-events/error-events.md) being raised, you can throw a `ZeebeBpmnError` to provide the error code used in BPMN:
+Whenever your code hits a problem that should lead to a [BPMN error](/components/modeler/bpmn/error-events/error-events.md) being raised, you can throw a `CamundaBpmnError` to provide the error code used in BPMN:
 
 ```java
 @JobWorker(type = "foo")
@@ -246,14 +246,14 @@ public void handleJobFoo() {
   // some work
   if (!successful) {
    // problem shall be indicated to the process:
-   throw new ZeebeBpmnError("DOESNT_WORK", "This does not work because...");
+   throw new CamundaBpmnError("DOESNT_WORK", "This does not work because...");
   }
 }
 ```
 
 ## Additional configuration options
 
-For a full set of configuration options, see [CamundaClientConfigurationProperties.java](https://github.com/camunda/camunda/blob/main/clients/spring-boot-starter-camunda-sdk/src/main/java/io/camunda/spring/client/properties/CamundaClientProperties.java).
+For a full set of configuration options, see [CamundaClientProperties.java](https://github.com/camunda/camunda/blob/main/clients/spring-boot-starter-camunda-sdk/src/main/java/io/camunda/spring/client/properties/CamundaClientProperties.java).
 
 ### Auth
 
@@ -299,8 +299,7 @@ The number of threads for invocation of job workers. Setting this value to 0 eff
 ```yaml
 camunda:
   client:
-    zeebe:
-      execution-threads: 2
+    execution-threads: 2
 ```
 
 #### Message time to live
@@ -310,8 +309,7 @@ The time-to-live which is used when none is provided for a message (default 1H):
 ```yaml
 camunda:
   client:
-    zeebe:
-      message-time-to-live: PT2H
+    message-time-to-live: PT2H
 ```
 
 #### Max message size
@@ -321,8 +319,7 @@ A custom `maxMessageSize` allows the client to receive larger or smaller respons
 ```yaml
 camunda:
   client:
-    zeebe:
-      max-message-size: 4194304
+    max-message-size: 4194304
 ```
 
 #### Max metadata size
@@ -332,8 +329,7 @@ A custom `maxMetadataSize` allows the client to receive larger or smaller respon
 ```yaml
 camunda:
   client:
-    zeebe:
-      max-metadata-size: 4194304
+    max-metadata-size: 4194304
 ```
 
 #### Request timeout
@@ -343,8 +339,7 @@ The request timeout used if not overridden by the command (default is 10s):
 ```yaml
 camunda:
   client:
-    zeebe:
-      request-timeout: PT20S
+    request-timeout: PT20S
 ```
 
 #### CA certificate
@@ -354,8 +349,7 @@ Path to a root CA certificate to be used instead of the certificate in the defau
 ```yaml
 camunda:
   client:
-    zeebe:
-      ca-certificate-path: path/to/certificate
+    ca-certificate-path: path/to/certificate
 ```
 
 #### Keep alive
@@ -365,8 +359,7 @@ Time interval between keep alive messages sent to the gateway (default is 45s):
 ```yaml
 camunda:
   client:
-    zeebe:
-      keep-alive: PT60S
+    keep-alive: PT60S
 ```
 
 #### Override authority
@@ -376,8 +369,7 @@ The alternative authority to use, commonly in the form `host` or `host:port`:
 ```yaml
 camunda:
   client:
-    zeebe:
-      override-authority: host:port
+    override-authority: host:port
 ```
 
 #### REST over gRPC
@@ -387,8 +379,7 @@ If true, the client will use REST instead of gRPC whenever possible:
 ```yaml
 camunda:
   client:
-    zeebe:
-      prefer-rest-over-grpc: true
+    prefer-rest-over-grpc: true
 ```
 
 #### gRPC address
@@ -398,8 +389,7 @@ Define client gRPC address:
 ```yaml
 camunda:
   client:
-    zeebe:
-      grpc-address: http://localhost:26500
+    grpc-address: http://localhost:26500
 ```
 
 #### REST address
@@ -409,8 +399,7 @@ Define client REST address:
 ```yaml
 camunda:
   client:
-    zeebe:
-      rest-address: http://localhost:8080
+    rest-address: http://localhost:8080
 ```
 
 #### Defaults and Overrides
@@ -424,7 +413,7 @@ If you build a worker that only serves one thing, it might also be handy to defi
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         type: foo
 ```
@@ -436,10 +425,10 @@ Number of jobs that are polled from the broker to be worked on in this client an
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         max-jobs-active: 32
-      execution-threads: 1
+    execution-threads: 1
 ```
 
 :::note
@@ -464,10 +453,9 @@ You can also override this setting via your `application.yaml` file:
 ```yaml
 camunda:
   client:
-    zeebe:
-      override:
-        foo:
-          enabled: false
+    override:
+      foo:
+        enabled: false
 ```
 
 This is especially useful if you have a bigger code base including many workers, but want to start only some of them. Typical use cases are:
@@ -476,12 +464,12 @@ This is especially useful if you have a bigger code base including many workers,
 - Load balancing: You want to control which workers run on which instance of cluster nodes.
 - Migration: There are two applications, and you want to migrate a worker from one to another. With this switch, you can disable workers via configuration in the old application once they are available within the new.
 
-To disable all workers, but still have the Zeebe client available, you can use:
+To disable all workers, but still have the Camunda client available, you can use:
 
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         enabled: false
 ```
@@ -493,10 +481,9 @@ You can override the `JobWorker` annotation's values, as you can see in the exam
 ```yaml
 camunda:
   client:
-    zeebe:
-      override:
-        foo:
-          enabled: false
+    override:
+      foo:
+        enabled: false
 ```
 
 In this case, `foo` is the type of the worker that we want to customize.
@@ -506,24 +493,23 @@ You can override all supported configuration options for a worker, for example:
 ```yaml
 camunda:
   client:
-    zeebe:
-      override:
-        foo:
-          timeout: PT10S
+    override:
+      foo:
+        timeout: PT10S
 ```
 
-You could also provide a custom class that can customize the `JobWorker` configuration values by implementing the `io.camunda.zeebe.spring.client.annotation.customizer.ZeebeWorkerValueCustomizer` interface.
+You could also provide a custom class that can customize the `JobWorker` configuration values by implementing the `io.camunda.spring.client.annotation.customizer.JobWorkerValueCustomizer` interface.
 
 ##### Enable job streaming
 
 Read more about this feature in the [job streaming documentation](/apis-tools/java-client/job-worker.md#job-streaming).
 
-Job streaming is disabled by default for job workers. To enable job streaming on the Zeebe client, configure it as follows:
+Job streaming is disabled by default for job workers. To enable job streaming on the Camunda client, configure it as follows:
 
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       defaults:
         stream-enabled: true
 ```
@@ -533,15 +519,14 @@ This also works for every worker individually:
 ```yaml
 camunda:
   client:
-    zeebe:
-      override:
-        foo:
-          stream-enabled: true
+    override:
+      foo:
+        stream-enabled: true
 ```
 
 ##### Control tenant usage
 
-When using multi-tenancy, the Zeebe client will connect to the `<default>` tenant. To control this, you can configure:
+When using multi-tenancy, the Camunda client will connect to the `<default>` tenant. To control this, you can configure:
 
 ```yaml
 camunda:
@@ -562,7 +547,7 @@ You can override this property as well:
 ```yaml
 camunda:
   client:
-    zeebe:
+    worker:
       override:
         foo:
           tenants-ids:
@@ -597,7 +582,7 @@ or `spring.ssl.*` properties are defined, the `camunda.client.auth.*` takes prec
 
 ## Observing metrics
 
-The Spring Zeebe SDK provides some out-of-the-box metrics that can be leveraged via [Spring Actuator](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/). Whenever actuator is on the classpath, you can access the following metrics:
+The Spring Camunda SDK provides some out-of-the-box metrics that can be leveraged via [Spring Actuator](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/). Whenever actuator is on the classpath, you can access the following metrics:
 
 - `camunda.job.invocations`: Number of invocations of job workers (tagging the job type)
 
@@ -626,13 +611,13 @@ Several identity providers, such as Keycloak, support client X.509 authorizers a
 
 As a prerequisite, ensure you have proper KeyStore and TrustStore configured, so that:
 
-- Both the Spring Zeebe application and identity provider share the same CA trust certificates.
-- Both the Spring Zeebe and identity provider own certificates signed by trusted CA.
-- Your Spring Zeebe application own certificate has proper `Distinguished Name` (DN), e.g.
-  `CN=My Zeebe Client, OU=Camunda Users, O=Best Company, C=DE`.
+- Both the Spring Camunda application and identity provider share the same CA trust certificates.
+- Both the Spring Camunda and identity provider own certificates signed by trusted CA.
+- Your Spring Camunda application own certificate has proper `Distinguished Name` (DN), e.g.
+  `CN=My Camunda Client, OU=Camunda Users, O=Best Company, C=DE`.
 - Your application DN registered in the identity provider client authorization details.
 
-Once prerequisites are satisfied, your Spring Zeebe application must be configured either via global SSL context, or
+Once prerequisites are satisfied, your Spring Camunda application must be configured either via global SSL context, or
 with [identity provider exclusive context](#custom-identity-provider-security-context).
 
 Refer to your identity provider documentation on how to configure X.509 authentication. For example, [Keycloak](https://www.keycloak.org/server/mutual-tls).

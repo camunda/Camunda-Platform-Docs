@@ -60,7 +60,7 @@ Zeebe's [backpressure mechanism](../../../self-managed/zeebe-deployment/operatio
 
 ## Metrics
 
-The job worker exposes metrics through a custom interface: [JobWorkerMetrics](https://github.com/camunda/camunda/blob/main/clients/java/src/main/java/io/camunda/zeebe/client/api/worker/JobWorkerMetrics.java). These represent specific callbacks used by the job worker to keep track of various internals, e.g. count of jobs activated, count of jobs handled, etc.
+The job worker exposes metrics through a custom interface: [JobWorkerMetrics](https://github.com/camunda/camunda/blob/stable/8.6/clients/java/src/main/java/io/camunda/zeebe/client/api/worker/JobWorkerMetrics.java). These represent specific callbacks used by the job worker to keep track of various internals, e.g. count of jobs activated, count of jobs handled, etc.
 
 :::note
 By default, job workers will not track any metrics, and it's up to the caller to specify an implementation if they wish to make use of this feature.
@@ -247,4 +247,4 @@ client.newWorker()
 ### Default tenant
 
 You can configure the default tenant(s) using environment variables or system properties. It's configured using
-`DEFAULT_JOB_WORKER_TENANT_IDS` or `zeebe.client.worker.tenantIds` respectively.
+`ZEEBE_DEFAULT_JOB_WORKER_TENANT_IDS` or `zeebe.client.worker.tenantIds` respectively.

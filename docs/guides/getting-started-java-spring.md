@@ -2,8 +2,8 @@
 id: getting-started-java-spring
 title: Get started as a Java developer using Spring
 sidebar_label: Get started with Spring
-description: "Use Spring Boot and the Spring Zeebe SDK to interact with your local Self-Managed Camunda 8 installation."
-keywords: [java, spring, spring zeebe, getting started, user guide, tutorial]
+description: "Use Spring Boot and the Spring Camunda SDK to interact with your local Self-Managed Camunda 8 installation."
+keywords: [java, spring, spring camunda, getting started, user guide, tutorial]
 ---
 
 import Install from './react-components/\_install-c8run.md'
@@ -11,7 +11,7 @@ import Install from './react-components/\_install-c8run.md'
 <span class="badge badge--beginner">Beginner</span>
 <span class="badge badge--medium">1 hour</span>
 
-In this guide, we'll step through using Spring Boot and the [Spring Zeebe SDK](/apis-tools/spring-zeebe-sdk/getting-started.md) with Desktop Modeler to interact with your local Self-Managed Camunda 8 installation. While this guide focuses on Self-Managed, you can do something similar with [SaaS](https://signup.camunda.com/accounts?utm_source=docs.camunda.io&utm_medium=referral).
+In this guide, we'll step through using Spring Boot and the [Spring Camunda SDK](/apis-tools/spring-zeebe-sdk/getting-started.md) with Desktop Modeler to interact with your local Self-Managed Camunda 8 installation. While this guide focuses on Self-Managed, you can do something similar with [SaaS](https://signup.camunda.com/accounts?utm_source=docs.camunda.io&utm_medium=referral).
 
 :::note
 This guide specifically uses Java and Spring because the two, in combination with Camunda 8, is our [default technology stack recommendation](/components/best-practices/architecture/deciding-about-your-stack.md#the-java-greenfield-stack).
@@ -119,11 +119,11 @@ Add the following Maven dependency to your Spring Boot Starter project, replacin
 <dependency>
     <groupId>io.camunda</groupId>
     <artifactId>spring-boot-starter-camunda-sdk</artifactId>
-    <version>8.6.x</version>
+    <version>8.8.x</version>
 </dependency>
 ```
 
-### Configure the Zeebe client
+### Configure the Camunda client
 
 Open your `src/main/resources/application.yaml` file, and paste the following snippet to connect to the Self-Managed Zeebe Broker:
 
@@ -131,10 +131,8 @@ Open your `src/main/resources/application.yaml` file, and paste the following sn
 camunda:
   client:
     mode: self-managed
-    zeebe:
-      enabled: true
-      grpc-address: http://127.0.0.1:26500
-      rest-address: http://127.0.0.1:8080
+    grpc-address: http://127.0.0.1:26500
+    rest-address: http://127.0.0.1:8080
 ```
 
 :::note
@@ -155,8 +153,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import io.camunda.zeebe.spring.client.annotation.JobWorker;
-import io.camunda.zeebe.spring.client.annotation.Variable;
+import io.camunda.spring.client.annotation.JobWorker;
+import io.camunda.spring.client.annotation.Variable;
 ```
 
 3. Next, we can add a `ChargeCreditCardWorker` class decorated with `@Component` and instantiate a logger. Additionally, we will add a `chargeCreditCard` method and decorate it with `@JobWorker`, specifying the type of service tasks it will handle. The method takes a `@Variable(name = "totalWithTax") Double totalWithTax` argument to indicate which variables it needs from the task. The implementation of the method will log the `totalWithTax`, and return a map, to indicate to Zeebe that the task has been handled:
@@ -196,11 +194,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import io.camunda.zeebe.client.ZeebeClient;
-import io.camunda.zeebe.spring.client.annotation.Deployment;
+import io.camunda.client.CamundaClient;
+import io.camunda.spring.client.annotation.Deployment;
 ```
 
-2. Convert the application to a `CommandLineRunner`, by adding `implements CommandLineRunner` to the `ProcessPaymentsApplication` class declaration. Instantiate a static `Logger` variable, and an instance variable named `zeebeClient` with the `@Autowired` annotation.
+2. Convert the application to a `CommandLineRunner`, by adding `implements CommandLineRunner` to the `ProcessPaymentsApplication` class declaration. Instantiate a static `Logger` variable, and an instance variable named `camundaClient` with the `@Autowired` annotation.
 
 ```java
 @SpringBootApplication
@@ -209,7 +207,7 @@ public class ProcessPaymentsApplication implements CommandLineRunner {
 	private static final Logger LOG = LoggerFactory.getLogger(ProcessPaymentsApplication.class);
 
 	@Autowired
-	private ZeebeClient zeebeClient;
+	private CamundaClient camundaClient;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProcessPaymentsApplication.class, args);
@@ -223,7 +221,7 @@ public class ProcessPaymentsApplication implements CommandLineRunner {
 	@Override
 	public void run(final String... args) {
 		var bpmnProcessId = "process-payments";
-		var event = zeebeClient.newCreateInstanceCommand()
+		var event = camundaClient.newCreateInstanceCommand()
 				.bpmnProcessId(bpmnProcessId)
 				.latestVersion()
 				.variables(Map.of("total", 100))

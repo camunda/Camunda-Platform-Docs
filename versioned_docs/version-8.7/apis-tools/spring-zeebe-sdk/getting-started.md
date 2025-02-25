@@ -21,7 +21,7 @@ Add the following Maven dependency to your Spring Boot Starter project, replacin
 <dependency>
     <groupId>io.camunda</groupId>
     <artifactId>spring-boot-starter-camunda-sdk</artifactId>
-    <version>8.6.x</version>
+    <version>8.7.x</version>
 </dependency>
 ```
 

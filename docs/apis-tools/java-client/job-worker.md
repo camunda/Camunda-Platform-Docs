@@ -44,7 +44,7 @@ If streaming is enabled (via `streamEnabled`), it will also open a long-living s
 
 When a poll fails with an error response, the job worker applies a backoff strategy. It waits for some time, after which it polls again for more jobs. This gives a Zeebe cluster some time to recover from a failure. In some cases, you may want to configure this backoff strategy to better fit your situation.
 
-The retry delay (i.e. the time the job worker waits after an error before the next poll for new jobs) is provided by the [`BackoffSupplier`](https://github.com/camunda/camunda/blob/b9165e9759143e80e7e3bd2a884837cf141276a1/clients/java/src/main/java/io/camunda/zeebe/client/api/worker/BackoffSupplier.java). You can replace it using the `.backoffSupplier()` method on the [`JobWorkerBuilder`](https://github.com/camunda/camunda/blob/b9165e9759143e80e7e3bd2a884837cf141276a1/clients/java/src/main/java/io/camunda/zeebe/client/api/worker/JobWorkerBuilderStep1.java).
+The retry delay (i.e. the time the job worker waits after an error before the next poll for new jobs) is provided by the [`BackoffSupplier`](https://github.com/camunda/camunda/blob/main/clients/java/src/main/java/io/camunda/client/api/worker/BackoffSupplier.java). You can replace it using the `.backoffSupplier()` method on the [`JobWorkerBuilder`](https://github.com/camunda/camunda/blob/main/clients/java/src/main/java/io/camunda/client/api/worker/JobWorkerBuilderStep1.java).
 
 By default, the job worker uses an exponential backoff implementation, which you can configure using `BackoffSupplier.newBackoffBuilder()`.
 
@@ -60,7 +60,7 @@ Zeebe's [backpressure mechanism](../../../self-managed/zeebe-deployment/operatio
 
 ## Metrics
 
-The job worker exposes metrics through a custom interface: [JobWorkerMetrics](https://github.com/camunda/camunda/blob/main/clients/java/src/main/java/io/camunda/zeebe/client/api/worker/JobWorkerMetrics.java). These represent specific callbacks used by the job worker to keep track of various internals, e.g. count of jobs activated, count of jobs handled, etc.
+The job worker exposes metrics through a custom interface: [JobWorkerMetrics](https://github.com/camunda/camunda/blob/main/clients/java/src/main/java/io/camunda/client/api/worker/JobWorkerMetrics.java). These represent specific callbacks used by the job worker to keep track of various internals, e.g. count of jobs activated, count of jobs handled, etc.
 
 :::note
 By default, job workers will not track any metrics, and it's up to the caller to specify an implementation if they wish to make use of this feature.
@@ -82,7 +82,7 @@ Additionally, by subtracting both counters, you can derive the count of queued o
 To use job worker metrics, create a new instance of a `JobWorkerMetrics` implementation, and pass it along to the builder:
 
 ```java
-public final JobWorker openWorker(final ZeebeClient client, final JobHandler handler) {
+public final JobWorker openWorker(final CamundaClient client, final JobHandler handler) {
   final JobWorkerMetrics metrics = new MyCustomJobWorkerMetrics();
   return client.newJobWorker()
     .jobType("foo")
@@ -105,7 +105,7 @@ If your project does not yet use Micrometer, you need to add it to your dependen
 Once Micrometer is set up in your project, you can start using the implementation. For example:
 
 ```java
-public final JobWorker openWorker(final ZeebeClient client, final JobHandler handler) {
+public final JobWorker openWorker(final CamundaClient client, final JobHandler handler) {
   final MeterRegistry meterRegistry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
   final JobWorkerMetrics metrics = JobWorkerMetrics
     .micrometer()
@@ -143,7 +143,7 @@ Here's an example using Micrometer APIs that integrate a gRPC [ClientInterceptor
 ```java
 import java.nio.channels.AsynchronousCloseException;
 
-public ZeebeClientBuilder configureClientMetrics(final ZeebeClientBuilder builder, final MeterRegistry meterRegistry, final ObservationRegistry observationRegistry) {
+public CamundaClientBuilder configureClientMetrics(final CamundaClientBuilder builder, final MeterRegistry meterRegistry, final ObservationRegistry observationRegistry) {
     final ClientInterceptor monitoringInterceptor = new MetricCollectingClientInterceptor(meterRegistry);
     final AsyncExecChainHandler monitoringHandler = new ObservationExecChainHandler(observationRegistry);
     return builder.withInterceptors(monitoringInterceptor).withChainHandlers(monitoringHandler);
@@ -155,8 +155,8 @@ public ZeebeClientBuilder configureClientMetrics(final ZeebeClientBuilder builde
 If you wish to tune your job worker executor, you can pass a custom, instrumented executor to the client builder. For example, if we use Micrometer:
 
 ```java
-public ZeebeClientBuilder configureClientMetrics(
-    final ZeebeClientBuilder builder,
+public CamundaClientBuilder configureClientMetrics(
+    final CamundaClientBuilder builder,
     final ScheduledExecutorService executor,
     final MeterRegistry meterRegistry) {
   final ScheduledExecutorService instrumentedExecutor = ExecutorServiceMetrics.monitor(meterRegistry, executor, "job-worker-executor");
@@ -247,4 +247,4 @@ client.newWorker()
 ### Default tenant
 
 You can configure the default tenant(s) using environment variables or system properties. It's configured using
-`DEFAULT_JOB_WORKER_TENANT_IDS` or `zeebe.client.worker.tenantIds` respectively.
+`CAMUNDA_DEFAULT_JOB_WORKER_TENANT_IDS` or `camunda.client.worker.tenantIds` respectively.
