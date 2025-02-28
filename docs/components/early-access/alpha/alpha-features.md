@@ -8,12 +8,12 @@ description: "Use alpha features to learn about upcoming changes, try them out, 
 You can use alpha features to learn about upcoming changes, try them out, and share feedback.
 
 :::info
-To understand the difference between an alpha feature and an alpha release, see [alpha features and releases](/reference/release-policy.md#alpha-features-and-releases).
+To understand the difference between an alpha feature and an alpha release, see [alpha features and releases](/reference/announcements-release-notes/release-policy.md#alpha-features-and-releases).
 :::
 
 ## Alpha
 
-Selected Camunda features and components are released as **alpha** versions. We release these in an early state for you to test and participate in development by sharing your feedback before they reach [general availability](/reference/release-policy.md#general-availability-ga).
+Selected Camunda features and components are released as **alpha** versions. We release these in an early state for you to test and participate in development by sharing your feedback before they reach [general availability](/reference/announcements-release-notes/release-policy.md#general-availability-ga).
 
 Limitations of alpha features and components include:
 
@@ -25,7 +25,7 @@ Limitations of alpha features and components include:
 - Support based on SLAs agreed with you, but bugs are treated with the same priority as feature or help requests. See [Camunda Enterprise Support Guide](https://camunda.com/services/enterprise-support-guide/).
 - No maintenance service.
 - (SaaS) No availability targets.
-- Released outside the standard [release policy](/reference/release-policy.md).
+- Released outside the standard [release policy](/reference/announcements-release-notes/release-policy.md).
 
 To learn more about using alpha features, see [enabling alpha features](/components/console/manage-organization/enable-alpha-features.md).
 

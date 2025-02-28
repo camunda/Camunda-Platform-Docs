@@ -1,10 +1,11 @@
 ---
-id: announcements-880
-title: "8.8 Announcements"
+id: 880-announcements
+title: "Announcements"
 description: "Important changes and updates for the Camunda 8.8 release including deprecation & removal notices."
+toc_max_heading_level: 2
 ---
 
-import DeployDiagramImg from '../img/deploy-diagram-modal.png';
+import DeployDiagramImg from '../../img/deploy-diagram-modal.png';
 
 Important changes and updates for the Camunda 8.8 release are summarized below.
 
@@ -12,22 +13,33 @@ Important changes and updates for the Camunda 8.8 release are summarized below.
 | :--------------------- | :--------------------------- | :------------ | :--- |
 | 14 October 2025        | 13 April 2027                |               |      |
 
-- [API updates](#api-updates-saasself-managed)
-- [Identity management updates](#identity-management-updates-saasself-managed)
-- [Installation and deployment updates](#installation-and-deployment-updates-self-managed)
-- [Camunda Exporter](#camunda-exporter-self-managed)
-- [Camunda Java client and Camunda Spring SDK](#camunda-java-client-and-camunda-spring-sdk-self-managed)
+## Versioning and environment changes
 
-## API updates <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+Camunda 8.8 introduces a streamlined architecture, consolidating core components such as Zeebe, Operate, Tasklist, Optimize, and Connectors into a single deployable unit. Enhanced deployment options are also included, such as new Kubernetes Helm guides, [deployment reference architectures](/self-managed/reference-architecture/reference-architecture.md), and improved support for local development with [Camunda 8 Run](/self-managed/setup/deploy/local/c8run.md).
 
-The 8.8 release includes API updates to support the move to a [Camunda 8 REST API](/apis-tools/camunda-api-rest/camunda-api-rest-overview.md) unified experience.
+You can download the alpha release of the unified package from the Camunda GitHub repository, either as an executable Java application (Camunda Orchestration Core) or a Docker image.
 
-### Camunda 8 REST API updates
+### Zeebe, Operate, Tasklist, and Identity must run on exact same minor and patch levels
 
-- New Query endpoints (with advanced search filtering) will be added for process entities (processes, decisions, user tasks, and forms). These will replace the component APIs (Tasklist, Operate) going forward.
-- New endpoints will allow you to manage and query users and resource permissions in an orchestration cluster.
-- All the Camunda 8 REST API endpoints will support resource-based authorizations to enable fine-grained permissions.
-- API terminology is aligned so technical assets have an identical, easily-understood, descriptive property name.
+From version `8.8.0` forward, the following core [Orchestration cluster](/self-managed/reference-architecture/reference-architecture.md#orchestration-cluster) components must run on the exact same `minor`and `patch` level to ensure compatibility: Zeebe, Operate, Tasklist, and Identity. See the [component version matrix](/reference/supported-environments.md#component-version-matrix) or the [Self-Managed reference architecture](/self-managed/reference-architecture/reference-architecture.md#orchestration-cluster) for an overview of components.
+
+### Installation and deployment updates <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+
+Camunda 8.8 introduces a streamlined architecture, consolidating core components such as Zeebe, Operate, Tasklist, Optimize, and Connectors into a single deployable unit. Enhanced deployment options are also included, such as new Kubernetes Helm guides, [deployment reference architectures](/self-managed/reference-architecture/reference-architecture.md), and improved support for local development with [Camunda 8 Run](/self-managed/setup/deploy/local/c8run.md).
+
+You can download the alpha release of the unified package from the Camunda GitHub repository, either as an executable Java application (Camunda Orchestration Core) or a Docker image.
+
+### Helm charts
+
+If you are using the recommended Camunda 8 deployment option ([Helm charts](/self-managed/setup/install.md)), the upgrade path from version 8.7 to 8.8 will be straightforward by changing the values file to the new syntax.
+
+New migration guides will also be provided to support you when migrating from a previous Camunda version.
+
+:::caution
+Additional upgrade considerations are necessary for deployments that use custom scripts, such as Docker containers, manual installations, or custom-developed Kubernetes deployments. For these deployments, customers can either continue to deploy with their original 8.7 topology and upgrade each component independently, or adopt our Helm chart approach for the upgrade, which allows for unifying the deployment into a single JAR or container executable.
+:::
+
+## Breaking changes
 
 ### Deprecated: Operate and Tasklist v1 REST APIs
 
@@ -55,10 +67,6 @@ With the 8.8 release, Camunda announces the deprecation of several [Zeebe gRPC](
 
 With the 8.8 release, the deprecated Tasklist GraphQL API will be removed from the product.
 
-<!-- :::info
-Learn more about these updates in Upcoming API Changes in Camunda 8.
-::: -->
-
 ### Removed: Deprecated OpenAPI objects
 
 :::warning
@@ -77,24 +85,39 @@ the [8.7 API key attributes overview][camunda8-api-overview].
 
 [camunda8-api-overview]: /versioned_docs/version-8.7/apis-tools/camunda-api-rest/camunda-api-rest-overview.md#api-key-attributes
 
-## Identity management updates <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+<!-- :::info
+Learn more about these updates in Upcoming API Changes in Camunda 8.
+::: -->
+
+## New features
+
+### Camunda 8 REST API updates <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+
+The 8.8 release includes API updates to support the move to a [Camunda 8 REST API](/apis-tools/camunda-api-rest/camunda-api-rest-overview.md) unified experience.
+
+- New Query endpoints (with advanced search filtering) will be added for process entities (processes, decisions, user tasks, and forms). These will replace the component APIs (Tasklist, Operate) going forward.
+- New endpoints will allow you to manage and query users and resource permissions in an orchestration cluster.
+- All the Camunda 8 REST API endpoints will support resource-based authorizations to enable fine-grained permissions.
+- API terminology is aligned so technical assets have an identical, easily-understood, descriptive property name.
+
+### Identity management updates <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
 
 The [Identity service](/self-managed/identity/what-is-identity.md) is enhanced to deliver greater flexibility, control, and security for both Self-Managed and SaaS users. These updates are part of our broader effort to streamline the platform’s architecture.
 
-### Cluster-level identity management
+#### Cluster-level identity management
 
 Identity settings will be configured at the orchestration cluster level, allowing each cluster to have unique OIDC configurations. This cluster-specific setup empowers organizations to assign different identity providers (IdPs) across clusters, offering improved control over permissions and user group mappings, resulting in a more streamlined and efficient configuration experience.
 
 For SaaS customers, identity management in Camunda 8.8 remains consistent with Camunda 8.7, allowing the attachment of a single IdP per organization. However, cluster-level identity capabilities are provided for SaaS as well as Self-Managed. This means that user groups, roles, and access permissions can now be managed at the cluster level, giving SaaS customers the same granular access control as in Self-Managed environments.
 
-### Decoupling from Keycloak <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+#### Decoupling from Keycloak <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
 
 Built-in Keycloak integration in Self-Managed is removed, allowing customers to use any compatible IdP.
 
 - Keycloak remains fully supported as an external option. For cluster-level identity management it must be connected as an external OIDC provider moving forward.
 - OpenID Connect (OIDC) remains the standard for seamless integration with chosen IdPs.
 
-### Resource-based permissions
+#### Resource-based permissions
 
 Resource-level permissions are introduced to control read and write permissions per specific resource.
 
@@ -105,27 +128,7 @@ Resource-level permissions are introduced to control read and write permissions 
 Learn more about these updates in Introducing Enhanced Identity Management in Camunda 8.8.
 ::: -->
 
-## Zeebe, Operate, Tasklist, and Identity must run on exact same minor and patch levels
-
-From version `8.8.0` forward, the following core [Orchestration cluster](../../self-managed/reference-architecture/reference-architecture.md#orchestration-cluster) components must run on the exact same `minor`and `patch` level to ensure compatibility: Zeebe, Operate, Tasklist, and Identity. See the [component version matrix](../supported-environments.md#component-version-matrix) or the [Self-Managed reference architecture](../../self-managed/reference-architecture/reference-architecture.md#orchestration-cluster) for an overview of components.
-
-## Installation and deployment updates <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
-
-Camunda 8.8 introduces a streamlined architecture, consolidating core components such as Zeebe, Operate, Tasklist, Optimize, and Connectors into a single deployable unit. Enhanced deployment options are also included, such as new Kubernetes Helm guides, [deployment reference architectures](/self-managed/reference-architecture/reference-architecture.md), and improved support for local development with [Camunda 8 Run](/self-managed/setup/deploy/local/c8run.md).
-
-You can download the alpha release of the unified package from the Camunda GitHub repository, either as an executable Java application (Camunda Orchestration Core) or a Docker image.
-
-### Helm charts
-
-If you are using the recommended Camunda 8 deployment option ([Helm charts](/self-managed/setup/install.md)), the upgrade path from version 8.7 to 8.8 will be straightforward by changing the values file to the new syntax.
-
-New migration guides will also be provided to support you when migrating from a previous Camunda version.
-
-:::caution
-Additional upgrade considerations are necessary for deployments that use custom scripts, such as Docker containers, manual installations, or custom-developed Kubernetes deployments. For these deployments, customers can either continue to deploy with their original 8.7 topology and upgrade each component independently, or adopt our Helm chart approach for the upgrade, which allows for unifying the deployment into a single JAR or container executable.
-:::
-
-## Camunda Exporter <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
+### Camunda Exporter <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span>
 
 A new Camunda Exporter brings the importer and archiving logic of web components (Tasklist and Operate) closer to the distributed platform (Zeebe). The index schema is also being harmonized.
 
@@ -136,7 +139,7 @@ The exporter can consume Zeebe records (mostly events created by the engine), ag
 
 The following diagram shows a simplified version of this work.
 
-![Camunda Exporter diagram](../img/target-camunda-exporter.png)
+![Camunda Exporter diagram](../../img/target-camunda-exporter.png)
 
 - For example, Tasklist and Operate Importers are still required for old data to be imported, but the Camunda exporter writes all new data into ES/OS. After old indices are drained, importers can be turned off.
 - The archiver, which takes care of the archiving of completed process instances, will be moved into the Zeebe system as well, to reduce the installation complexity and provide a better scaling and replication factor (based on partitions).
@@ -151,13 +154,13 @@ Camunda is harmonizing our index structure and usage.
 - With this change, several Operate indices can and will be used by Tasklist.
 - New indices have been created to integrate Identity into the system.
 
-![Harmonized indices schema](../img/harmonized-indices-schema.png)
+![Harmonized indices schema](../../img/harmonized-indices-schema.png)
 
 <!-- :::info
 Learn more about these updates in Streamlined Deployment with 8.7.
 ::: -->
 
-## Camunda Java client and Camunda Spring SDK
+### Camunda Java client and Camunda Spring SDK
 
 With the Camunda 8.8 release, Camunda Java Client and Camunda Spring SDK replace the Zeebe Java client and Zeebe Spring SDK. This allows you to use a single consolidated client to interact with Camunda orchestration clusters.
 
@@ -170,7 +173,7 @@ The `CamundaClient` replaces the `ZeebeClient`, offering the same functionality 
 
 :::
 
-### Key changes
+#### Key changes
 
 | Change                                          | Description                                                                                                                                                                                                                                                                                                        |
 | :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

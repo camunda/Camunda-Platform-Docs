@@ -5,7 +5,7 @@ description: Process applications allow you to deploy multiple related files tog
 ---
 
 :::note
-With 8.7, "milestone" has been renamed to "version". To learn more about this change, see [the related announcement](/reference/announcements/870.md#web-modeler-milestones-renamed-to-versions).
+With 8.7, "milestone" has been renamed to "version". To learn more about this change, see [the related announcement](/reference/announcements-release-notes/870/870-announcements.md#web-modeler-milestones-renamed-to-versions).
 :::
 
 Although you cannot version a process application itself, you can use [bulk version creation](versions.md#bulk-version-creation) and version tags to save a single snapshot of all the process application files in one action, instead of having to create separate versions for every file.

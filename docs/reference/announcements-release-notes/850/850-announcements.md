@@ -1,16 +1,17 @@
 ---
-id: announcements-850
+id: 850-announcements
 title: "8.5 - 8.3 Announcements"
 description: "Important announcements including deprecation & removal notices for the Camunda 8.5, 8.4, 8.3, and 8.2 releases."
+toc_max_heading_level: 2
 ---
 
 Important changes and updates for the Camunda 8.5, 8.4, and 8.3 releases are summarized below.
 
 ## Camunda 8.5
 
-| Release date | End of maintenance | Release notes                                        |
-| :----------- | :----------------- | :--------------------------------------------------- |
-| 9 April 2024 | 14 October 2025    | [8.5 release notes](/reference/release-notes/850.md) |
+| Release date | End of maintenance | Release notes                                                                        |
+| :----------- | :----------------- | :----------------------------------------------------------------------------------- |
+| 9 April 2024 | 14 October 2025    | [8.5 release notes](/reference/announcements-release-notes/850/850-release-notes.md) |
 
 ### Updated SaaS URLs
 
@@ -62,7 +63,7 @@ This was done to decouple the generation name from the particular patch level of
 
 You will learn about the particular component patch version changes in the update dialogue to the latest generation available. The following screenshot shows a sample update from `Camunda 8.5+gen1` to `Camunda 8.5+gen2`, where only the Connectors patch version changed.
 
-![New Generating naming sample showing an update dialogue from 8.5+gen1 to 8.5+gen2](../img/generation-naming-scheme-sample.png)
+![New Generating naming sample showing an update dialogue from 8.5+gen1 to 8.5+gen2](../../img/generation-naming-scheme-sample.png)
 
 Note that the actual values shown in this screenshot don't correspond to any actual generations and only serve as an example.
 

@@ -1,6 +1,6 @@
 ---
-id: 870
-title: "8.7 Release notes"
+id: 870-release-notes
+title: "Release notes"
 description: "Release notes for 8.7, including alphas"
 keywords:
   [
@@ -50,7 +50,7 @@ A new [ad-hoc subprocess](/components/modeler/bpmn/ad-hoc/ad-hoc.md) BPMN elemen
 ### Amazon OpenSearch Optimize support <span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span><span class="badge badge--medium" title="This feature affects Optimize">Optimize</span>
 
 :::note
-This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. Amazon OpenSearch Optimize support is now available in [8.8.0-alpha1](./880.md#amazon-opensearch-optimize-support-self-managedoptimize). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. Amazon OpenSearch Optimize support is now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-release-notes.md#amazon-opensearch-optimize-support-self-managedoptimize). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 Camunda 8 Self-Managed now fully supports the use of Amazon OpenSearch with Optimize.
@@ -127,10 +127,10 @@ To learn more about this feature, see [Git sync](/components/modeler/web-modeler
 
 <!-- https://github.com/camunda/product-hub/issues/2502 -->
 
-### Process Instance Migration <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span><span class="badge badge--medium" title="This feature affects Zeebe">Zeebe</span>
+### Process instance migration <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span><span class="badge badge--medium" title="This feature affects Zeebe">Zeebe</span>
 
 :::note
-This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. Process instance migration is now available in [8.8.0-alpha1](./880.md#process-instance-migration-saasself-managedzeebe). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. Process instance migration is now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-announcements.md#process-instance-migration-saasself-managedzeebe). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 Enhanced process instance migration now supports additional BPMN elements, enabling smoother transitions for your workflows and empowering operations teams to seamlessly migrate running process instances to updated process definitions without workarounds or manual intervention.
@@ -169,7 +169,7 @@ The predefined development stage cluster for the process application is also use
 ### User task listeners <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span><span class="badge badge--medium" title="This feature affects Modeler">Modeler</span><span class="badge badge--medium" title="This feature affects Operate">Operate</span>
 
 :::note
-This feature was originally released with 8.7.0-alpha2, and is no longer available in 8.7.0. User task listeners are now available in [8.8.0-alpha1](./880.md#user-task-listeners-saasself-managedmodeleroperate). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+This feature was originally released with 8.7.0-alpha2, and is no longer available in 8.7.0. User task listeners are now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-release-notes.md#user-task-listeners-saasself-managedmodeleroperate). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 Task lifecycle management is enhanced with user task listeners, allowing users to react to specific user task lifecycle events.
@@ -187,7 +187,7 @@ This enhancement streamlines operations and ensures smoother incident handling, 
 User task implementation type "Zeebe user task" is renamed to "Camunda user task", and set as the default implementation type.
 
 :::note
-As Job-worker user tasks managed by Camunda will be deprecated in Camunda 8.9, Camunda recommends you start using Camunda User Tasks (formerly known as Zeebe User Task) in your process definitions. To learn more, see [Announcements](/reference/announcements/870.md#deprecated-job-based-user-tasks-querying).
+As Job-worker user tasks managed by Camunda will be deprecated in Camunda 8.9, Camunda recommends you start using Camunda User Tasks (formerly known as Zeebe User Task) in your process definitions. To learn more, see [announcements](/reference/announcements-release-notes/870/870-announcements.md#deprecated-job-based-user-tasks-querying).
 :::
 
 ## 8.7.0-alpha2
@@ -200,7 +200,7 @@ As Job-worker user tasks managed by Camunda will be deprecated in Camunda 8.9, C
 
 :::caution
 
-This [alpha release](/reference/release-policy.md) contains a known issue where Self-Managed customers using the 8.7.0-alpha2 Helm Chart cannot login to Operate. This issue is due to key architecture refactoring and improvements, and will be resolved in the next release.
+This [alpha release](/reference/announcements-release-notes/release-policy.md) contains a known issue where Self-Managed customers using the 8.7.0-alpha2 Helm chart cannot login to Operate. This issue is due to key architecture refactoring and improvements, and will be resolved in the next release.
 
 :::
 
@@ -209,7 +209,7 @@ This [alpha release](/reference/release-policy.md) contains a known issue where 
 ### Camunda 8 REST API Query API <span class="badge badge--medium" title="This feature affects APIs">API</span>
 
 :::note
-The Query API was promoted from an alpha feature to stable in 8.7.0-alpha2, but is now moved back to an alpha feature for the 8.7 release. The stable Query API is now available in [8.8.0-alpha1](./880.md#camunda-8-rest-api-query-api-api). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+The Query API was promoted from an alpha feature to stable in 8.7.0-alpha2, but is now moved back to an alpha feature for the 8.7 release. The stable Query API is now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-release-notes.md#camunda-8-rest-api-query-api-api). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 You can now use a single Query API in the Camunda 8 REST API to find process and decision data instead of using multiple component APIs.
@@ -266,7 +266,7 @@ To learn more about this feature, see [HTTP Webhook Connector](/components/conne
 #### Spring SDK and Camunda REST API Migration
 
 :::note
-This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. The Camunda REST API migration is now available in [8.8.0-alpha1](./880.md#spring-sdk-and-camunda-rest-api-migration). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+This feature was originally released with 8.7.0-alpha3, and is no longer available in 8.7.0. The Camunda REST API migration is now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-announcements.md#spring-sdk-and-camunda-rest-api-migration). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 The Connectors experience is enhanced with the migration from the Spring Zeebe to the Camunda REST API, and the removal of dependency on the Operate client.
@@ -315,7 +315,7 @@ To learn more about this feature, see [view organization activity](/components/c
 ### Process instance migration <span class="badge badge--long" title="This feature affects SaaS">SaaS</span><span class="badge badge--long" title="This feature affects Self-Managed">Self-Managed</span><span class="badge badge--medium" title="This feature affects Zeebe">Zeebe</span>
 
 :::note
-This feature was originally released with 8.7.0-alpha2, and is no longer available in 8.7.0. Process instance migration is now available in [8.8.0-alpha1](./880.md#process-instance-migration-saasself-managedzeebe). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
+This feature was originally released with 8.7.0-alpha2, and is no longer available in 8.7.0. Process instance migration is now available in [8.8.0-alpha1](/reference/announcements-release-notes/880/880-release-notes.md#process-instance-migration-saasself-managedzeebe). For more information, see the Camunda 8.7 and 8.8 [release update blog](https://camunda.com/blog/2025/01/camunda-87-88-release-update/).
 :::
 
 Enhanced process instance migration allows you to solve problems with process definitions and use the latest process improvements.
