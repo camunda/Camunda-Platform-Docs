@@ -22,7 +22,7 @@ Camunda 8.8 is scheduled for release on 14 October 2025.
 - [Identity management updates](/reference/announcements/870.md#identity-management-updates-saasself-managed)
 - [Installation and deployment updates](/reference/announcements/870.md#installation-and-deployment-updates-self-managed)
 - [Camunda Java client and Camunda Spring SDK](/reference/announcements/870.md#camunda-java-client-and-camunda-spring-sdk-self-managed)
-- [Keycloak support upgraded to v25 and v26](/reference/announcements/870.md#keycloak-support-upgraded-to-v25-and-v26)
+- [Keycloak support upgraded to v25 and v26](/reference/announcements/870.md#identity-keycloak-support-upgraded-to-v25-and-v26-self-managed)
 
 </div>
 </div>
@@ -48,7 +48,7 @@ Camunda 8.7 is scheduled for release on 8 April 2025.
 - [Amazon Web Services (AWS) region support](/reference/announcements/870.md#amazon-web-services-aws-region-support-saas)
 - [Web Modeler Deploy diagram change](/reference/announcements/870.md#web-modeler-deploy-diagram-change)
 - [Southwest Asia for SaaS region](/reference/announcements/870.md#southeast-asia-region-for-saas-customers-saas)
-- [Keycloak support upgraded to v25 and v26](/reference/announcements/870.md#keycloak-support-upgraded-to-v25-and-v26)
+- [Keycloak support upgraded to v25 and v26](/reference/announcements/870.md#identity-keycloak-support-upgraded-to-v25-and-v26-self-managed)
 
 </div>
 </div>
