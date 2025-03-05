@@ -62,7 +62,7 @@ Over this guide, you will add and merge values in this file to configure your de
 You can find a reference example of this file here:
 
 ```hcl reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/base.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/base.yml
 ```
 
 :::danger Merging YAML files
@@ -180,7 +180,7 @@ Additionally, the Zeebe Gateway should be configured to use an encrypted connect
    Update your `values.yml` file with the following:
 
    ```yaml reference
-   https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/zeebe-gateway-route.yml
+   https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/zeebe-gateway-route.yml
    ```
 
    The domain used by the Zeebe Gateway for gRPC is `zeebe-$DOMAIN_NAME` which different from the one used for the rest, namely `$DOMAIN_NAME`, to avoid any conflicts. It is also important to note that the port used for gRPC is `443`.
@@ -190,7 +190,7 @@ Additionally, the Zeebe Gateway should be configured to use an encrypted connect
 Update your `values.yml` file with the following:
 
 ```yaml reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/operate-route.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/operate-route.yml
 ```
 
 The actual configuration properties can be reviewed [in the Operate configuration documentation](/self-managed/operate-deployment/operate-configuration.md#zeebe-broker-connection).
@@ -200,7 +200,7 @@ The actual configuration properties can be reviewed [in the Operate configuratio
    Update your `values.yml` file with the following:
 
 ```yaml reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/tasklist-route.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/tasklist-route.yml
 ```
 
 The actual configuration properties can be reviewed [in the Tasklist configuration documentation](/self-managed/tasklist-deployment/tasklist-configuration.md#zeebe-broker-connection).
@@ -208,7 +208,7 @@ The actual configuration properties can be reviewed [in the Tasklist configurati
 1. **Connectors:** update your `values.yml` file with the following:
 
 ```yaml reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/connectors-route.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/connectors-route.yml
 ```
 
 The actual configuration properties can be reviewed [in the Connectors configuration documentation](/self-managed/connectors-deployment/connectors-configuration.md#zeebe-broker-connection).
@@ -218,7 +218,7 @@ The actual configuration properties can be reviewed [in the Connectors configura
 1. Set up the global configuration to enable the single Ingress definition with the host. Update your configuration file as shown below:
 
 ```yaml reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/domain.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/helm-values/domain.yml
 ```
 
 <!--Intended space left for not breaking the build!-->
@@ -251,7 +251,7 @@ However, you can use `kubectl port-forward` to access the Camunda platform witho
 To make this work, you will need to configure the deployment to reference `localhost` with the forwarded port. Update your `values.yml` file with the following:
 
 ```yaml reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/no-domain.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/no-domain.yml
 ```
 
   </TabItem>
@@ -271,7 +271,7 @@ The `global.compatibility.openshift.adaptSecurityContext` variable in your value
 - `disabled`: The `runAsUser` and `fsGroup` values will not be modified (default).
 
 ```hcl reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/scc.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/scc.yml
 ```
 
 </TabItem>
@@ -280,7 +280,7 @@ https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/
 To use permissive SCCs, simply install the charts as they are. Follow the [general Helm deployment guide](/self-managed/setup/install.md).
 
 ```hcl reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/helm-values/no-scc.yml
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/helm-values/no-scc.yml
 ```
 
 </TabItem>
@@ -305,7 +305,7 @@ cat generated-values.yml
 Next, store various passwords in a Kubernetes secret, which will be used by the Helm chart. Below is an example of how to set up the required secret. You can use `openssl` to generate random secrets and store them in environment variables:
 
 ```bash reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/generate-passwords.sh
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/procedure/generate-passwords.sh
 ```
 
 Use these environment variables in the `kubectl` command to create the secret.
@@ -313,7 +313,7 @@ Use these environment variables in the `kubectl` command to create the secret.
 - The `smtp-password` should be replaced with the appropriate external value ([see how it's used by Web Modeler](/self-managed/modeler/web-modeler/configuration/configuration.md#smtp--email)).
 
 ```bash reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/create-identity-secret.sh
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/procedure/create-identity-secret.sh
 ```
 
 ### Install Camunda 8 using Helm
@@ -323,13 +323,13 @@ Now that the `generated-values.yml` is ready, you can install Camunda 8 using He
 The following are the required environment variables with some example values:
 
 ```bash reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/chart-env.sh
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/procedure/chart-env.sh
 ```
 
 Then run the following command:
 
 ```bash reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/procedure/install/install-chart.sh
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/generic/openshift/single-region/procedure/install-chart.sh
 ```
 
 This command:

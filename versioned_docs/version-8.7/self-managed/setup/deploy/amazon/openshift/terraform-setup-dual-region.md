@@ -161,7 +161,7 @@ This module sets up the foundational configuration for ROSA HCP and Terraform us
 
 We will leverage [Terraform modules](https://developer.hashicorp.com/terraform/language/modules), which allow us to abstract resources into reusable components, simplifying infrastructure management.
 
-The [Camunda-provided module](https://github.com/camunda/camunda-tf-rosa) is publicly available and serves as a starting point for deploying Red Hat OpenShift clusters on AWS using a Hosted Control Plane.
+The [Camunda-provided module](https://github.com/camunda/camunda-deployment-references/tree/camunda/8.7/aws/openshift/rosa-hcp-dual-region/) is publicly available and serves as a starting point for deploying Red Hat OpenShift clusters on AWS using a Hosted Control Plane.
 It is highly recommended to review this module before implementation to understand its structure and capabilities.
 
 Please note that this module is based on the official [ROSA HCP Terraform module documentation](https://docs.openshift.com/rosa/rosa_hcp/terraform/rosa-hcp-creating-a-cluster-quickly-terraform.html).
@@ -334,13 +334,13 @@ this guide uses a dedicated [aws terraform provider](https://registry.terraform.
 
 1. Configure user access to the clusters. By default, the user who creates an OpenShift cluster has administrative access. If you want to grant access to other users, follow the [Red Hat documentation for granting admin rights to users](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-admin-rights.html) when the cluster will be created.
 
-1. Customize the clusters setup. The module offers various input options that allow you to further customize the cluster configuration. For a comprehensive list of available options and detailed usage instructions, refer to the [ROSA module documentation](https://github.com/camunda/camunda-tf-rosa/blob/v2.0.0/modules/rosa-hcp/README.md).
+1. Customize the clusters setup. The module offers various input options that allow you to further customize the cluster configuration. For a comprehensive list of available options and detailed usage instructions, refer to the [ROSA module documentation](https://github.com/camunda/camunda-deployment-references/tree/camunda/8.7/aws/openshift/rosa-hcp-dual-region/README.md).
 
 :::caution Camunda Terraform module
 
 This ROSA module is based on the [official Red Hat Terraform module for ROSA HCP](https://registry.terraform.io/modules/terraform-redhat/rosa-hcp/rhcs/latest). Please be aware of potential differences and choices in implementation between this module and the official one.
 
-We invite you to consult the [Camunda ROSA module documentation](https://github.com/camunda/camunda-tf-rosa/blob/v2.0.0/modules/rosa-hcp/README.md) for more information.
+We invite you to consult the [Camunda ROSA module documentation](https://github.com/camunda/camunda-deployment-references/tree/camunda/8.7/aws/openshift/rosa-hcp-dual-region/README.md) for more information.
 
 :::
 

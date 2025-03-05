@@ -160,7 +160,7 @@ This S3 bucket will now securely store your Terraform state files with versionin
 Once the S3 bucket is created, configure your `config.tf` file to use the S3 backend for managing the Terraform state:
 
 ```hcl reference
-https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/config.tf
+https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region/config.tf
 ```
 
 #### Initialize Terraform
@@ -185,7 +185,7 @@ This module sets up the foundational configuration for ROSA HCP and Terraform us
 
 We will leverage [Terraform modules](https://developer.hashicorp.com/terraform/language/modules), which allow us to abstract resources into reusable components, simplifying infrastructure management.
 
-The [Camunda-provided module](https://github.com/camunda/camunda-tf-rosa) is publicly available and serves as a robust starting point for deploying a Red Hat OpenShift cluster on AWS using a Hosted Control Plane. It is highly recommended to review this module before implementation to understand its structure and capabilities.
+The [Camunda-provided module](https://github.com/camunda/camunda-deployment-references/tree/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region) is publicly available and serves as a robust starting point for deploying a Red Hat OpenShift cluster on AWS using a Hosted Control Plane. It is highly recommended to review this module before implementation to understand its structure and capabilities.
 
 Please note that this module is based on the official [ROSA HCP Terraform module documentation](https://docs.openshift.com/rosa/rosa_hcp/terraform/rosa-hcp-creating-a-cluster-quickly-terraform.html). It is presented as an example for running Camunda 8 in ROSA. For advanced use cases or custom setups, we encourage you to use the official module, which includes vendor-supported features.
 
@@ -278,14 +278,15 @@ To set up a ROSA cluster, certain prerequisites must be configured on your AWS a
    :::
 
    ```hcl reference
-   https://github.com/camunda/camunda-deployment-references/blob/main/aws/rosa-hcp/camunda-versions/8.6/cluster.tf
+   https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region/cluster.tf
+
    ```
 
    :::caution Camunda Terraform module
 
    This ROSA module is based on the [official Red Hat Terraform module for ROSA HCP](https://registry.terraform.io/modules/terraform-redhat/rosa-hcp/rhcs/latest). Please be aware of potential differences and choices in implementation between this module and the official one.
 
-   We invite you to consult the [Camunda ROSA module documentation](https://github.com/camunda/camunda-tf-rosa/blob/v2.0.0/modules/rosa-hcp/README.md) for more information.
+   We invite you to consult the [Camunda ROSA module documentation](https://github.com/camunda/camunda-deployment-references/tree/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region/README.md) for more information.
 
    :::
 
@@ -297,7 +298,7 @@ To set up a ROSA cluster, certain prerequisites must be configured on your AWS a
 
 4. Configure user access to the cluster. By default, the user who creates the OpenShift cluster has administrative access, if you want to grant access to other users, please follow the [Red Hat documentation for granting admin rights to users](https://docs.openshift.com/rosa/cloud_experts_tutorials/cloud-experts-getting-started/cloud-experts-getting-started-admin-rights.html) when the cluster is created.
 
-5. Customize the cluster setup. The module offers various input options that allow you to further customize the cluster configuration. For a comprehensive list of available options and detailed usage instructions, refer to the [ROSA module documentation](https://github.com/camunda/camunda-tf-rosa/blob/v2.0.0/modules/rosa-hcp/README.md).
+5. Customize the cluster setup. The module offers various input options that allow you to further customize the cluster configuration. For a comprehensive list of available options and detailed usage instructions, refer to the [ROSA module documentation](https://github.com/camunda/camunda-deployment-references/tree/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region/README.md).
 
 ### Define outputs
 
@@ -333,7 +334,7 @@ Terraform will now create the OpenShift cluster with all the necessary configura
 
 Depending on the installation path you have chosen, you can find the reference files used on this page:
 
-- **Standard installation:** [Reference Files](https://github.com/camunda/camunda-deployment-references/tree/main/aws/rosa-hcp/camunda-versions/8.6)
+- **Standard installation:** [Reference Files](https://github.com/camunda/camunda-deployment-references/blob/feature/integrate-tests-rosa/aws/openshift/rosa-hcp-single-region/)
 
 ## 2. Preparation for Camunda 8 installation
 
