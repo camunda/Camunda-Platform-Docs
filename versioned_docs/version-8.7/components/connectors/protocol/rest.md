@@ -276,7 +276,7 @@ Starting from version 8.7.0, the REST Connector supports storing the response as
 :::
 
 :::note
-If your endpoint returns multiple Set-Cookie headers and you need to capture all of them, set `groupSetCookieHeaders` to `true` to aggregate them into a list.
+If your endpoint returns multiple Set-Cookie headers and you need to capture all of them, set `groupSetCookieHeaders` to `true` in the element template XML. This aggregates the headers into a list.
 :::
 
 ## Output mapping

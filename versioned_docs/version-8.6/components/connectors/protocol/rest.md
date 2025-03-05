@@ -222,7 +222,7 @@ The following fields are available in the `response` variable:
 - **headers**: Response headers
 
 :::note
-If your endpoint returns multiple Set-Cookie headers and you need to capture all of them, set `groupSetCookieHeaders` to `true` to aggregate them into a list.
+If your endpoint returns multiple Set-Cookie headers and you need to capture all of them, set `groupSetCookieHeaders` to `true` in the element template XML. This aggregates the headers into a list. This feature is available since version 8.6.7.
 :::
 
 ## Output mapping
