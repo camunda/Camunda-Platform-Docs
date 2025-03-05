@@ -1,12 +1,43 @@
 ---
 id: notices
 title: "Security notices"
-description: "Let's take a closer look at security notices, reporting vulnerabilities, and addiitonal security information."
+description: "Let's take a closer look at security notices, reporting vulnerabilities, and additional security information."
 ---
 
 ## Security notices
 
 Camunda publishes security notices after fixes are available.
+
+### Notice 14
+
+#### Publication date
+
+March 6th, 2025
+
+#### Product affected
+
+Camunda Web Modeler
+
+#### Impact
+
+The version of `koa` used by Camunda Web Modeler was affected by the following vulnerability:
+
+- https://nvd.nist.gov/vuln/detail/CVE-2025-25200
+
+#### How to determine if the installation is affected
+
+You are using Camunda Web Modeler version 8.3.16, 8.4.14, 8.5.15, 8.6.7, 8.7.0-alpha4, 8.8.0-alpha1 or previous.
+
+#### Solution
+
+Camunda has provided the following releases which contain the fix:
+
+- [Web Modeler 8.3.17](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.3.17)
+- [Web Modeler 8.4.15](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.4.15)
+- [Web Modeler 8.5.16](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.5.16)
+- [Web Modeler 8.6.8](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.6.8)
+- [Web Modeler 8.7.0-alpha5](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.7.0-alpha5)
+- [Web Modeler 8.8.0-alpha2](https://github.com/camunda/web-modeler/releases/tag/self-managed%2F8.8.0-alpha2)
 
 ### Notice 13
 
