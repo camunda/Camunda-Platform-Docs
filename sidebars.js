@@ -1156,6 +1156,17 @@ module.exports = {
         "self-managed/operational-guides/configure-multi-tenancy",
         {
           type: "category",
+          label: "Production guides",
+          link: {
+            type: "doc",
+            id: "self-managed/operational-guides/production-guide/helm-chart-production-guide",
+          },
+          items: [
+            "self-managed/operational-guides/production-guide/helm-chart-production-guide",
+          ],
+        },
+        {
+          type: "category",
           label: "Backup and restore",
           link: {
             type: "doc",
