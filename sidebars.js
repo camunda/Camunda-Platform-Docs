@@ -121,6 +121,7 @@ module.exports = {
             "components/console/manage-clusters/manage-ip-allowlists",
             "components/console/manage-clusters/create-backups",
             "components/console/manage-clusters/settings",
+            "components/console/manage-clusters/cluster-capacity",
           ],
         },
         {
