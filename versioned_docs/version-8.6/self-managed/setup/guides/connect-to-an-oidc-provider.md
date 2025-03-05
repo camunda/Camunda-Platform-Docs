@@ -165,7 +165,7 @@ global:
       identity:
         clientId: <Client ID from Step 2>
         existingSecret: <Client secret from Step 5>
-        audience: <Audience from Step 1>
+        audience: <Client ID from Step 2>
         initialClaimName: <Initial claim name if not using the default "oid">
         initialClaimValue: <Initial claim value>
         redirectUrl: <See the Helm value in the table below>
