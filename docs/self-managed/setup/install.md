@@ -5,6 +5,15 @@ sidebar_label: "Install"
 description: "Camunda provides continuously improved Helm charts, of which are not cloud provider-specific so you can choose your Kubernetes provider."
 ---
 
+:::note
+The 13.0.0-alpha2 Helm chart released with Camunda 8.8.0-alpha2 establishes a new default setup to support 8.8 [Identity management updates](/docs/reference/announcements/880.md#identity-management-updates-saasself-managed). Currently, this setup is limited to the following components:
+
+- The Orchestration core (Zeebe, Operate, Tasklist, and Orchestration Identity)
+- Connectors
+
+This temporary limitation will be resolved in subsequent alpha releases.
+:::
+
 We recommend using Kubernetes and Helm to deploy and run Camunda 8 Self-Managed in production.
 
 There are many ways you can provision and configure a Kubernetes cluster, and there are a number of architectural choices you need to make. Will your workers run in the Kubernetes cluster or external to it? You will need to configure your Kubernetes cluster and modify this to suit the architecture you are building.
