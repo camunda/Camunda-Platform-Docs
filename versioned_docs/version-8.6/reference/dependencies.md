@@ -24,7 +24,7 @@ import TabItem from "@theme/TabItem";
 
 ### Camunda 8
 
-- **Dependencies:** Find CycloneDX SBOM files, which list all direct and transitive third-party dependencies and their respective licenses, in the [release assets](https://github.com/camunda/camunda/releases) of each Camunda 8 release.
+- **Dependencies:** CycloneDX SBOM files, that list all direct and transitive third-party dependencies and their respective licenses, are provided [on demand](mailto:dependency-request@camunda.com).
 - **Source code:** Access the source code for Camunda 8 at [github.com/camunda/camunda](https://github.com/camunda/camunda).
 
 </TabItem>
