@@ -192,7 +192,7 @@ If you're using the raw `StreamActivatedJobs` RPC, or want to add support for th
 
 If you wish to test this, you can do so by simulating a very slow worker with your new implementation. Then, start generating many jobs on the server side (e.g. create many process instances with lots of jobs). You should then observe backpressure via server side metrics, or many `Job.YIELD` commands written to the log.
 
-Refer to the [Java and Go implementations](https://github.com/camunda/camunda/tree/main/clients) for more information.
+Refer to the [implementations](https://github.com/camunda/camunda/tree/main/clients) for more information.
 
 #### Detecting backpressure
 
