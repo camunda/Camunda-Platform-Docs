@@ -95,6 +95,10 @@ RewriteRule ^docs/reference/bpmn-processes/?(.*)$ /docs/components/modeler/bpmn/
 # 3. Specific content moves
 ##################################################################################
 
+# Remove go and zbctl pages, redirect to CCH
+RewriteRule ^docs/apis-tools/community-clients/cli-client/(.*)$ https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md [R=301,L]
+RewriteRule ^docs/apis-tools/community-clients/go-client/(.*)$ https://github.com/camunda-community-hub/zeebe-client-go [R=301,L]
+
 # Remove meta page
 RewriteRule ^meta/ / [R=301,L]
 

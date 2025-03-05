@@ -8,7 +8,7 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 :::note
-This guide includes steps with community-supported[`zbctl`](/apis-tools/community-clients/cli-client/index.md).
+This guide includes steps with community-supported[`zbctl`](https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md).
 :::
 
 Every process instance created for the [`order-process.bpmn`](/bpmn/operate/order-process.bpmn) process model requires an `orderValue` so the XOR gateway evaluation will happen properly.

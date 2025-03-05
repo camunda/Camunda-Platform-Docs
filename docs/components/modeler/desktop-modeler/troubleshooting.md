@@ -54,11 +54,11 @@ To produce logging output, you can also run Desktop Modeler from the command lin
 
 You try to connect (i.e., to deploy) to a remote Zeebe instance, and Desktop Modeler tells you it "cannot find a running Zeebe."
 
-To resolve this issue, check if you can connect to Zeebe through another client, i.e., community-supported[`zbctl`](/apis-tools/community-clients/cli-client/index.md). If that works, [further debug your Zeebe connection](#debug-zeebe-connection-issues). If that does not work, resolve the [general connection issue](#resolve-a-general-zeebe-connection-issue) first.
+To resolve this issue, check if you can connect to Zeebe through another client, i.e., community-supported[`zbctl`](https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md). If that works, [further debug your Zeebe connection](#debug-zeebe-connection-issues). If that does not work, resolve the [general connection issue](#resolve-a-general-zeebe-connection-issue) first.
 
 ## Resolve a general Zeebe connection issue
 
-You try to connect to Zeebe from both Desktop Modeler _and_ community-supported[`zbctl`](/apis-tools/community-clients/cli-client/index.md), and neither of them works. General connection failures can have a couple of reasons:
+You try to connect to Zeebe from both Desktop Modeler _and_ community-supported[`zbctl`](https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md), and neither of them works. General connection failures can have a couple of reasons:
 
 ### The (remote) Zeebe instance is not reachable
 
@@ -72,7 +72,7 @@ Secure connections to Zeebe require [HTTP/2 over TLS with protocol negotiation v
 
 ## Debug Zeebe connection issues
 
-You can connect to Zeebe via community-supported[`zbctl`](/apis-tools/community-clients/cli-client/index.md) or another API client. However, connecting through Desktop Modeler fails.
+You can connect to Zeebe via community-supported[`zbctl`](https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md) or another API client. However, connecting through Desktop Modeler fails.
 
 ### Secure connection to Zeebe fails
 

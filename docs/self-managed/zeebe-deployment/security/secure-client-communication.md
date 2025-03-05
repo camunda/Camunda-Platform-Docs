@@ -120,7 +120,7 @@ There is one caveat: in order for the client to accept this self-signed certific
 Here we will describe a few ways the clients and gateway could be misconfigured and what those errors look like. Hopefully, this will help you recognize these situations and provide an easy fix.
 
 :::note
-`zbctl` is a [community-supported client](/apis-tools/community-clients/cli-client/index.md).
+`zbctl` is a [community-supported client](https://github.com/camunda-community-hub/zeebe-client-go/blob/main/cmd/zbctl/zbctl.md).
 :::
 
 ### TLS is enabled in `zbctl` but disabled in the gateway
