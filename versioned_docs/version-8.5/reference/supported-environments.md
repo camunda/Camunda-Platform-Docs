@@ -36,7 +36,7 @@ For example, 1.2+ means support for the minor version 2, and any higher minors (
 ## Clients
 
 - **Zeebe Java Client**: OpenJDK 8+
-- **Zeebe Spring SDK**: OpenJDK 17+
+- **Spring Zeebe SDK**: OpenJDK 17+
 - **Zeebe Go Client**: Go 1.13+
 - **zbctl**: Windows, macOS, and Linux (latest)
 - **Connector SDK**: OpenJDK 17+

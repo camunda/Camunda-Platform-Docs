@@ -164,4 +164,4 @@ See [the configuration documentation](/apis-tools/spring-zeebe-sdk/configuration
 
 ## Writing test cases
 
-To learn more about writing test cases using Zeebe Process Test, see [Zeebe Spring SDK integration](../java-client/zeebe-process-test.md#zeebe-spring-sdk-integration).
+To learn more about writing test cases using Zeebe Process Test, see [Spring Zeebe SDK integration](../java-client/zeebe-process-test.md#zeebe-spring-sdk-integration).

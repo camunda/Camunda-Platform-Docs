@@ -8,7 +8,7 @@ This project allows you to leverage Zeebe APIs ([gRPC](/apis-tools/zeebe-api/grp
 
 ## Version compatibility
 
-| Zeebe Spring SDK version | JDK  | Camunda version | Bundled Spring Boot version |
+| Spring Zeebe SDK version | JDK  | Camunda version | Bundled Spring Boot version |
 | ------------------------ | ---- | --------------- | --------------------------- |
 | 8.5.x                    | ≥ 17 | 8.5.x           | 3.2.x                       |
 | 8.6.x                    | ≥ 17 | 8.6.x           | 3.3.x                       |
@@ -165,4 +165,4 @@ See [the configuration documentation](/apis-tools/spring-zeebe-sdk/configuration
 
 ## Writing test cases
 
-To learn more about writing test cases using Zeebe Process Test, see [Zeebe Spring SDK integration](../java-client/zeebe-process-test.md#zeebe-spring-sdk-integration).
+To learn more about writing test cases using Zeebe Process Test, see [Spring Zeebe SDK integration](../java-client/zeebe-process-test.md#zeebe-spring-sdk-integration).

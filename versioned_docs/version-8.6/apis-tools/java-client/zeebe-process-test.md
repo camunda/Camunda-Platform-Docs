@@ -51,11 +51,11 @@ Whenever this Java version changes, you'll either have to [switch to the testcon
 </dependency>
 ```
 
-## Zeebe Spring SDK integration
+## Spring Zeebe SDK integration
 
-You can add testing to your Zeebe Spring SDK setup as follows.
+You can add testing to your Spring Zeebe SDK setup as follows.
 
-### Zeebe Spring SDK embedded module
+### Spring Zeebe SDK embedded module
 
 To integrate an in-memory test engine and use assertions, add the following Maven dependency:
 
@@ -68,7 +68,7 @@ To integrate an in-memory test engine and use assertions, add the following Mave
 </dependency>
 ```
 
-### Zeebe Spring SDK testcontainers module
+### Spring Zeebe SDK testcontainers module
 
 To integrate a testcontainer engine and use assertions, add the following Maven dependency:
 
