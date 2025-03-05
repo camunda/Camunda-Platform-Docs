@@ -77,6 +77,7 @@ Camunda 8.6 was released on 8 October, 2024.
 - [Camunda 8 Self-Managed](/reference/announcements/860.md#camunda-8-self-managed)
 - [Camunda Optimize artifact and Docker tag separation](/reference/announcements/860.md#camunda-optimize-artifact-and-docker-tag-separation)
 - [New base path for Operate and Tasklist web applications](/reference/announcements/860.md#new-base-path-for-operate-and-tasklist-web-applications)
+- [New default port for `/actuator` endpoints](/reference/announcements/860.md#new-default-port-for-actuator-endpoints)
 
 </div>
 </div>

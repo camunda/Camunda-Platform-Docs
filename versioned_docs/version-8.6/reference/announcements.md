@@ -60,7 +60,7 @@ The Zeebe Go Client and CLI client (zbctl) will be [officially deprecated](https
 
 The documentation of the Zeebe Go Client and CLI client (zbctl) moved to the [community clients section](/apis-tools/community-clients/index.md).
 
-## Zeebe Spring SDK test support in 8.6.7
+### Zeebe Spring SDK test support in 8.6.7
 
 [Testing support for the Zeebe Spring SDK](../apis-tools/spring-zeebe-sdk/getting-started.md#writing-test-cases) is available in the 8.6.7 release.
 
@@ -192,6 +192,10 @@ We are introducing a new base path for both the Operate and Tasklist **web appli
 :::note
 **API URLs** for both Operate and Tasklist remain **unchanged**.
 :::
+
+### New default port for `/actuator` endpoints
+
+The `/actuator` endpoints (including `/backups`) now default to port 9600. Ensure your `management.server.port` configuration parameter is correctly set before working with the [management API](/self-managed/zeebe-deployment/operations/management-api.md).
 
 ## Camunda 8.5
 
@@ -390,6 +394,14 @@ Web Modeler versions 8.2.7 to 8.2.12 are affected by [camunda/issues#677](https:
 If you are using one of these versions, you should first update to Web Modeler 8.2.13 (or a subsequent patch version) before upgrading to a later minor version (8.3 or higher).
 
 If your current version of Web Modeler is 8.2.6 or earlier, you may directly upgrade to a later minor version.
+
+### Breaking changes to the backup API
+
+This release introduces breaking changes, including:
+
+- The [get backup state API and response codes](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md#get-backup-state-api).
+- The backup URL has changed to `/backups`. For example, `curl 'http://localhost:8080/actuator/backups'` (rather than the previously used `backup`).
+- `backupId` must be of integer type now instead of string, which is in sync with Zeebe `backupId` requirements.
 
 ### Do not update to Camunda 8.2.22
 

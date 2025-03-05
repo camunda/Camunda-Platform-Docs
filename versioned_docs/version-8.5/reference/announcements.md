@@ -235,6 +235,14 @@ If you are using one of these versions, you should first update to Web Modeler 8
 
 If your current version of Web Modeler is 8.2.6 or earlier, you may directly upgrade to a later minor version.
 
+### Breaking changes to the backup API
+
+This release introduces breaking changes, including:
+
+- The [get backup state API and response codes](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md#get-backup-state-api).
+- The backup URL has changed to `/backups`. For example, `curl 'http://localhost:8080/actuator/backups'` (rather than the previously used `backup`).
+- `backupId` must be of integer type now instead of string, which is in sync with Zeebe `backupId` requirements.
+
 ### Do not update to Camunda 8.2.22
 
 :::caution
