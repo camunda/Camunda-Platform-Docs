@@ -3,7 +3,25 @@ name: Check versions
 on: pull_request
 
 jobs:
+  check-for-skip-label:
+    name: "Check for `check-versions:skip` label"
+    runs-on: ubuntu-latest
+    steps:
+      - id: inspect-labels
+        run: |
+          if echo "$LABELS" | grep -q "\"check-versions:skip\""; then
+            echo "Skipping check-versions, as requested!"
+            echo "skip-workflow=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+    outputs:
+      skip-workflow: ${{ steps.inspect-labels.outputs.skip-workflow }}
+
   list-pr-changes:
+    name: "List missing versions"
+    needs: check-for-skip-label
+    if: needs.check-for-skip-label.outputs.skip-workflow != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout last two commits of the PR
@@ -41,7 +59,9 @@ jobs:
 
             ${{ env.MESSAGES }}
 
-            You may have done this intentionally, but we wanted to point it out in case you didn't. You can read more about the versioning within our docs in our [documentation guidelines](https://github.com/camunda/camunda-docs/blob/c666b7e5e35bfe31468ce4ac679ea7b62ab86d73/howtos/documentation-guidelines.md#versions).
+            You may have done this intentionally, but we wanted to point it out in case you didn't. You can tell me to ignore version discrepancies by adding the `check-versions:skip` label.
+
+            You can also read more about the versioning within our docs in our [documentation guidelines](https://github.com/camunda/camunda-docs/blob/c666b7e5e35bfe31468ce4ac679ea7b62ab86d73/howtos/documentation-guidelines.md#versions).
           comment_tag: check-versions
 
       - name: Comment 'LGTM' on PR once potential version issues are resolved

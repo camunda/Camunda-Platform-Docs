@@ -1,0 +1,21 @@
+name: Labeled to skip check-versions?
+
+on:
+  label:
+    types: [created]
+
+jobs:
+  pr_commented:
+    name: Sniff for label
+    if: ${{ github.event.label.name == 'check-versions:skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add/edit a comment that says we're skipping version-checking from now on.
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            :wave: :robot: :zipper_mouth_face: As requested, we'll skip the check-versions workflow on this PR. 
+
+            You can read more about the versioning within our docs in our [documentation guidelines](https://github.com/camunda/camunda-docs/blob/c666b7e5e35bfe31468ce4ac679ea7b62ab86d73/howtos/documentation-guidelines.md#versions).
+          comment_tag: check-versions
+          create_if_not_exists: true
