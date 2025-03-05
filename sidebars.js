@@ -1025,111 +1025,105 @@ module.exports = {
   "Self-Managed": [
     "self-managed/about-self-managed",
     {
-      Setup: [
+      type: "category",
+      label: "Get started",
+      link: {
+        type: "doc",
+        id: "self-managed/get-started/index",
+      },
+      items: [
+        "self-managed/setup/deploy/local/c8run",
+        "self-managed/setup/deploy/local/local-kubernetes-cluster",
+      ],
+    },
+    {
+      Install: [
         "self-managed/setup/overview",
-        "self-managed/setup/install",
+        {
+          type: "doc",
+          label: "Helm",
+          id: "self-managed/setup/install",
+        },
+        "self-managed/setup/deploy/other/docker",
+        "self-managed/setup/deploy/local/manual",
+      ],
+    },
+    {
+      type: "category",
+      label: "Deploy",
+      link: {
+        type: "doc",
+        id: "self-managed/setup/index",
+      },
+      items: [
+        {
+          "Reference architecture": [
+            "self-managed/reference-architecture/reference-architecture",
+            "self-managed/reference-architecture/manual/manual",
+          ],
+        },
+        {
+          "Amazon (AWS)": [
+            {
+              type: "category",
+              label: "Amazon EKS",
+              link: {
+                type: "doc",
+                id: "self-managed/setup/deploy/amazon/amazon-eks/amazon-eks",
+              },
+              items: [
+                "self-managed/setup/deploy/amazon/amazon-eks/eks-eksctl",
+                "self-managed/setup/deploy/amazon/amazon-eks/eks-terraform",
+                "self-managed/setup/deploy/amazon/amazon-eks/eks-helm",
+                "self-managed/setup/deploy/amazon/amazon-eks/dual-region",
+                "self-managed/setup/deploy/amazon/amazon-eks/irsa",
+              ],
+            },
+            {
+              type: "category",
+              label: "ROSA",
+              link: {
+                type: "doc",
+                id: "self-managed/setup/deploy/amazon/openshift/terraform-setup",
+              },
+              items: [
+                "self-managed/setup/deploy/amazon/openshift/terraform-setup",
+                "self-managed/setup/deploy/amazon/openshift/terraform-setup-dual-region",
+              ],
+            },
+            {
+              type: "category",
+              label: "Amazon MarketPlace",
+              link: {
+                type: "doc",
+                id: "self-managed/setup/deploy/amazon/aws-marketplace",
+              },
+              items: [],
+            },
+            "self-managed/setup/deploy/amazon/aws-ec2",
+          ],
+          "Microsoft (Azure)": [
+            "self-managed/setup/deploy/azure/microsoft-aks",
+          ],
+          "Google (GCP)": ["self-managed/setup/deploy/gcp/google-gke"],
+          "Red Hat (OpenShift)": [
+            "self-managed/setup/deploy/openshift/redhat-openshift",
+          ],
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Update",
+      link: {
+        type: "doc",
+        id: "self-managed/update/index",
+      },
+      items: [
         "self-managed/setup/upgrade",
         {
           type: "category",
-          label: "Deploy",
-          items: [
-            {
-              Local: [
-                "self-managed/setup/deploy/local/c8run",
-                "self-managed/setup/deploy/local/local-kubernetes-cluster",
-                "self-managed/setup/deploy/local/docker-compose",
-                "self-managed/setup/deploy/local/manual",
-              ],
-            },
-            {
-              "Amazon (AWS)": [
-                {
-                  type: "category",
-                  label: "Amazon EKS",
-                  link: {
-                    type: "doc",
-                    id: "self-managed/setup/deploy/amazon/amazon-eks/amazon-eks",
-                  },
-                  items: [
-                    "self-managed/setup/deploy/amazon/amazon-eks/eks-eksctl",
-                    "self-managed/setup/deploy/amazon/amazon-eks/eks-terraform",
-                    "self-managed/setup/deploy/amazon/amazon-eks/eks-helm",
-                    "self-managed/setup/deploy/amazon/amazon-eks/dual-region",
-                    "self-managed/setup/deploy/amazon/amazon-eks/irsa",
-                  ],
-                },
-                {
-                  type: "category",
-                  label: "ROSA",
-                  link: {
-                    type: "doc",
-                    id: "self-managed/setup/deploy/amazon/openshift/terraform-setup",
-                  },
-                  items: [
-                    "self-managed/setup/deploy/amazon/openshift/terraform-setup",
-                    "self-managed/setup/deploy/amazon/openshift/terraform-setup-dual-region",
-                  ],
-                },
-                {
-                  type: "category",
-                  label: "Amazon MarketPlace",
-                  link: {
-                    type: "doc",
-                    id: "self-managed/setup/deploy/amazon/aws-marketplace",
-                  },
-                  items: [],
-                },
-                "self-managed/setup/deploy/amazon/aws-ec2",
-              ],
-              "Microsoft (Azure)": [
-                "self-managed/setup/deploy/azure/microsoft-aks",
-              ],
-              "Google (GCP)": ["self-managed/setup/deploy/gcp/google-gke"],
-              "Red Hat (OpenShift)": [
-                "self-managed/setup/deploy/openshift/redhat-openshift",
-                "self-managed/setup/deploy/openshift/redhat-openshift-dual-region",
-              ],
-              Other: [
-                "self-managed/setup/deploy/other/docker",
-                "self-managed/setup/deploy/local/manual",
-              ],
-            },
-          ],
-        },
-        {
-          type: "category",
-          label: "Guides",
-          link: {
-            type: "doc",
-            id: "self-managed/setup/guides/guides",
-          },
-          items: [
-            "self-managed/setup/guides/accessing-components-without-ingress",
-            "self-managed/setup/guides/ingress-setup",
-            "self-managed/setup/guides/using-existing-keycloak",
-            "self-managed/setup/guides/using-existing-elasticsearch",
-            "self-managed/setup/guides/using-existing-opensearch",
-            "self-managed/setup/guides/configure-db-custom-headers",
-            "self-managed/setup/guides/connect-to-an-oidc-provider",
-            "self-managed/setup/guides/air-gapped-installation",
-            "self-managed/setup/guides/running-custom-connectors",
-            "self-managed/setup/guides/multi-namespace-deployment",
-            "self-managed/setup/guides/installing-payment-app-example",
-          ],
-        },
-      ],
-    },
-    {
-      "Reference architecture": [
-        "self-managed/reference-architecture/reference-architecture",
-        "self-managed/reference-architecture/manual/manual",
-      ],
-    },
-    {
-      "Operational guides": [
-        {
-          type: "category",
-          label: "Update guide",
+          label: "Update by version",
           link: {
             type: "doc",
             id: "self-managed/operational-guides/update-guide/introduction",
@@ -1153,6 +1147,31 @@ module.exports = {
             },
           ],
         },
+      ],
+    },
+    {
+      type: "category",
+      label: "Configure",
+      link: {
+        type: "doc",
+        id: "self-managed/setup/guides/guides",
+      },
+      items: [
+        "self-managed/setup/guides/accessing-components-without-ingress",
+        "self-managed/setup/guides/ingress-setup",
+        "self-managed/setup/guides/using-existing-keycloak",
+        "self-managed/setup/guides/using-existing-elasticsearch",
+        "self-managed/setup/guides/using-existing-opensearch",
+        "self-managed/setup/guides/configure-db-custom-headers",
+        "self-managed/setup/guides/connect-to-an-oidc-provider",
+        "self-managed/setup/guides/air-gapped-installation",
+        "self-managed/setup/guides/running-custom-connectors",
+        "self-managed/setup/guides/multi-namespace-deployment",
+        "self-managed/setup/guides/installing-payment-app-example",
+      ],
+    },
+    {
+      "Operational guides": [
         "self-managed/operational-guides/configure-multi-tenancy",
         {
           type: "category",
