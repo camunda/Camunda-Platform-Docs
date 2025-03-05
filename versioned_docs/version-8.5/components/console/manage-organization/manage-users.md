@@ -52,6 +52,14 @@ To update an existing authorization, click on the **pencil icon** of the relevan
 
 ![Authorized Resources](./img/user-details-authorized-resources-example.png)
 
+## User task access restrictions
+
+User task access restrictions allow you to restrict access of user tasks in [Tasklist](/components/tasklist/introduction-to-tasklist.md) to users or groups where they are assignees or candidates.
+
+For example, if a task has a candidate group named `Team A` and a candidate user named `example`, only the users that belong to `Team A` and the user `example` will have access to the task.
+
+To learn more, visit the [user task access restrictions documentation](/components/concepts/access-control/user-task-access-restrictions.md).
+
 ## Limitations
 
 Depending on the plan to be used, the number of users that can be part of an organization varies. If an organization is on a Starter plan, the number of users can be updated via the **Billing** page. There, under **General users**, the number can be increased or decreased.
