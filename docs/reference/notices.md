@@ -8,6 +8,30 @@ description: "Let's take a closer look at security notices, reporting vulnerabil
 
 Camunda publishes security notices after fixes are available.
 
+### Notice 14
+
+#### Publication date
+
+March 11th, 2025
+
+#### Product affected
+
+Camunda Optimize
+
+#### Impact
+
+The version of Camunda Optimize was affected by a vulnerability that allows a malicious attacker to craft Camunda URLs that could execute Javascript code.
+
+#### How to determine if the installation is affected
+
+You are using Camunda Optimize ≤ 8.6.5.
+
+#### Solution
+
+Camunda has provided the following release which contains a fix:
+
+- [Camunda Optimize 8.6.6](https://github.com/camunda/camunda/releases/tag/8.6.6-optimize)
+
 ### Notice 13
 
 #### Publication date
