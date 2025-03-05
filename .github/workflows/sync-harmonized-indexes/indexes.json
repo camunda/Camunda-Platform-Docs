@@ -1,0 +1,637 @@
+{
+  "camunda-authorization": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "ownerKey": {
+          "type": "long"
+        },
+        "ownerType": {
+          "type": "keyword"
+        },
+        "resourceType": {
+          "type": "keyword"
+        },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "keyword"
+            },
+            "resourceIds": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "camunda-group": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "memberKey": {
+          "type": "long"
+        },
+        "join": {
+          "type": "join",
+          "eager_global_ordinals": true,
+          "relations": {
+            "group": ["member"]
+          }
+        }
+      }
+    }
+  },
+  "camunda-mapping": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "claimName": {
+          "type": "keyword"
+        },
+        "claimValue": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "camunda-role": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "memberKey": {
+          "type": "long"
+        },
+        "join": {
+          "type": "join",
+          "eager_global_ordinals": true,
+          "relations": {
+            "role": ["member"]
+          }
+        }
+      }
+    }
+  },
+  "camunda-tenant": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "text"
+        },
+        "memberId": {
+          "type": "keyword"
+        },
+        "memberType": {
+          "type": "keyword"
+        },
+        "join": {
+          "type": "join",
+          "eager_global_ordinals": true,
+          "relations": {
+            "tenant": ["member"]
+          }
+        }
+      }
+    }
+  },
+  "camunda-user": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "username": {
+          "type": "keyword"
+        },
+        "email": {
+          "type": "keyword"
+        },
+        "password": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "camunda-web-session": {
+    "aliases": {},
+    "mappings": {
+      "dynamic": "true",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "creationTime": {
+          "type": "long"
+        },
+        "lastAccessedTime": {
+          "type": "long"
+        },
+        "maxInactiveIntervalInSeconds": {
+          "type": "long"
+        },
+        "attributes": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "operate-decision-requirements": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "decisionDefinitionId": {
+          "type": "keyword",
+          "eager_global_ordinals": true
+        },
+        "xml": {
+          "type": "text",
+          "index": false
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "decisionRequirementsId": {
+          "type": "keyword"
+        },
+        "resourceName": {
+          "type": "keyword"
+        },
+        "version": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-decision": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "decisionId": {
+          "type": "keyword",
+          "eager_global_ordinals": true
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "long"
+        },
+        "decisionRequirementsId": {
+          "type": "keyword"
+        },
+        "decisionRequirementsKey": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-import-position": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "aliasName": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "indexName": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "long"
+        },
+        "sequence": {
+          "type": "long"
+        },
+        "postImporterPosition": {
+          "type": "long"
+        },
+        "completed": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "operate-metric": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "eventTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "event": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-migration-steps-repository": {
+    "aliases": {},
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "@type": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "applied": {
+          "type": "boolean"
+        },
+        "content": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "createdDate": {
+          "type": "date"
+        },
+        "appliedDate": {
+          "type": "date"
+        },
+        "description": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "indexName": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "order": {
+          "type": "long"
+        },
+        "version": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        }
+      }
+    }
+  },
+  "operate-process": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "bpmnProcessId": {
+          "type": "keyword",
+          "eager_global_ordinals": true
+        },
+        "bpmnXml": {
+          "type": "text",
+          "index": false
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "resourceName": {
+          "type": "keyword"
+        },
+        "version": {
+          "type": "long"
+        },
+        "versionTag": {
+          "type": "keyword"
+        },
+        "flowNodes": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            }
+          }
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "formId": {
+          "type": "keyword"
+        },
+        "formKey": {
+          "type": "keyword"
+        },
+        "isFormEmbedded": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-user": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "password": {
+          "type": "keyword"
+        },
+        "roles": {
+          "type": "keyword"
+        },
+        "userId": {
+          "type": "keyword"
+        },
+        "displayName": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "tasklist-form": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "key": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "processDefinitionId": {
+          "type": "keyword"
+        },
+        "bpmnId": {
+          "type": "keyword"
+        },
+        "version": {
+          "type": "long"
+        },
+        "embedded": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "schema": {
+          "type": "text",
+          "index": false
+        }
+      }
+    }
+  },
+  "tasklist-import-position": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "aliasName": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "indexName": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "long"
+        },
+        "sequence": {
+          "type": "long"
+        },
+        "completed": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "tasklist-metric": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "eventTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "event": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "tasklist-process": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "flowNodes": {
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            }
+          }
+        },
+        "userTaskForms": {
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "definition": {
+              "type": "text"
+            }
+          }
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "startedByForm": {
+          "type": "boolean"
+        },
+        "formKey": {
+          "type": "keyword"
+        },
+        "formId": {
+          "type": "keyword"
+        },
+        "isFormEmbedded": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "bpmnXml": {
+          "type": "text"
+        }
+      }
+    }
+  },
+  "tasklist-user": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "password": {
+          "type": "keyword"
+        },
+        "roles": {
+          "type": "keyword"
+        },
+        "userId": {
+          "type": "keyword"
+        },
+        "displayName": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

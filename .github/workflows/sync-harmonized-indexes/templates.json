@@ -1,0 +1,1037 @@
+{
+  "operate-batch-operation": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "operationsFinishedCount": {
+          "type": "long"
+        },
+        "endDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "instancesCount": {
+          "type": "long"
+        },
+        "operationsTotalCount": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "startDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "username": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-decision-instance": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "executionIndex": {
+          "type": "integer"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "long"
+        },
+        "evaluationDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "evaluationFailure": {
+          "type": "keyword"
+        },
+        "decisionRequirementsKey": {
+          "type": "long"
+        },
+        "decisionRequirementsId": {
+          "type": "keyword"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "elementInstanceKey": {
+          "type": "long"
+        },
+        "elementId": {
+          "type": "keyword"
+        },
+        "decisionId": {
+          "type": "keyword"
+        },
+        "decisionDefinitionId": {
+          "type": "keyword"
+        },
+        "decisionName": {
+          "type": "keyword"
+        },
+        "rootDecisionId": {
+          "type": "keyword"
+        },
+        "rootDecisionName": {
+          "type": "keyword"
+        },
+        "rootDecisionDefinitionId": {
+          "type": "keyword"
+        },
+        "decisionType": {
+          "type": "keyword"
+        },
+        "decisionVersion": {
+          "type": "keyword"
+        },
+        "result": {
+          "type": "text",
+          "index": false
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "evaluatedInputs": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "object",
+              "enabled": false
+            }
+          }
+        },
+        "evaluatedOutputs": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "object",
+              "enabled": false
+            },
+            "ruleId": {
+              "type": "keyword"
+            },
+            "ruleIndex": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  },
+  "operate-event": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "dateTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "jobRetries": {
+              "type": "integer"
+            },
+            "incidentErrorType": {
+              "type": "keyword"
+            },
+            "jobCustomHeaders": {
+              "type": "object",
+              "enabled": false
+            },
+            "incidentErrorMessage": {
+              "type": "text"
+            },
+            "jobWorker": {
+              "type": "keyword"
+            },
+            "jobKey": {
+              "type": "long"
+            },
+            "jobType": {
+              "type": "keyword"
+            },
+            "jobDeadline": {
+              "format": "date_time || epoch_millis",
+              "type": "date"
+            },
+            "messageName": {
+              "type": "keyword"
+            },
+            "correlationKey": {
+              "type": "keyword"
+            }
+          }
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "eventSourceType": {
+          "type": "keyword"
+        },
+        "eventType": {
+          "type": "keyword"
+        },
+        "flowNodeId": {
+          "type": "keyword"
+        },
+        "flowNodeInstanceKey": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "long"
+        },
+        "positionIncident": {
+          "type": "long",
+          "index": false
+        },
+        "positionProcessMessageSubscription": {
+          "type": "long",
+          "index": false
+        },
+        "positionJob": {
+          "type": "long",
+          "index": false
+        }
+      }
+    }
+  },
+  "operate-flownode-instance": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "flowNodeId": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "endDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "incidentKey": {
+          "type": "long"
+        },
+        "scopeKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "long"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "startDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "treePath": {
+          "type": "keyword"
+        },
+        "level": {
+          "type": "long"
+        },
+        "incident": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-incident": {
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "ca_path_tree": {
+            "tokenizer": "ca_hierarchy"
+          }
+        },
+        "tokenizer": {
+          "ca_hierarchy": {
+            "type": "path_hierarchy",
+            "delimiter": "/"
+          }
+        }
+      }
+    },
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "creationTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "flowNodeId": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "errorType": {
+          "type": "keyword"
+        },
+        "flowNodeInstanceKey": {
+          "type": "long"
+        },
+        "errorMessage": {
+          "type": "text"
+        },
+        "errorMessageHash": {
+          "type": "integer"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "jobKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "treePath": {
+          "type": "text",
+          "analyzer": "ca_path_tree",
+          "fielddata": true
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "operate-job": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "flowNodeInstanceId": {
+          "type": "long"
+        },
+        "flowNodeId": {
+          "type": "keyword"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "worker": {
+          "type": "keyword"
+        },
+        "retries": {
+          "type": "integer"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "errorMessage": {
+          "type": "keyword"
+        },
+        "errorCode": {
+          "type": "keyword"
+        },
+        "deadline": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "endTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "customHeaders": {
+          "type": "object",
+          "enabled": false
+        },
+        "jobKind": {
+          "type": "keyword"
+        },
+        "listenerEventType": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "jobFailedWithRetriesLeft": {
+          "type": "boolean"
+        },
+        "position": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "operate-list-view": {
+    "settings": {
+      "index": {
+        "refresh_interval": "2s",
+        "analysis": {
+          "normalizer": {
+            "case_insensitive": {
+              "type": "custom",
+              "filter": "lowercase"
+            }
+          }
+        }
+      },
+      "analysis": {
+        "analyzer": {
+          "ca_path_tree": {
+            "tokenizer": "ca_hierarchy"
+          }
+        },
+        "tokenizer": {
+          "ca_hierarchy": {
+            "type": "path_hierarchy",
+            "delimiter": "/"
+          }
+        }
+      }
+    },
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "varName": {
+          "type": "keyword"
+        },
+        "endDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "errorMessage": {
+          "type": "text"
+        },
+        "processName": {
+          "normalizer": "case_insensitive",
+          "type": "keyword"
+        },
+        "joinRelation": {
+          "type": "join",
+          "eager_global_ordinals": true,
+          "relations": {
+            "processInstance": ["activity", "variable"]
+          }
+        },
+        "activityId": {
+          "eager_global_ordinals": true,
+          "type": "keyword"
+        },
+        "varValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "activityState": {
+          "type": "keyword"
+        },
+        "incidentKeys": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "scopeKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "processVersion": {
+          "type": "long"
+        },
+        "processVersionTag": {
+          "type": "keyword"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "activityType": {
+          "type": "keyword"
+        },
+        "batchOperationIds": {
+          "type": "keyword"
+        },
+        "parentProcessInstanceKey": {
+          "type": "long"
+        },
+        "parentFlowNodeInstanceKey": {
+          "type": "long"
+        },
+        "startDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "key": {
+          "type": "long"
+        },
+        "treePath": {
+          "type": "text",
+          "analyzer": "ca_path_tree",
+          "fielddata": true
+        },
+        "incident": {
+          "type": "boolean"
+        },
+        "pendingIncident": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "jobFailedWithRetriesLeft": {
+          "type": "boolean"
+        },
+        "position": {
+          "type": "long"
+        },
+        "positionIncident": {
+          "type": "long",
+          "index": false
+        },
+        "positionJob": {
+          "type": "long",
+          "index": false
+        }
+      }
+    }
+  },
+  "operate-message": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "messageName": {
+          "type": "keyword"
+        },
+        "correlationKey": {
+          "type": "keyword"
+        },
+        "publishDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "expireDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "deadline": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "timeToLive": {
+          "type": "long"
+        },
+        "messageId": {
+          "type": "keyword"
+        },
+        "variables": {
+          "type": "text"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-operation": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "variableName": {
+          "type": "keyword"
+        },
+        "variableValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "lockExpirationTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "errorMessage": {
+          "type": "text"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "incidentKey": {
+          "type": "long"
+        },
+        "scopeKey": {
+          "type": "long"
+        },
+        "lockOwner": {
+          "type": "keyword"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "decisionDefinitionKey": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "batchOperationId": {
+          "type": "keyword"
+        },
+        "zeebeCommandKey": {
+          "type": "keyword"
+        },
+        "username": {
+          "type": "keyword"
+        },
+        "modifyInstructions": {
+          "type": "text"
+        },
+        "migrationPlan": {
+          "type": "text"
+        },
+        "completedDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        }
+      }
+    }
+  },
+  "operate-post-importer-queue": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "actionType": {
+          "type": "keyword"
+        },
+        "intent": {
+          "type": "keyword"
+        },
+        "creationTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "position": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "operate-sequence-flow": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "activityId": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "operate-variable": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "partitionId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "scopeKey": {
+          "type": "long"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        },
+        "processDefinitionKey": {
+          "type": "long"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "key": {
+          "type": "long"
+        },
+        "fullValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "isPreview": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "tasklist-draft-task-variable": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "partitionId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "taskId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "key": {
+          "type": "long"
+        },
+        "fullValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "isPreview": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "tasklist-task-variable": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "partitionId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "taskId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "key": {
+          "type": "long"
+        },
+        "fullValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "isPreview": {
+          "type": "boolean"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "processInstanceKey": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "tasklist-task": {
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "join": {
+          "type": "join",
+          "eager_global_ordinals": true,
+          "relations": {
+            "task": ["localVariable"],
+            "process": ["variable", "task"]
+          }
+        },
+        "flowNodeBpmnId": {
+          "type": "keyword"
+        },
+        "flowNodeInstanceId": {
+          "type": "keyword"
+        },
+        "partitionId": {
+          "type": "integer"
+        },
+        "completionTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "processInstanceId": {
+          "type": "keyword"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "long"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "key": {
+          "type": "long"
+        },
+        "creationTime": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "bpmnProcessId": {
+          "type": "keyword"
+        },
+        "processDefinitionId": {
+          "type": "keyword"
+        },
+        "assignee": {
+          "type": "keyword"
+        },
+        "candidateGroups": {
+          "type": "keyword"
+        },
+        "candidateUsers": {
+          "type": "keyword"
+        },
+        "formKey": {
+          "type": "keyword"
+        },
+        "formId": {
+          "type": "keyword"
+        },
+        "formVersion": {
+          "type": "long"
+        },
+        "isFormEmbedded": {
+          "type": "boolean"
+        },
+        "followUpDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "dueDate": {
+          "format": "date_time || epoch_millis",
+          "type": "date"
+        },
+        "tenantId": {
+          "type": "keyword"
+        },
+        "implementation": {
+          "type": "keyword"
+        },
+        "externalFormReference": {
+          "type": "keyword"
+        },
+        "processDefinitionVersion": {
+          "type": "integer"
+        },
+        "customHeaders": {
+          "type": "object",
+          "dynamic": true
+        },
+        "priority": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "fullValue": {
+          "type": "keyword",
+          "ignore_above": 8191
+        },
+        "scopeKey": {
+          "type": "keyword"
+        },
+        "isTruncated": {
+          "type": "boolean"
+        },
+        "action": {
+          "type": "keyword"
+        },
+        "changedAttributes": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

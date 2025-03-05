@@ -1,0 +1,7 @@
+.container {
+  max-width: 100%;
+}
+
+.container > svg {
+  max-width: 100%;
+}
