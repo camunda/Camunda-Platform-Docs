@@ -24,6 +24,6 @@ For details on supported environments (e.g. Java or Elasticsearch versions), see
 - [**Docker**](../platform-deployment/docker.md): Component [Docker images](https://hub.docker.com/u/camunda) are available for use in production on Linux systems. Windows or macOS are only supported for development environments.
 - [**Manual**](../platform-deployment/manual.md): The Java applications can run on a local or virtual machine if it provides a supported Java Virtual Machine (JVM). This allows you to run Camunda on virtual machines or bare metal and offers a significant amount of flexibility. However, you will need to configure the details for the components to interact correctly yourself. We consider this a last resort. Note that Windows/Mac is **not** supported for production usage of Zeebe.
 
-A **Docker Compose** configuration file is also provided for local development, and is **not** optimized for production usage. You can find setup instructions in the [Camunda Self-Managed repository](https://github.com/camunda/camunda-self-managed#docker-compose).
+A **Docker Compose** configuration file is also provided for local development, and is **not** optimized for production usage. You can find setup instructions in the [Camunda Distributions repository](https://github.com/camunda/camunda-distributions#docker-compose).
 
 For more details on deployment, see [sizing your environment](../../components/best-practices/architecture/sizing-your-environment.md#camunda-8-self-managed).
