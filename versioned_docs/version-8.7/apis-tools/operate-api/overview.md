@@ -5,10 +5,6 @@ slug: /apis-tools/operate-api/overview
 description: "Operate API is a REST API and provides searching, getting, and changing Operate data. Requests and responses are in JSON."
 ---
 
-:::note
-To migrate from Camunda's V1 component REST APIs to the V2 [Camunda 8 REST API](/apis-tools/camunda-api-rest/camunda-api-rest-overview.md), review [migrating to the Camunda 8 API](/apis-tools/migration-manuals/migrate-to-camunda-api.md).
-:::
-
 Operate API is a REST API and provides searching, getting, and changing Operate data.
 Requests and responses are in JSON notation. Some objects have additional endpoints.
 For example, `process-definitions` has an endpoint to get the process-definition as XML representation.
