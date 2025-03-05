@@ -1,41 +1,51 @@
 ---
-id: operate-tasklist-backup
-title: Backup and restore Operate and Tasklist data
-description: "How to perform a backup and restore of Operate and Tasklist data."
+id: webapps-backup
+title: Backup and restore Operate, Tasklist, and Optimize data
+description: "How to perform a backup and restore of web application (Operate, Tasklist and Optimize) data."
 keywords: ["backup", "backups"]
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-:::danger breaking changes!
-As of the Camunda 8.6 release, the `/actuator` endpoints (including `/backups`) now default to port 9600. Ensure your `management.server.port` configuration parameter is correctly set before continuing.
+:::warning breaking changes
+As of the Camunda 8.8 release, the `/actuator` endpoints for backups have been moved to `/actuator/backupHistory`. The previous `/actuator/backups` endpoint is still active only if the applications are deployed standalone (each application is running in its own process).
 :::
 
-Operate stores its data over multiple indices in Elasticsearch. Backup of Operate data includes several
-Elasticsearch snapshots containing sets of Operate indices. Each backup is identified by `backupId`. For example, a backup with an ID of `123` may contain the following Elasticsearch snapshots:
+:::note
+This page refers to the components Operate, Tasklist, and Optimize as "web applications". Depending on your deployment configuration, you may not have all of these components deployed. It is safe to ignore the configuration instructions for any applications that are not deployed.
+:::
+
+The Camunda web applications store their data over multiple indices in Elasticsearch. A backup of web application data includes several Elasticsearch snapshots containing sets of different indices. Each backup is identified by a `backupId`. For example, a backup with an ID of `123` may contain the following Elasticsearch snapshots:
 
 ```
-camunda_operate_123_8.1.0_part_1_of_6
-camunda_operate_123_8.1.0_part_2_of_6
-camunda_operate_123_8.1.0_part_3_of_6
-camunda_operate_123_8.1.0_part_4_of_6
-camunda_operate_123_8.1.0_part_5_of_6
-camunda_operate_123_8.1.0_part_6_of_6
+camunda_webapps_123_8.1.0_part_1_of_6
+camunda_webapps_123_8.1.0_part_2_of_6
+camunda_webapps_123_8.1.0_part_3_of_6
+camunda_webapps_123_8.1.0_part_4_of_6
+camunda_webapps_123_8.1.0_part_5_of_6
+camunda_webapps_123_8.1.0_part_6_of_6
 ```
 
-Operate provides an API to perform a backup and manage backups (list, check state, delete). Restore a backup using the standard Elasticsearch API.
+All web applications provide the same API to perform a backup and manage backups (list, check state, delete). Restore a backup using the standard Elasticsearch API.
 
 :::note
-The backup API can be reached via the Actuator management port, which by default is the same as application HTTP port (and in turn defaults to 9600). The port may be reconfigured with the help of `management.server.port` configuration parameter.
+The backup API can be reached via the Actuator management port, which default defaults to port 9600.
 :::
 
 ## Prerequisites
 
+### Snapshot repository
+
 Before you can use the backup and restore feature:
 
 1. The [Elasticsearch snapshot repository](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshot-restore.html) must be configured.
-2. Operate and Tasklist must be configured with the repository name using one of the following configuration options:
+2. All deployed web applications must be configured with the **same** repository name using one of the following configuration options.
+3. Web applications must have the right to take snapshots.
+
+:::warning breaking change
+Configuring different web applications with different repository names will potentially create multiple backups in different repositories.
+:::
 
 <Tabs groupId="config" defaultValue="yaml" values={
 [
@@ -97,16 +107,54 @@ CAMUNDA_TASKLIST_BACKUP_REPOSITORYNAME=<es snapshot repository name>
 </TabItem>
 </Tabs>
 
-## Create backup API
+#### Optimize
 
-During backup creation Operate can continue running. To create the backup, call the following endpoint:
+<Tabs groupId="config" className="tabs-hidden" defaultValue="yaml" values={
+[
+{label: 'YAML file', value: 'yaml', },
+{label: 'Environment variables', value: 'env', },
+]
+}>
+
+<TabItem value='yaml'>
+
+In file `environment-config.yaml`:
+
+```yaml
+backup:
+  repositoryName: <repository name>
+```
+
+</TabItem>
+<TabItem value='env'>
 
 ```
-POST actuator/backups
+CAMUNDA_OPTIMIZE_BACKUP_REPOSITORY_NAME=<es snapshot repository name>
+```
+
+</TabItem>
+</Tabs>
+
+### Index prefix
+
+:::warning breaking change
+As of Camunda 8.8, the `indexPrefix` of all web applications must match. By default it is set to `""`. If overriden, it must set consistently across Operate, Tasklist and Optimize.
+:::
+
+## Create backup API
+
+During backup creation, web applications can continue running. To create the backup, call the following endpoint:
+
+```
+POST actuator/backupHistory
 {
   "backupId": <backupId>
 }
 ```
+
+:::note
+For backward compatibility, the endpoint `actuator/backups` is available if the component is running standalone.
+:::
 
 Response:
 
@@ -120,7 +168,7 @@ Response:
 Example request:
 
 ```shell
-curl --request POST 'http://localhost:9600/actuator/backups' \
+curl --request POST 'http://localhost:9600/actuator/backupHistory' \
 -H 'Content-Type: application/json' \
 -d '{ "backupId": 123 }'
 ```
@@ -145,8 +193,12 @@ Example response:
 As a backup is created asynchronously, call the following endpoint to check the state of the backup:
 
 ```
-GET actuator/backups/{backupId}
+GET actuator/backupHistory/{backupId}
 ```
+
+:::note
+For backward compatibility, the endpoint `actuator/backups` is available if the component is running standalone.
+:::
 
 Response:
 
@@ -160,7 +212,7 @@ Response:
 For example, the request could look like this:
 
 ```shell
-curl 'http://localhost:9600/actuator/backups/123'
+curl 'http://localhost:9600/actuator/backupHistory/123'
 ```
 
 Example response:
@@ -198,8 +250,12 @@ Possible **states** of the backup:
 To get the list of existing backups, the following endpoint can be used:
 
 ```
-GET actuator/backups
+GET actuator/backupHistory
 ```
+
+:::note
+For backward compatibility, the endpoint `actuator/backups` is available if the component is running standalone.
+:::
 
 Response:
 
@@ -213,7 +269,7 @@ Response:
 For example, the request could look like this:
 
 ```shell
-curl 'http://localhost:9600/actuator/backups'
+curl 'http://localhost:9600/actuator/backupHistory'
 ```
 
 Response will contain JSON with array of objects representing state of each backup (see [get backup state API endpoint](#get-backup-state-api)).
@@ -224,9 +280,13 @@ To delete all the Elasticsearch snapshots associated with the specific backup id
 
 ```
 
-DELETE actuator/backups/123
+DELETE actuator/backupHistory/123
 
 ```
+
+:::note
+For backward compatibility, the endpoint `actuator/backups` is available if the component is running standalone.
+:::
 
 Response:
 
@@ -239,10 +299,10 @@ Response:
 
 ## Restore backup
 
-There is no Operate API to preform the backup restore. Instead, use the [Elasticsearch restore snapshot API](https://www.elastic.co/guide/en/elasticsearch/reference/current/restore-snapshot-api.html).
+There is no web application API to preform the backup restore. Instead, use the [Elasticsearch restore snapshot API](https://www.elastic.co/guide/en/elasticsearch/reference/current/restore-snapshot-api.html).
 
 :::note
-Operate must **not** be running while a backup restore is taking place.
+Operate, Tasklist and Optimize must **not** be running while a backup restore is taking place.
 :::
 
 To restore the backup with a known backup id, you must restore all the snapshots this backup contains (check the response of the [create backup API](#create-backup-api)).
@@ -255,11 +315,7 @@ curl --request POST `http://localhost:9200/_snapshot/test/camunda_operate_123_8.
 
 To summarize, the process may look as follows:
 
-1. Stop Operate.
-2. Ensure there are no Operate indices present in Elasticsearch (otherwise the restore process will fail).
+1. Stop all web applications.
+2. Ensure there are no web application indices present in Elasticsearch (otherwise the restore process will fail).
 3. Iterate over all Elasticsearch snapshots included in the desired backup and restore them using the Elasticsearch restore snapshot API.
-4. Start Operate.
-
-## Backup and restore of Tasklist data
-
-Backup and restore of Tasklist may be performed in exactly the same way as [Operate data](#).
+4. Start all web applications.

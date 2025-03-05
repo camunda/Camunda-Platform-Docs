@@ -6,7 +6,7 @@ keywords: ["backup", "backups"]
 ---
 
 :::note
-This release introduces breaking changes for [Operate and Tasklist](./operate-tasklist-backup.md), as well as [Optimize](./optimize-backup.md).
+The Camunda 8.8 release introduces breaking changes for [Operate, Tasklist and Optimize](./webapps-backup.md).
 :::
 
 You can use the backup feature of Camunda 8 Self-Managed to regularly back up the state of all of its components (Zeebe, Operate, Tasklist, and Optimize) without any downtime (except Web Modeler, see [the Web Modeler backup and restore documentation](./modeler-backup-and-restore.md)).
@@ -24,7 +24,7 @@ Zeebe stores its backup to an external storage and must be configured before the
 
 ### Backup process
 
-The backup of each component and the backup of a Camunda 8 cluster is identified by an id. This means a backup `x` of Camunda 8 consists of backup `x` of Zeebe, backup `x` of Optimize, backup `x` of Operate, and backup `x` of Tasklist. The backup ID must be an integer and greater than the previous backups.
+The backup of each component and the backup of a Camunda 8 cluster is identified by an ID. This means a backup `x` of Camunda 8 consists of backup `x` of Zeebe, and backup `x` of the web applications (Optimize, Operate, and Tasklist). The backup ID must be an integer and greater than the previous backups.
 
 :::note
 We recommend using the timestamp as the backup id.
@@ -32,14 +32,10 @@ We recommend using the timestamp as the backup id.
 
 To back up a Camunda 8 cluster, execute the following sequential steps:
 
-1. Trigger a backup `x` of Optimize. See [how to take an Optimize backup](/self-managed/operational-guides/backup-restore/optimize-backup.md).
-2. Trigger a backup `x` of Operate. See [how to take an Operate backup](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md).
-3. Trigger a backup `x` of Tasklist. See [how to take a Tasklist backup](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md).
-4. Wait until the backup `x` of Optimize is complete. See [how to monitor an Optimize backup](/self-managed/operational-guides/backup-restore/optimize-backup.md).
-5. Wait until the backup `x` of Operate is complete. See [how to monitor an Operate backup](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md).
-6. Wait until the backup `x` of Tasklist is complete. See [how to monitor a Tasklist backup](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md).
-7. Soft pause exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
-8. Take a backup `x` of the exported Zeebe records in Elasticsearch using the Elasticsearch Snapshots API.
+1. Soft pause exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
+2. Trigger a backup `x` of the web applications. See [how to take a web application backup](/self-managed/operational-guides/backup-restore/webapps-backup.md).
+3. Wait until the backup `x` of web applications is complete. See [how to monitor a web application backup](/self-managed/operational-guides/backup-restore/webapps-backup.md).
+4. Take a backup `x` of the exported Zeebe records in Elasticsearch using the Elasticsearch Snapshots API.
 
 ```
 
@@ -53,10 +49,10 @@ PUT /_snapshot/my_repository/camunda_zeebe_records_backup_x
 
 By default, the indices are prefixed with `zeebe-record`. If you have configured a different prefix when configuring Elasticsearch exporter in Zeebe, use this instead.
 
-9. Wait until the backup `x` of the exported Zeebe records is complete before proceeding.
-   Take a backup `x` of Zeebe. See [how to take a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
-10. Wait until the backup `x` of Zeebe is completed before proceeding. See [how to monitor a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
-    Resume exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
+5. Wait until the backup `x` of the exported Zeebe records is complete before proceeding.
+6. Take a backup `x` of Zeebe. See [how to take a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
+7. Wait until the backup `x` of Zeebe is completed before proceeding. See [how to monitor a Zeebe backup](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
+8. Resume exporting in Zeebe. See [Zeebe management API](/self-managed/zeebe-deployment/operations/management-api.md).
 
 :::note
 If any of the steps above fail, you may have to restart with a new backup id. Ensure exporting is resumed if the backup process force quits in the middle of the process.
@@ -70,7 +66,7 @@ To restore a Camunda 8 cluster from a backup, all components must be restored fr
 2. Confirm proper configuration (such as shards, replicas count, etc.)
 3. Stop Operate, Tasklist, and Optimize.
 4. Delete all indices.
-5. Restore the state of [Operate](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md), [Tasklist](/self-managed/operational-guides/backup-restore/operate-tasklist-backup.md), and [Optimize](/self-managed/operational-guides/backup-restore/optimize-backup.md).
+5. Restore the state of the [web applications](/self-managed/operational-guides/backup-restore/webapps-backup.md).
 6. Restore `zeebe-records*` indices from Elasticsearch snapshot.
 7. Restore [Zeebe](/self-managed/operational-guides/backup-restore/zeebe-backup-and-restore.md).
 8. Start Zeebe, Operate, Tasklist, and Optimize.
