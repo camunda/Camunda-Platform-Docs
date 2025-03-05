@@ -127,7 +127,11 @@ The task returns a JSON object containing detailed information about the email:
 - `receivedDateTime`: The email's reception datetime
 
 :::note
-Starting from version 8.7.0, the email Connector supports sending Camunda documents as attachments, or storing incoming attachments as Camunda documents. See additional details and limitations in [document handling](/components/concepts/document-handling.md).
+Starting from version 8.7.0, the outbound email Connector supports sending Camunda documents as attachments.
+
+For example, the **Attachment** field in the properties panel may look as `=[ document1, document2]`.
+
+See additional details and limitations in [document handling](/components/concepts/document-handling.md).
 :::
 
 #### Example Response
