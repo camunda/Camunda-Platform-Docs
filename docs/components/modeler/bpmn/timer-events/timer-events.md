@@ -95,11 +95,24 @@ A cycle defined as ISO 8601 repeating intervals format; it contains the duration
 It's possible to define a start time. By doing this, the timer triggers for the first time on the given start time. Afterwards, it will follow the interval as usual.
 
 - `R3/2022-04-27T17:20:00Z/P1D`: Every day up to three times, starting from April 27, 2022 at 5:20 p.m. UTC
-- `R/2022-01-01T10:00:00+02:00[Europe/Berlin]/P1D`: Every day infinitely, starting from January 1, 2022 at 10 a.m. UTC plus 2 hours
+- `R/2022-01-01T10:00:00[Europe/Berlin]/P1D`: Every day infinitely, starting from January 1, 2022 at 9 a.m. UTC
+
+:::note
+When using the form above to set a timer the time must be a time in the future otherwise the trigger will never fire.
+
+If you don't chage the timer specification then Zeebe will copy the schedule from the previously deployed version
+and the timer will continue to run. However, if you make a change then you will have to change the date to be in the future again.
+:::
 
 Additionally, you can specify a time cycle using cron expressions. Refer to the [CronExpression Tutorial](https://spring.io/blog/2020/11/10/new-in-spring-5-3-improved-cron-expressions) for additional information about using cron expressions.
 
 - `0 0 9-17 * * MON-FRI`: Every hour on the hour from 9-5 p.m. UTC Monday-Friday
+
+:::note
+Camunda's implementation of Cron translates all times into UTC before setting up the schedule.
+So, in the example above the trigger will fire at 9-5 p.m. UTC as stated but if you are in a different timezone
+(e.g. `[Europe/Berlin]`) then the trigger will fire at 10-6 p.m. local time (or 11-7 p.m. if daylight savings is active).
+:::
 
 ## Additional resources
 
