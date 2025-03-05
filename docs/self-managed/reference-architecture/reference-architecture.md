@@ -111,9 +111,7 @@ Kubernetes is a powerful orchestration platform for containerized applications. 
 - Best for teams with experience in managing containerized environments.
 - A steeper learning curve but offers scalable and highly resilient platform.
 
-For more information and guides, see the reference for [Kubernetes](/self-managed/setup/install.md).
-
-<!-- TODO add link or card for AWS ref arch -->
+For more information and guides, see the reference for [Kubernetes](/self-managed/reference-architecture/kubernetes.md).
 
 ### Containers
 
@@ -135,9 +133,7 @@ For organizations that prefer traditional infrastructure, reference architecture
 - Applicable for high availability but requires more detailed planning.
 - Best for teams with expertise in managing physical servers or virtual machines.
 
-For more information and guides, see the reference for [manual setups](./manual/manual.md).
-
-<!-- TODO add link or card for AWS EC2 -->
+For more information and guides, see the reference for [manual setups](/self-managed/reference-architecture/manual.md).
 
 ### Local development
 

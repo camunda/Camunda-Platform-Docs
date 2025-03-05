@@ -1973,7 +1973,8 @@
     },
     {
       "Reference architecture": [
-        "self-managed/reference-architecture/reference-architecture"
+        "self-managed/reference-architecture/reference-architecture",
+        "self-managed/reference-architecture/kubernetes"
       ]
     },
     {
